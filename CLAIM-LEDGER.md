@@ -1,0 +1,26 @@
+# Claim ledger
+
+The labels in this table are part of each claim. In particular, bounded
+TomLib coverage is not evidence of exhaustive coverage of all finite groups.
+
+| ID | Statement or obligation | Evidence | Next action |
+|---|---|---|---|
+| 18.68-P0 | The 21st Notebook (July 2026) states Problem 18.68 without a solution note. | **published input**; PDF page 123 and reference-ledger hash | preserve exact source |
+| 18.68-P1 | The nonabelian finite simple `CMP` groups are exactly \(L_2(7),L_2(11),L_5(2)\). | **published input**; Levchuk--Likharev, Theorem 1 | do not extend this theorem to sections |
+| 18.68-P2 | Groups with Hall maximal subgroups have complemented maximal subgroups. | **published input**; Maslova--Revin, Theorem 2 | hypotheses are strictly stronger than `CMP` |
+| 18.68-P3 | Nonabelian composition factors under the Hall-maximal hypothesis are the same three groups. | **published input**; Maslova--Revin, Theorem 1 and Corollary 1 | not a proof of 18.68 |
+| 18.68-P4 | A primitive product-action group with a regular subgroup has an almost-simple coordinate action with a core-free transitive subgroup. | **published input**; LPS (2000), Corollary 3(iv) | used only after proving the constructed action is primitive of product-action type |
+| 18.68-P5 | The cited LPS/Xia--Li plus Gill--Giudici--Spiga correction, Hering--Liebeck--Saxl, and Giudici lists exhaust maximal factorizations for the alternating, classical, exceptional, and sporadic families used in the screen. | **published input** | exact family-by-family filter is in [`notes/05-family-factor-screen.md`](notes/05-family-factor-screen.md) |
+| 18.68-P6 | In \(\PSp_4(2^f)\), the subgroup \(O_4^+(2^f)\) meets every involution class and has index \(q^2(q^2+1)/2\). | **published input**; LPS (2010), Corollary 2.3 and Section 10, case (10.1) | feeds the 2-adic lifting lemma |
+| 18.68-I1 | `CMP` passes to arbitrary quotients. | **proved**; [`notes/00-definition-and-inheritance.md`](notes/00-definition-and-inheritance.md) | complete |
+| 18.68-I2 | `CMP` need not pass to normal subgroups. | **proved**; \(C_4\triangleleft D_8\), with `CMP(D8)` and not `CMP(C4)` | forbids section inheritance shortcuts |
+| 18.68-I3 | Every nonabelian composition factor \(S\) of a `CMP` group occurs as a component of the unique minimal normal subgroup \(S^t\) of a `CMP` monolithic quotient with a faithful primitive action containing a regular subgroup. | **proved**; [`notes/02-chief-factor-reduction.md`](notes/02-chief-factor-reduction.md) | use as the valid reduction |
+| 18.68-I4 | For every core-free maximal \(H<X\) with \(H\cap S\ne1\), the monolithic quotient has a faithful primitive product action on \((X/H)^t\). | **proved**; [`notes/04-product-action-lifting.md`](notes/04-product-action-lifting.md), via the intermediate-subgroup argument and Scott's lemma | complete |
+| 18.68-I5 | If \(X/H\) is factor-free, the monolithic quotient cannot be `CMP`; maximal-factorization tables can test factor-freeness through the invariant-subgroup screen. | **proved**, conditional on published input P4; [`notes/04-product-action-lifting.md`](notes/04-product-action-lifting.md) | complete |
+| 18.68-I6 | The full-wreath and socle-valuation \(p\)-elusiveness lemmas exclude regular subgroups for every exponent \(t\). | **proved**; [`notes/04-product-action-lifting.md`](notes/04-product-action-lifting.md) | closes \(\PSp_4(2^f)\) uniformly |
+| 18.68-C1 | Every nonabelian composition factor of a `CMP` group is one of \(L_2(7),L_2(11),L_5(2)\), and all three occur. | **proved**, conditional on CFSG and published inputs P1, P4--P6; [`paper/kourovka-18-68.tex`](paper/kourovka-18-68.tex) | seek external referee review; do not claim novelty from the proof alone |
+| 18.68-C2 | Of 414 TomLib tables, exactly 73 are `CMP`; among the 88 tables detected as nonabelian simple, exactly the three published examples are positive. | **computationally certified**, conditional on TomLib 1.2.11 table data | bounded evidence only |
+| 18.68-C3 | The nonabelian chief-factor orders among all 73 positive TomLib tables are \(168,660,9999360\). | **computationally certified**, conditional on TomLib 1.2.11 | identities agree with the three candidates |
+| 18.68-C4 | Twenty-four pinned maximal classes have no core-free transitive factor: five small alternating and ten \(L_3(4)\) rows are proof-critical, and nine sporadic rows are cross-checks. | **computationally certified**, conditional on complete TomLib 1.2.11 tables; SHA-256 pinned in [`notes/06-finite-factor-free-certificates.md`](notes/06-finite-factor-free-certificates.md) | finite named cases only |
+| 18.68-X1 | The 2012 paper's assertion that \(PGL_2(7)\) is a nonsoluble `CMP` example is false under its stated exact-complement convention. | **computationally certified**, plus Sylow-order check; `L2(7).2` has a maximal of order 12 and no subgroup of order 28 | flag as source erratum; do not use the example |
+| 18.68-O1 | A dated search found no complete solution, and the current official Notebook still presents the problem as open. | **published input** for the Notebook status; **unchecked** as an absolute literature-exhaustion claim | repeat before any novelty/open-status claim |

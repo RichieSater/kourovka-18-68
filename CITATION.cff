@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite the manuscript and this repository."
+title: "A solution to Kourovka Problem 18.68"
+type: software
+authors:
+  - family-names: Sater
+    given-names: Richie
+version: 1.0.0
+date-released: 2026-08-11
+repository-code: "https://github.com/RichieSater/kourovka-18-68"
+url: "https://github.com/RichieSater/kourovka-18-68"
+keywords:
+  - finite groups
+  - composition factors
+  - complemented maximal subgroups
+  - primitive groups
+  - maximal factorizations
+  - Kourovka Notebook
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Sater
+      given-names: Richie
+  title: "Nonabelian composition factors of finite groups whose maximal subgroups are complemented"
+  year: 2026
+  url: "https://github.com/RichieSater/kourovka-18-68/blob/main/paper/kourovka-18-68.pdf"

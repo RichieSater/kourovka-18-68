@@ -1,0 +1,742 @@
+\documentclass[11pt]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalize]{cleveref}
+
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\newcommand{\CMP}{\mathsf{CMP}}
+\newcommand{\Soc}{\operatorname{Soc}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\Out}{\operatorname{Out}}
+\newcommand{\Core}{\operatorname{Core}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\PSL}{\operatorname{PSL}}
+\newcommand{\PSU}{\operatorname{PSU}}
+\newcommand{\PSp}{\operatorname{PSp}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title[Complemented maximal subgroups]{Nonabelian composition factors of finite groups\\
+whose maximal subgroups are complemented}
+\author{Richie Sater}
+\date{11 August 2026}
+
+\begin{document}
+\raggedbottom
+
+\begin{abstract}
+Let \(G\) be a finite group such that every maximal subgroup \(M\) has an
+exact complement: \(G=MK\) and \(M\cap K=1\) for some \(K\leq G\).  We prove
+that every nonabelian composition factor of \(G\) is isomorphic to
+\[
+\PSL_2(7),\qquad \PSL_2(11),\qquad\text{or}\qquad \PSL_5(2).
+\]
+Conversely, all three occur.  This answers Kourovka Problem 18.68.
+
+The main point is to avoid passing the hypothesis to sections, which is
+false.  We first pass to a monolithic quotient with socle \(S^k\).  For any
+almost-simple coordinate group \(S\leq X\leq\Aut(S)\), we manufacture a new
+primitive product action of that quotient.  A theorem of
+Liebeck--Praeger--Saxl forces the coordinate action to have a core-free
+transitive subgroup.  Maximal-factorization classifications exclude this for
+every simple \(S\) outside the displayed list.  The only infinite
+factor-screen survivor, \(S=\PSp_4(2^f)\), is eliminated by a 2-adic lifting
+argument using the fact that \(O_4^+(2^f)\) meets every involution class.
+Fifteen named small almost-simple cases are certified by complete tables of
+marks; all infinite coverage comes from published exhaustive
+classifications.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Say that a finite group \(G\) has property \(\CMP\) if every maximal subgroup
+\(M<G\) has a subgroup \(K\leq G\) such that
+\begin{equation}\label{eq:complement}
+G=MK,\qquad M\cap K=1.
+\end{equation}
+The complement is not assumed normal.  Kourovka Problem 18.68 asks for the
+nonabelian composition factors of a nonsoluble group with this property
+\cite[Problem 18.68]{kourovka21}.  Levchuk and Likharev proved that the
+nonabelian simple groups having \(\CMP\) are precisely
+\(\PSL_2(7),\PSL_2(11),\PSL_5(2)\) \cite[Theorem 1]{levchuk-likharev}.
+The issue is that \(\CMP\) does not pass to normal subgroups or sections.  For
+example, \(D_8\) has \(\CMP\), while its normal cyclic subgroup \(C_4\) does
+not.
+
+Our main result is the expected section-safe extension of the simple-group
+classification.
+
+\begin{theorem}\label{thm:main}
+Let \(G\) be a finite group with \(\CMP\).  Every nonabelian composition
+factor of \(G\) is isomorphic to one of
+\[
+\PSL_2(7),\qquad \PSL_2(11),\qquad \PSL_5(2).
+\]
+Each of the three possibilities occurs.
+\end{theorem}
+
+The proof uses the classification of finite simple groups (CFSG), the
+maximal-factorization classifications cited in \cref{sec:screen}, and
+Corollary 3 of Liebeck--Praeger--Saxl \cite{lps-transitive}.  The finite
+calculation in \cref{sec:computer} concerns only fifteen explicitly named
+almost-simple groups.  No bounded computation is used to infer an infinite
+family statement.
+
+\section{From a composition factor to a monolithic quotient}
+
+We begin with the inheritance statements that are actually valid.
+
+\begin{lemma}[quotient closure]\label{lem:quotient}
+If \(G\) has \(\CMP\) and \(N\trianglelefteq G\), then \(G/N\) has \(\CMP\).
+\end{lemma}
+
+\begin{proof}
+Let \(\overline M\) be maximal in \(G/N\), and let \(M\) be its full
+preimage.  Choose \(K\leq G\) satisfying \eqref{eq:complement}.  Then
+\(G/N=\overline M(KN/N)\).  If \(kN\in\overline M\) with \(k\in K\), then
+\(k\in M\), and hence \(k=1\).  Thus \(KN/N\) is an exact complement to
+\(\overline M\).
+\end{proof}
+
+\begin{lemma}[regular-action reformulation]\label{lem:regular}
+A subgroup \(K\leq G\) satisfies \eqref{eq:complement} if and only if it is
+regular on the right cosets of \(M\).  If \(M\) is maximal and core-free,
+this is a faithful primitive action.
+\end{lemma}
+
+\begin{proof}
+Transitivity is equivalent to \(G=MK\), and the stabilizer in \(K\) of the
+coset \(M\) is \(M\cap K\).
+\end{proof}
+
+\begin{proposition}[monolithic reduction]\label{prop:monolithic}
+Let \(S\) be a nonabelian composition factor of a finite \(\CMP\)-group
+\(G\).  There is a quotient \(L\) of \(G\) such that
+\begin{enumerate}
+\item \(L\) has \(\CMP\);
+\item \(\Soc(L)=N\cong S^k\) for some \(k\geq1\), and \(N\) is the unique
+minimal normal subgroup of \(L\);
+\item \(C_L(N)=1\).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Choose a chief factor \(A/B\cong S^k\) of \(G\), and define
+\[
+C/B=C_{G/B}(A/B),\qquad L=G/C,\qquad N=AC/C.
+\]
+Since \(A/B\) is centerless, \(A\cap C=B\), and hence \(N\cong A/B\).
+Chiefness makes \(N\) a minimal normal subgroup of \(L\).  The conjugation
+action of \(L\) on \(N\) is faithful by the definition of \(C\), so
+\(C_L(N)=1\).  If \(R\) were another minimal normal subgroup, then
+\([R,N]\leq R\cap N=1\), forcing \(R\leq C_L(N)=1\).  Thus \(N\) is unique.
+Finally, \(L\) has \(\CMP\) by \cref{lem:quotient}.
+\end{proof}
+
+We shall use a stronger fact than the existence of one primitive action: the
+same abstract group \(L\) has many primitive actions, one for each suitable
+action of its coordinate group.
+
+\section{The product-action lifting theorem}
+
+Write
+\[
+N=S_1\times\cdots\times S_k\cong S^k.
+\]
+The action of \(L\) on the factors is transitive, since the product of the
+factors in any orbit is normal in \(L\).  Set
+\begin{equation}\label{eq:coordinate}
+X=N_L(S_1)/C_L(S_1),
+\end{equation}
+identifying \(S_1\) with its inner automorphism group.  Then
+\(S\leq X\leq\Aut(S)\).  The standard wreath embedding gives
+\begin{equation}\label{eq:wreath}
+L\hookrightarrow X\wr P\leq X\wr\Sym(k),
+\end{equation}
+where \(P\) is transitive, \(N\) is the base socle \(S^k\), and the group
+induced on a coordinate is \(X\).  This embedding is faithful because
+\(C_L(N)=1\).
+
+Let \(H<X\) be core-free and maximal.  Put
+\(\Delta=X/H\) and \(V=H\cap S\), and assume \(V\ne1\).  Since \(S\) is
+normal and is not contained in \(H\), we have \(X=SH\); in particular,
+\(S\) is transitive on \(\Delta\).  Via \eqref{eq:wreath}, let \(L\) act on
+\(\Delta^k\) in product action.
+
+\begin{lemma}[primitivity]\label{lem:pa-primitive}
+The action of \(L\) on \(\Delta^k\) is faithful and primitive.
+\end{lemma}
+
+\begin{proof}
+Let \(\omega=(H,\ldots,H)\), \(M=L_\omega\), and \(N=S^k\).  The group \(N\)
+is transitive, so \(L=MN\) and \(M\cap N=V^k\).
+
+Suppose \(M\leq J\leq L\), and put \(D=J\cap N\).  Then \(J=MD\),
+\(D\trianglelefteq M\), and \(V^k\leq D\).  The image of \(M\) on the
+coordinates is transitive: multiply an element of \(L\) by a suitable base
+element to make it fix \(\omega\) without changing its top permutation.
+Moreover, the subgroup of \(M\) stabilizing coordinate \(i\) induces \(H\)
+there.  The nontrivial inclusion follows by taking an element inducing a
+prescribed \(h\in H\) and correcting all other coordinates with elements of
+\(N\).
+
+Let \(D_i\) be the projection of \(D\) to \(S_i\cong S\).  It contains \(V\)
+and is normalized by \(H\).  Maximality of \(H\) implies either \(D_i=V\) or
+\(HD_i=X\).  In the second case
+\[
+D_i=(H\cap S)D_i=(HD_i)\cap S=X\cap S=S.
+\]
+Coordinate transitivity gives the same alternative for every \(i\).  If all
+projections are \(V\), then \(D=V^k\) and \(J=M\).  Otherwise \(D\) is
+subdirect in \(S^k\).  By Scott's lemma it is a direct product of full
+diagonal strips.  Since \(V^k\leq D\) and \(V\ne1\), every strip has length
+one, so \(D=N\) and \(J=L\).  Thus \(M\) is maximal.  Faithfulness follows
+from core-freeness of \(H\) and \eqref{eq:wreath}.
+\end{proof}
+
+Call \((X,\Delta)\) \emph{factor-free} if it has no core-free transitive
+subgroup; equivalently, there is no core-free \(C<X\) with \(X=HC\).
+
+\begin{proposition}[coordinate obstruction]\label{prop:coordinate}
+If \((X,X/H)\) is factor-free, then \(L\) does not have \(\CMP\).
+\end{proposition}
+
+\begin{proof}
+For \(k=1\), a regular subgroup on \(X/H\) would itself be core-free and
+transitive.  Let \(k\ge2\).  The action in \cref{lem:pa-primitive} is a
+primitive product-action action with almost-simple component
+\((X,X/H)\): indeed, its socle stabilizer is \(V^k\), which is nontrivial
+and is not subdirect in \(S^k\).  Corollary 3(iv) of
+\cite{lps-transitive} says that if such a
+group has a regular subgroup, then its component action has a core-free
+transitive subgroup.  Hence no regular subgroup exists.  But if \(L\) had
+\(\CMP\), its maximal point stabilizer would have a complement, regular by
+\cref{lem:regular}, a contradiction.
+\end{proof}
+
+This is the step that removes the unbounded exponent \(k\): it converts the
+entire product-action problem into one almost-simple factorization screen.
+
+\section{Factor screens and prime lifting}\label{sec:screen}
+
+We first state the mechanism for applying maximal-factorization tables.
+
+\begin{lemma}[factor screen]\label{lem:factor-screen}
+Let \(1<V<S\), and assume that the \(S\)-conjugacy class of \(V\) is
+invariant under \(X\).  Choose a maximal subgroup \(H<X\) containing
+\(N_X(V)\).  Then \(H\) is core-free and \(X=HS\).  If \(X/H\) is not
+factor-free, there are \(S\leq Y\leq X\) and a nontrivial maximal
+factorization \(Y=AB\) such that, after interchanging the factors,
+\[
+V\leq A\cap S.
+\]
+\end{lemma}
+
+\begin{proof}
+Class invariance gives \(N_X(V)S=X\), so no proper overgroup of \(N_X(V)\)
+contains \(S\).  Hence \(H\) is core-free and \(HS=X\).
+
+Suppose \(C<X\) is core-free and \(X=HC\).  Put \(Y=CS\).  Then
+\(Y=(H\cap Y)C\), and both factors supplement \(S\) in \(Y\).  Consequently
+all their proper maximal overgroups are core-free.  Enlarging them gives a
+maximal factorization \(Y=AB\), with
+\(V\leq H\cap S\leq A\cap S\).
+\end{proof}
+
+The remaining tool is the prime-divisibility analogue of the obstruction
+used in related subgroup-product problems.
+
+\begin{definition}
+An action of \(Z\) on \(\Lambda\) is \emph{\(p\)-elusive} if
+\(p\mid |\Lambda|\) and every element of order \(p\) in \(Z\) fixes a point.
+\end{definition}
+
+\begin{lemma}[wreath lifting]\label{lem:elusive-wreath}
+If \(X\) is \(p\)-elusive on \(\Delta\), then
+\(X\wr\Sym(k)\) is \(p\)-elusive on \(\Delta^k\).  In particular, no
+subgroup of this wreath product is regular on \(\Delta^k\).
+\end{lemma}
+
+\begin{proof}
+Let \(w=(x_1,\ldots,x_k)\sigma\) have order \(p\).  On a fixed coordinate of
+\(\sigma\), the corresponding \(x_i\) has order \(1\) or \(p\), and hence
+fixes a point.  On a \(p\)-cycle of \(\sigma\), the cycle product of the
+\(x_i\) is \(1\), since \(w^p=1\); the fixed-tuple equations can therefore
+be solved successively around the cycle.  Thus \(w\) fixes a tuple.
+
+If a subgroup were regular, Cauchy's theorem would give it a nonidentity
+element of order \(p\), because its order is \(|\Delta|^k\).  That element
+would fix a point, a contradiction.
+\end{proof}
+
+\begin{lemma}[socle-valuation lifting]\label{lem:valuation}
+Suppose \(S\) is \(p\)-elusive on \(\Delta=X/H\).  Let
+\[
+a=v_p(|\Delta|),\qquad o=v_p(|X/S|).
+\]
+If \(a>o\), then no subgroup \(L\leq X\wr\Sym(k)\) containing \(S^k\) is
+regular on \(\Delta^k\).
+\end{lemma}
+
+\begin{proof}
+Suppose \(R\) is regular and put \(Q=R\cap S^k\).  Since
+\(R/Q\hookrightarrow L/S^k\),
+\[
+v_p(|R/Q|)\leq ko+v_p(k!).
+\]
+As \(v_p(|R|)=ka\),
+\[
+v_p(|Q|)\geq k(a-o)-v_p(k!)>0,
+\]
+because \(a-o\ge1\) and \(v_p(k!)<k\).  An element of order \(p\) in \(Q\)
+fixes a tuple coordinatewise, contrary to regularity.
+\end{proof}
+
+\section{The coordinate classification}\label{sec:classification}
+
+\begin{proposition}\label{prop:classification}
+Let \(S\) be a nonabelian finite simple group not isomorphic to
+\(\PSL_2(7),\PSL_2(11)\), or \(\PSL_5(2)\), and let
+\(S\leq X\leq\Aut(S)\).  There is a core-free maximal subgroup \(H<X\),
+with \(H\cap S\ne1\), for which one of the following holds:
+\begin{enumerate}
+\item \(X/H\) is factor-free;
+\item \(X\) is \(p\)-elusive on \(X/H\) for some prime \(p\);
+\item \(S=\PSp_4(2^f)\), \(f\ge2\), and the hypotheses of
+\cref{lem:valuation} hold with \(p=2\).
+\end{enumerate}
+\end{proposition}
+
+\noindent\emph{Proof.}
+\subsection{Alternating groups}
+
+For \(n\ne6\), the coordinate group is \(A_n\) or \(S_n\).  The following
+actions are \(p\)-elusive:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Socle & action and degree & prime \\
+\midrule
+\(A_5\) & 2-subsets, \(10\) & \(2\) \\
+\(A_6\), \(X=A_6\) & natural, \(6\) & \(2\) \\
+\(A_6\), \(X=S_6\) & unordered \(3+3\) partitions, \(10\) & \(2\) \\
+\(A_8\) & 2-subsets, \(28\) & \(2\) \\
+\(A_9\) & 2-subsets, \(36\) & \(2\) \\
+\(A_{10}\) & 4-subsets, \(210\) & \(2\) \\
+\(A_{11}\) & 3-subsets, \(165\) & \(3\) \\
+\(A_{12}\) & 2-subsets, \(66\) & \(2\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+The assertion is immediate from cycle supports.  An involution fixes the
+support of one 2-cycle.  In degree 10, every involution also has an invariant
+4-set: use two 2-cycles, or one 2-cycle and two fixed points.  An element of
+order 3 in degree 11 fixes the support of one 3-cycle.  For the \(S_6\)
+partition action, the cycle types \(2,2^2,2^3\) respectively preserve a
+3-set or interchange it with its complement.
+
+The three outer extensions of \(A_6\) not equal to \(S_6\), and the two
+groups \(A_7,S_7\), have factor-free maximal subgroups certified in
+\cref{sec:computer}.  Their orders and indices are
+\[
+\begin{array}{c|ccccc}
+X&A_6.2_2&A_6.2_3&A_6.2^2&A_7&S_7\\ \hline
+|H|&16&20&32&72&144\\
+{\lvert X:H\rvert}&45&36&45&35&35.\\
+\end{array}
+\]
+
+Finally let \(n\ge13\), and take the stabilizer of a 6-subset.  It is
+maximal because \(6<n/2\).  The alternating-group part of the LPS maximal
+factorization theorem \cite[Theorem D and Remark 2]{lps-maxfact} says that
+an intransitive factor in a nontrivial maximal factorization stabilizes a
+\(j\)-subset with \(j\le5\), apart from the listed cases of degrees \(6,8,10\).
+Thus the 6-set action is factor-free.
+
+\subsection{Classical groups}
+
+We use Theorem 2.15 and Appendix Tables A.1--A.7 of Xia--Li
+\cite{xiali-solvable}, a restatement of the LPS classification of
+nontrivial maximal factorizations with classical socle, together with the
+two corrected \(\mathrm P\Omega_8^+(4)\) and
+\(\mathrm P\Omega_8^+(16)\) rows of Gill--Giudici--Spiga
+\cite[Section 2]{ggs-szep}.  In the table below,
+\(V\) is invariant up to \(S\)-conjugacy under \(X\).  Applying
+\cref{lem:factor-screen}, inspection of the indicated factorization table
+shows that no factor intersection contains \(V\).
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{.31\textwidth}
+                  >{\raggedright\arraybackslash}p{.23\textwidth}
+                  >{\raggedright\arraybackslash}p{.34\textwidth}}
+\toprule
+Socle and conditions & screen subgroup \(V\) & table check \\
+\midrule
+\endhead
+\(\PSL_2(q)\), excluding the allowed and alternating cases
+& split-torus normalizer
+& not in either torus type or \(P_1\); exceptional factors are checked below \\
+\(\PSL_3(q)\), \(q\ne4\), excluding \(q=2\)
+& split-torus normalizer
+& not in a point or hyperplane parabolic or in the extension-field factor \\
+\(\PSL_3(4)\), every coordinate group \(X\)
+& a pinned maximal subgroup of \(X\)
+& complete Table-of-Marks certificate in \cref{sec:computer} \\
+\(\PSL_n(q)\), even \(n\ge4\)
+& \(P_{n/2}\)
+& absent from A.1 \\
+\(\PSL_n(q)\), odd \(n\ge5\), no graph
+& \(P_2\)
+& absent from A.1 except \((n,q)=(5,2)\) \\
+\(\PSL_n(q)\), odd \(n\ge5\), graph present
+& \(P_{2,n-2}\)
+& only parabolic overgroups \(P_2,P_{n-2}\); absent except \((5,2)\) \\
+\(\PSp_{2m}(q)\), \(m\ge3\)
+& \(P_2\)
+& absent from A.2 \\
+\(\PSp_4(q)\), \(q\) odd
+& nonsingular \(2+2\) decomposition stabilizer
+& absent from A.2 \\
+\(\PSU_3(q)\)
+& \(N_1\)
+& absent from the \(n=3\) rows of A.3 \\
+\(\PSU_4(q)\), \(q\ge3\)
+& full nonsingular \(2+2\) decomposition stabilizer
+& absent from A.3 \\
+\(\PSU_n(q)\), \(n\ge5\)
+& \(N_2\)
+& absent from A.3 \\
+\(\Omega_{2m+1}(q)\), \(m\ge3, q\) odd
+& \(P_2\)
+& absent from A.4 \\
+\(\mathrm P\Omega^-_{2m}(q)\), \(m\ge4\)
+& \(P_2\)
+& absent from A.5 \\
+\(\mathrm P\Omega^+_{2m}(q)\), \(m\ge5\)
+& \(P_2\)
+& absent from A.6 \\
+\(\mathrm P\Omega^+_8(q)\), triality allowed
+& central-node \(P_2\)
+& fixed by triality and absent from A.7 \\
+\bottomrule
+\end{longtable}
+
+The two corrected orthogonal factorizations have socle intersections
+\(N_2^-\) and a triality image of
+\(\Omega_8^-(q^{1/2})\), for \(q=4,16\).  Neither contains the central-node
+maximal parabolic \(P_2\), so they do not alter the last row of the screen.
+
+Here a standard maximal parabolic can only be contained in a proper factor
+intersection if it is that intersection.  A subgroup containing
+\(P_{2,n-2}\) contains a Borel and is therefore parabolic; its only proper
+overgroups are \(P_2\) and \(P_{n-2}\).  These observations justify the
+containment, rather than mere equality, assertions in the table.  The
+displayed \(N_i\) and full \(2+2\) decomposition stabilizers are standard
+maximal geometric subgroups for the stated parameters
+\cite[Chapters 3--4]{kleidman-liebeck}; the exceptional
+\(\PSU_4(2)\) parameter is routed through the low-rank isomorphism below.
+
+For the first row, the split-torus normalizer has order
+\(2(q-1)/(2,q-1)\) and interchanges the two fixed points of its torus, so it
+is not contained in \(P_1\).  Nor can it lie in the nonsplit-torus
+normalizer: its order would force \(q-1\mid q+1\), apart from nonsimple
+parameters.  The other A.1 factors occur only for
+\[
+q=7,11,16,19,23,29,59.
+\]
+The values \(7,11\) are allowed.  At \(q=19,29,59,23\), divisibility by the
+torus-normalizer order excludes \(A_5\) or \(S_4\).  At \(q=16\), a subgroup
+of order 30 lies neither in \(D_{34}\) nor in \(A_5\), the latter because it
+would have index 2.  This closes the rank-one family.
+
+For \(S=\PSL_3(q)\), let \(d=(3,q-1)\) and let \(V\) normalize a maximally
+split torus.  Its class is invariant under diagonal, field, and graph
+automorphisms.  The monomial action shows that \(V\) fixes neither a point
+nor a hyperplane, and
+\[
+ |V|=\frac{6(q-1)^2}{d}.
+\]
+The extension-field factor in row 1 of Table A.1 has intersection with
+\(S\) of order \(3(q^2+q+1)/d\).  For \(q=3\), divisibility excludes
+containment; for \(q\ge5\), the former order is larger.  The only remaining
+table row is the exceptional \(q=4\) row, and all ten almost-simple groups
+with that socle are handled by the finite certificate.  The parameter
+\(q=2\) gives the allowed group \(\PSL_3(2)\cong\PSL_2(7)\).
+
+It remains to treat \(S=\PSp_4(q)\) with \(q=2^f\), \(f\ge2\).  Let
+\(U=\Omega_4^+(q)\) and \(H=N_X(U)\).  Case (10.1) of
+\cite[Section 10]{lps-regular} gives that \(H\) is core-free maximal and
+\(H\cap S=O_4^+(q)\).  Thus \(X=HS\), and hence
+\begin{equation}\label{eq:sp-degree}
+\lvert X:H\rvert=\lvert S:O_4^+(q)\rvert=\frac{q^2(q^2+1)}2,\qquad
+v_2(\lvert X:H\rvert)=2f-1.
+\end{equation}
+Corollary 2.3 of \cite{lps-regular} shows that \(O_4^+(q)\) meets every
+involution class of \(S\), so \(S\) is 2-elusive on \(X/H\).  Moreover,
+the standard outer-automorphism description
+\cite[Table 2.1]{xiali-solvable} gives \(|X/S|\mid 2f\), and hence
+\[
+v_2(|X/S|)\le1+v_2(f)<2f-1.
+\]
+The last strict inequality follows, for example, from
+\(v_2(f)\le f-1\) and \(f\ge2\).
+Now \cref{lem:valuation} applies.  This is the sole infinite classical row
+for which the factor screen itself does not suffice.
+
+The standard low-rank isomorphisms
+\[
+\begin{aligned}
+\PSL_2(4)&\cong\PSL_2(5)\cong A_5,
+&\qquad \PSL_2(9)&\cong A_6,\\
+\PSL_3(2)&\cong\PSL_2(7),
+&\PSL_4(2)&\cong A_8,\\
+\PSU_4(2)&\cong\PSp_4(3).&&
+\end{aligned}
+\]
+and the \(B_2=C_2,D_3=A_3,{}^2D_3={}^2A_3\) identifications route every
+overlap to a row already considered.
+
+\subsection{Exceptional groups of Lie type}
+
+Hering--Liebeck--Saxl determine all factorizations of exceptional simple
+groups and their automorphism groups \cite[Theorems 1--2]{hls-exceptional}.
+The only socles admitting a core-free factorization are
+\[
+G_2(4),\qquad G_2(3^f),\qquad F_4(2^f),
+\]
+together with one extra outer factorization for \(G_2(4).2\).  None of the
+listed factors is parabolic.  For every exceptional socle outside these
+three families, take \(V\) to be a Sylow subgroup in the defining
+characteristic.  Its \(S\)-conjugacy class is invariant under every
+automorphism, and the Hering--Liebeck--Saxl theorem and
+\cref{lem:factor-screen} make the resulting action factor-free.
+
+It remains to screen the three factorable families.  If no graph
+automorphism is present, choose a maximal parabolic.  In the graph-fused
+cases choose a Borel \(P_1\cap P_2\) in \(G_2(3^f)\), or
+\(P_1\cap P_4\) in \(F_4(2^f)\).  Their respective \(p\)-parts are \(q^6\)
+and at least \(q^{24}\).  The \(p\)-parts of the displayed
+Hering--Liebeck--Saxl factors
+are at most \(q^3\) and \(q^{16}\), so no factor contains the chosen screen
+subgroup.  The small isomorphisms \(G_2(2)'\cong\PSU_3(3)\) and
+\({}^2G_2(3)'\cong\PSL_2(8)\) have already been covered.
+
+\subsection{Sporadic groups}
+
+Giudici classifies all factorizations with sporadic socle
+\cite[Theorems 1.1--1.3]{giudici}.  Comparing those tables with the Atlas
+maximal-subgroup lists \cite{atlas} gives the following factor-free maximal
+subgroups.  A row for an outer extension also excludes the factorizations
+lifted from the simple socle.
+
+\begin{center}
+\begin{tabular}{ll@{\qquad}ll}
+\toprule
+\(X\)&\(H\)&\(X\)&\(H\)\\
+\midrule
+\(M_{11}\)&\(S_5\)&\(M_{12}\)&\(2^3{:}S_4\)\\
+\(M_{12}.2\)&\(3^{1+2}{:}D_8\)&\(M_{22}.2\)&\(A_6.2^2\)\\
+\(M_{23}\)&\(A_8\)&\(J_2\)&\(3.A_6.2_2\)\\
+\(J_2.2\)&\(3.A_6.2^2\)&\(HS\)&\(L_3(4).2_1\)\\
+\(HS.2\)&\(L_3(4).2^2\)&\(He\)&\(2^2.L_3(4).S_3\)\\
+\(He.2\)&\(2^2.L_3(4).D_{12}\)&\(Ru\)&\(2^6{:}U_3(3){:}2\)\\
+\(Suz\)&\(J_2.2\)&\(Suz.2\)&\(J_2.2\times2\)\\
+\(Fi_{22}\)&\(O_7(3)\)&\(Fi_{22}.2\)&\(G_2(3).2\)\\
+\(Co_1\)&\(2^{11}{:}M_{24}\)&&\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The simple group \(M_{22}\), and every sporadic almost-simple group not
+needed in this display, has no nontrivial core-free factorization.  For such
+a group, apply \cref{lem:factor-screen} to a Sylow subgroup of the socle;
+its conjugacy class is automorphism-invariant and its maximal overgroup has
+nontrivial socle intersection.  The rows available in TomLib are
+independently checked in \cref{sec:computer}.
+
+The sole factor-cover survivor is \(M_{24}\).  Let it act on the 2-subsets of
+its natural 24-point set.  The point stabilizer \(M_{22}.2\) is maximal, the
+degree is 276, and every involution fixes the support of one of its 2-cycles.
+Thus the action is 2-elusive and \cref{lem:elusive-wreath} applies.
+
+This completes the CFSG audit.\hfill\qedsymbol
+
+\section{Proof of the main theorem}
+
+\begin{proof}[Proof of \cref{thm:main}]
+Let \(S\) be a nonabelian composition factor of \(G\).  Apply
+\cref{prop:monolithic} to obtain a \(\CMP\)-quotient \(L\) with unique
+self-centralizing socle \(S^k\), and define its coordinate group \(X\) by
+\eqref{eq:coordinate}.
+
+Suppose \(S\) is not one of the three groups in the conclusion.  Choose the
+maximal subgroup \(H<X\) supplied by \cref{prop:classification}.  By
+\cref{lem:pa-primitive}, the same group \(L\) has a faithful primitive action
+on \((X/H)^k\).  If the action \(X/H\) is factor-free,
+\cref{prop:coordinate} contradicts \(\CMP(L)\).  If it is \(p\)-elusive,
+\cref{lem:elusive-wreath} shows that the primitive action has no regular
+subgroup, again contradicting \(\CMP(L)\).  In the final symplectic case,
+the same contradiction follows from \cref{lem:valuation}.  Therefore \(S\)
+is one of the three displayed groups.
+
+Conversely, Levchuk--Likharev prove that each of the three simple groups has
+\(\CMP\) \cite[Theorem 1]{levchuk-likharev}; taking the group itself shows
+that each occurs as a composition factor.
+\end{proof}
+
+\section{Finite Table-of-Marks certificate}\label{sec:computer}
+
+The proof uses finite certificates for five small alternating coordinate
+groups and for the ten almost-simple coordinate groups with socle
+\(\PSL_3(4)\).  Nine sporadic rows are also cross-checked.
+
+For a complete table of marks \(T\), let \(h,c,i\) represent conjugacy
+classes of subgroups \(H,C,I\).  The command
+\texttt{IntersectionsTom(T,h,c)[i]} is positive exactly when suitable
+conjugates of \(H,C\) have intersection in class \(i\).  Such a pair
+factors \(X\) precisely when
+\[
+|H|\,|C|=|X|\,|I|.
+\]
+A subgroup \(C\) is core-free in an almost-simple \(X\) precisely when its
+class does not contain the socle class.  The producer checks every core-free
+class \(c\) and every intersection class \(i\), verifies
+\(|H\cap S|=|H||S|/|X|>1\), and fails on missing data.
+
+The proof rows are:
+\[
+\begin{array}{c|ccccc}
+X&A_6.2_2&A_6.2_3&A_6.2^2&A_7&S_7\\ \hline
+|H|&16&20&32&72&144\\
+{\lvert X:H\rvert}&45&36&45&35&35.\\
+\end{array}
+\]
+Since \(\Out(\PSL_3(4))\cong D_{12}\), the following ten TomLib names
+exhaust, up to isomorphism, the groups between the socle and its full
+automorphism group:
+\[
+\begin{array}{c|r|r@{\qquad}c|r|r}
+X&|H|&|X{:}H|&X&|H|&|X{:}H|\\ \hline
+L_3(4)&960&21&L_3(4).2_1&384&105\\
+L_3(4).2_2&1920&21&L_3(4).2_3&720&56\\
+L_3(4).3&216&280&L_3(4).2^2&768&105\\
+L_3(4).3.2_2&432&280&L_3(4).3.2_3&1152&105\\
+L_3(4).6&1152&105&L_3(4).D_{12}&2304&105.
+\end{array}
+\]
+Every row has zero core-free factor classes.  The producer and independent
+checker are, respectively,
+\begin{verbatim}
+gap -q gap/generate-factor-free-scan.g
+python3 tests/check-factor-free-scan.py
+\end{verbatim}
+in the accompanying repository.  The environment is GAP 4.15.1 with
+TomLib 1.2.11.  The generated TSV has SHA-256
+\begin{center}
+{\footnotesize
+\nolinkurl{82bcf695617014f0124839c5a01983a6c8904fc5bc92e0893c9c2601c43bd3a0}}
+\end{center}
+and records all twenty-four proof and cross-check rows.  This calculation is
+an exact finite verification relative to the complete named tables, not an
+extrapolation from a library scan.
+
+\section{Dependency and scope statement}
+
+The universal conclusion depends on CFSG and on the exhaustive published
+factorization classifications \cite{lps-maxfact,xiali-solvable,ggs-szep,
+hls-exceptional,giudici}.  The passage from \(S^k\) to one coordinate uses
+\cite[Corollary 3]{lps-transitive}.  The involution input for
+\(\PSp_4(2^f)\) is \cite[Corollary 2.3]{lps-regular}.  No property of a
+section is inferred from \(\CMP\); only quotient closure is used.
+
+The July 2026 Kourovka Notebook still prints Problem 18.68 without a
+solution annotation.  That dated bibliographic fact is not needed in the
+proof and is not a claim that no unindexed or contemporaneous solution
+exists.
+
+\begin{thebibliography}{99}
+
+\bibitem{atlas}
+J.~H. Conway, R.~T. Curtis, S.~P. Norton, R.~A. Parker, and R.~A. Wilson,
+\emph{Atlas of Finite Groups}, Clarendon Press, Oxford, 1985.
+
+\bibitem{giudici}
+M. Giudici,
+Factorisations of sporadic simple groups,
+\emph{J. Algebra} \textbf{304} (2006), 311--323,
+\url{https://doi.org/10.1016/j.jalgebra.2006.04.019}.
+
+\bibitem{ggs-szep}
+N. Gill, M. Giudici, and P. Spiga,
+A generalization of Szep's conjecture for almost simple groups,
+\emph{Vietnam J. Math.} \textbf{52} (2024), 325--359,
+\url{https://doi.org/10.1007/s10013-023-00635-1}.
+
+\bibitem{hls-exceptional}
+C. Hering, M.~W. Liebeck, and J. Saxl,
+The factorizations of the finite exceptional groups of Lie type,
+\emph{J. Algebra} \textbf{106} (1987), 517--527,
+\url{https://doi.org/10.1016/0021-8693(87)90013-5}.
+
+\bibitem{kourovka21}
+E.~I. Khukhro and V.~D. Mazurov, eds.,
+\emph{The Kourovka Notebook: Unsolved Problems in Group Theory},
+21st ed., 2026,
+\url{https://alglog.org/21tkt.pdf}.
+
+\bibitem{kleidman-liebeck}
+P.~B. Kleidman and M.~W. Liebeck,
+\emph{The Subgroup Structure of the Finite Classical Groups},
+London Math. Soc. Lecture Note Ser. \textbf{129},
+Cambridge University Press, Cambridge, 1990,
+\url{https://doi.org/10.1017/CBO9780511629235}.
+
+\bibitem{levchuk-likharev}
+V.~M. Levchuk and A.~G. Likharev,
+Finite simple groups with complemented maximal subgroups,
+\emph{Siberian Math. J.} \textbf{47} (2006), 659--668,
+\url{https://doi.org/10.1007/s11202-006-0077-7}.
+
+\bibitem{lps-maxfact}
+M.~W. Liebeck, C.~E. Praeger, and J. Saxl,
+\emph{The Maximal Factorizations of the Finite Simple Groups and Their
+Automorphism Groups},
+Mem. Amer. Math. Soc. \textbf{86} (1990), no.~432,
+\url{https://bookstore.ams.org/memo-86-432}.
+
+\bibitem{lps-transitive}
+M.~W. Liebeck, C.~E. Praeger, and J. Saxl,
+Transitive subgroups of primitive permutation groups,
+\emph{J. Algebra} \textbf{234} (2000), 291--361,
+\url{https://doi.org/10.1006/jabr.2000.8547}.
+
+\bibitem{lps-regular}
+M.~W. Liebeck, C.~E. Praeger, and J. Saxl,
+Regular subgroups of primitive permutation groups,
+\emph{Mem. Amer. Math. Soc.} \textbf{203} (2010), no.~952,
+\url{https://doi.org/10.1090/S0065-9266-09-00569-9}.
+
+\bibitem{xiali-solvable}
+C.~H. Li and B. Xia,
+\emph{Factorizations of Almost Simple Groups with a Solvable Factor, and
+Cayley Graphs of Solvable Groups},
+Mem. Amer. Math. Soc. \textbf{279} (2022), no.~1375,
+\url{https://doi.org/10.1090/memo/1375}.
+
+\end{thebibliography}
+
+\end{document}
