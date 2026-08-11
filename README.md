@@ -1,5 +1,7 @@
 # A solution to Kourovka Problem 18.68
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21893700.svg)](https://doi.org/10.5281/zenodo.21893700)
+
 **Status:** complete CFSG-conditional proof candidate, reproducibly checked;
 independent external peer review is still pending.
 
