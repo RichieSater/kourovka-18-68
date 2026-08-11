@@ -51,4 +51,6 @@ infinite-family coverage.
 
 Citation metadata is in [`CITATION.cff`](CITATION.cff).  Code is MIT licensed;
 the research prose and manuscript remain all rights reserved.  See
-[`LICENSE.md`](LICENSE.md) for the exact boundary.
+[`LICENSE.md`](LICENSE.md) for the exact boundary.  The manuscript includes
+an explicit disclosure of the AI assistance used in the research and writing
+process; the named author assumes full responsibility for the work.

@@ -5,7 +5,9 @@ type: software
 authors:
   - family-names: Sater
     given-names: Richie
-version: 1.0.0
+    orcid: "https://orcid.org/0009-0007-9051-8207"
+    affiliation: Independent Researcher
+version: 1.0.1
 date-released: 2026-08-11
 repository-code: "https://github.com/RichieSater/kourovka-18-68"
 url: "https://github.com/RichieSater/kourovka-18-68"
@@ -21,6 +23,8 @@ preferred-citation:
   authors:
     - family-names: Sater
       given-names: Richie
+      orcid: "https://orcid.org/0009-0007-9051-8207"
+      affiliation: Independent Researcher
   title: "Nonabelian composition factors of finite groups whose maximal subgroups are complemented"
   year: 2026
   url: "https://github.com/RichieSater/kourovka-18-68/blob/main/paper/kourovka-18-68.pdf"

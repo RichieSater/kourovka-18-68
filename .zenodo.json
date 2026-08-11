@@ -2,15 +2,17 @@
   "title": "Nonabelian composition factors of finite groups whose maximal subgroups are complemented: A solution to Kourovka Problem 18.68",
   "upload_type": "publication",
   "publication_type": "preprint",
-  "description": "A complete CFSG-conditional proof candidate for Kourovka Problem 18.68. It proves that the possible nonabelian composition factors of a finite group whose maximal subgroups are complemented are precisely PSL(2,7), PSL(2,11), and PSL(5,2). The repository includes the manuscript, proof audit, GAP 4.15.1/Table-of-Marks producers, pinned TomLib 1.2.11 certificates, and independent Python checkers. Independent external peer review remains pending.",
+  "description": "Status: This preprint claims a complete CFSG-conditional solution to Kourovka Problem 18.68, but it has not yet been externally refereed or established by publication. It proves that the possible nonabelian composition factors of a finite group whose maximal subgroups are complemented are precisely PSL(2,7), PSL(2,11), and PSL(5,2). The arbitrary direct-power case is handled by a primitive product-action reduction, and the last infinite factor-screen survivor is eliminated by a uniform 2-adic obstruction. The repository includes the manuscript, proof audit, GAP 4.15.1/Table-of-Marks producers, pinned TomLib 1.2.11 certificates, and independent Python checkers. AI agents were used extensively for literature search, proof exploration, code generation, drafting, and adversarial review. The author selected the arguments and sources, reran the reported computations, and assumes full responsibility for all claims and citations.",
   "creators": [
     {
-      "name": "Sater, Richie"
+      "name": "Sater, Richie",
+      "affiliation": "Independent Researcher",
+      "orcid": "0009-0007-9051-8207"
     }
   ],
   "access_right": "open",
   "license": "other-open",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "language": "eng",
   "keywords": [
     "finite groups",
