@@ -9,6 +9,7 @@ venv/
 vendor/
 scratch/
 tmp/
+dist/
 paper/build/
 *.aux
 *.bbl

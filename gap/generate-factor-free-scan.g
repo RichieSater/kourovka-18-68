@@ -1,11 +1,19 @@
 #############################################################################
 ##
 ##  Produce the finite factor-free certificates used in the proof of 18.68.
-##  Run from the repository root with GAP 4.15.1 and TomLib 1.2.11:
+##  Run from problem-18-68 with GAP 4.15.1 and TomLib 1.2.11:
 ##
-##      gap -q gap/generate-factor-free-scan.g
+##      gap --quitonbreak -q gap/generate-factor-free-scan.g
 ##
 #############################################################################
+
+# Delete the old certificate before any package or version check.  Together
+# with --quitonbreak this prevents a failed producer run from leaving a stale
+# file that a later checker could mistake for fresh output.
+outputPath := "data/tomlib-factor-free.tsv";
+if IsExistingFile(outputPath) and RemoveFile(outputPath) <> true then
+    Error("factor-free producer: could not remove stale output");
+fi;
 
 Read("gap/factor_free_tom.g");
 
@@ -49,9 +57,13 @@ targets := [
     ["HS.2", 2055, 80640, 1100, "sporadic-cross-check"]
 ];
 
-out := OutputTextFile("data/tomlib-factor-free.tsv", false);
+out := OutputTextFile(outputPath, false);
+if out = fail then
+    Error("factor-free producer: could not open output TSV");
+fi;
 SetPrintFormattingStatus(out, false);
-AppendTo(out, "# producer\tgap -q gap/generate-factor-free-scan.g\n");
+AppendTo(out,
+    "# producer\tgap --quitonbreak -q gap/generate-factor-free-scan.g\n");
 AppendTo(out, "# gap_version\t", GAPInfo.Version, "\n");
 AppendTo(out, "# tomlib_version\t", PackageInfo("tomlib")[1].Version, "\n");
 AppendTo(out,

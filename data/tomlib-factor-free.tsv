@@ -1,4 +1,4 @@
-# producer	gap -q gap/generate-factor-free-scan.g
+# producer	gap --quitonbreak -q gap/generate-factor-free-scan.g
 # gap_version	4.15.1
 # tomlib_version	1.2.11
 table_name	group_order	socle_class	socle_order	maximal_class	maximal_order	socle_intersection_order	index	scope	corefree_factor_count	factor_free

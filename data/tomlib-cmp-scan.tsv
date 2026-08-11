@@ -1,4 +1,4 @@
-# producer	gap -q gap/generate-tomlib-scan.g
+# producer	gap --quitonbreak -q gap/generate-tomlib-scan.g
 # gap_version	4.15.1
 # tomlib_version	1.2.11
 # semantics	exact relative to the complete subgroup-class and intersection data in each supplied TomLib table

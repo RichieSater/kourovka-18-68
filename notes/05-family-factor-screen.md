@@ -22,8 +22,12 @@ audit of every CFSG family, not a bounded search.
 4. Hering--Liebeck--Saxl, *J. Algebra* 106 (1987), Theorems 1--2, for all
    factorizations of exceptional simple groups and their automorphism
    groups.
-5. Giudici, *J. Algebra* 304 (2006), Theorems 1.1--1.3 and Tables 1--3,
+5. Giudici, *J. Algebra* 304 (2006), Theorems 1.1--1.2 and Tables 1--4,
    for all factorizations with sporadic socle.
+
+Exact table-row coverage, containment arguments, outer behavior, maximality
+sources, and low-parameter routing are recorded separately in
+[`07-classification-containment-ledger.md`](07-classification-containment-ledger.md).
 
 Here (P_i) denotes a standard maximal parabolic, (P_{ij}=P_i\cap P_j)
 with a common Borel, and (N_i) a nonsingular-subspace stabilizer, in the
@@ -62,7 +66,7 @@ small isomorphisms are routed to the alternating or earlier classical rows.
 
 | Socle (S) | Conditions | Screen subgroup (V) | Maximal-factor table check |
 |---|---|---|---|
-| (\operatorname{PSL}_2(q)) | simple, excluding (q=7,11) and alternating isomorphisms | normalizer of a split torus | Table A.1 has only (P_1) and the displayed small factors; the torus normalizer has no fixed projective point, and the exceptional orders rule out containment |
+| (\operatorname{PSL}_2(q)) | simple, excluding (q=7,11) and alternating isomorphisms | normalizer of a split torus | A.1:1 supplies the nonsplit-torus factor and (P_1); A.1:5--8 are the displayed small factors; the split normalizer lies in none of them |
 | (\operatorname{PSL}_3(q)) | (q\ne4), excluding the allowed (q=2) | normalizer of a maximally split torus | not in (P_1), (P_2), or the extension-field factor in A.1 |
 | (\operatorname{PSL}_3(4)) | every (X) | pinned maximal subgroup | all ten coordinate groups are certified by complete tables of marks |
 | (\operatorname{PSL}_n(q)) | even (n\ge4) | (P_{n/2}) | absent from A.1 |
@@ -70,7 +74,7 @@ small isomorphisms are routed to the alternating or earlier classical rows.
 | (\operatorname{PSL}_n(q)) | odd (n\ge5), graph present | (P_{2,n-2}) | only proper overgroups (P_2,P_{n-2}); absent except ((5,2)) |
 | (\operatorname{PSp}_{2m}(q)) | (m\ge3) | (P_2) | absent from A.2 |
 | (\operatorname{PSp}_4(q)) | (q) odd | stabilizer of a nonsingular (2+2) decomposition | absent from A.2 |
-| (\operatorname{PSp}_4(2^f)) | (f\ge2) | (N_X(\Omega_4^+(2^f)))\cap S=O_4^+(2^f) | prime/valuation Lemma 4.6, not a factor screen |
+| (\operatorname{PSp}_4(2^f)) | (f\ge2) | prime-degree subfield (V=\operatorname{Sp}_4(2^{f/r})) for a prime (r\mid f), with (H=N_X(V)) | (H) is maximal for every field-only or graph-outer (X); all involution classes meet (\operatorname{Sp}_4(2)\le V); Lemma 4.6 applies with (a=4(f-f/r)) |
 | (\operatorname{PSU}_3(q)) | simple | (N_1) | absent from the (n=3) rows of A.3 |
 | (\operatorname{PSU}_4(q)) | (q\ge3) | full nonsingular (2+2) decomposition stabilizer | absent from A.3 |
 | (\operatorname{PSU}_n(q)) | (n\ge5) | (N_2) | absent from A.3 |
@@ -155,8 +159,8 @@ For the three factorable families, if the relevant coordinate group has no
 graph automorphism, choose a maximal parabolic.  For the exceptional graph
 cases use:
 
-* a Borel (P_1\cap P_2) in (G_2(3^f)), where graph automorphisms fuse
-  (P_1,P_2);
+* the graph-stable parabolic intersection (P_1\cap P_2) in
+  (G_2(3^f)), where graph automorphisms fuse (P_1,P_2);
 * the parabolic intersection (P_1\cap P_4) in (F_4(2^f)), where graph
   automorphisms fuse (P_1,P_4).
 
@@ -171,10 +175,10 @@ is factor-free.  The conventional small isomorphisms
 
 ## 5. Sporadic socles
 
-Giudici's Tables 1--3 are complete for the simple groups and their outer
-extensions.  The following maximal subgroups do not occur as a factor in
-the applicable table (or in a lifted simple-socle factorization), and hence
-give factor-free actions.
+Giudici's Tables 1--3 are complete for simple sporadic groups, Table 4 lists
+the genuinely new outer-extension factorizations, and Lemma 2.1(5) accounts
+for the lifted simple-socle rows.  The following maximal subgroups do not
+occur as a factor in the applicable row, and hence give factor-free actions.
 
 | Coordinate group (X) | Factor-free maximal subgroup (H) |
 |---|---|

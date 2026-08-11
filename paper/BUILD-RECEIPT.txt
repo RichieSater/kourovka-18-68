@@ -1,0 +1,9 @@
+artifact=paper/kourovka-18-68.pdf
+tectonic_version=0.17.0
+bundle_url=https://relay.fullyjustified.net/default_bundle_v33.tar
+bundle_content_sha256=6ffe055852f8faf66c0acbe1a7fb27f87b869a90bad1204f3bf4d9683f597c7c
+source_date_epoch=1786406400
+timezone=UTC
+deterministic_mode=true
+clean_builds_compared=2
+pdf_sha256=9fa44095bcfde9c0592b6bdd7529f86da7e31ed59d875cf5a63a72eadc3948fb

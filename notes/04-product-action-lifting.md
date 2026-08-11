@@ -97,8 +97,13 @@ contains a regular subgroup, then its almost-simple coordinate action has a
 core-free transitive subgroup.
 
 Consequently, if ((X,X/H)) is factor-free, the action in Lemma 4.1 has no
-regular subgroup.  For (k=1) the same conclusion is immediate: a regular
-subgroup of (X) on (X/H) is itself core-free and transitive.
+regular subgroup.  For (k=1), note first that (L=X).  If (R) were regular
+on (X/H), then (R\cap H=1).  Every nontrivial normal subgroup of the
+almost-simple group (X) contains its socle (S).  Thus a nontrivial core of
+(R) would force (S\le R), contradicting
+(1\ne H\cap S\le H) and (R\cap H=1).  Hence (R) would be core-free and
+transitive, contrary to factor-freeness.  (Regularity alone does **not**
+imply core-freeness for an arbitrary group action.)
 
 ### Corollary 4.3
 
@@ -203,30 +208,112 @@ because (a-o\ge1) and (v_p(k!)<k).  Thus (Q) has an element
 fixes a point of (Delta), while an identity coordinate fixes every point.
 So (z) fixes a tuple, contradicting regularity.  \(square\)
 
-## 6. The infinite symplectic survivor
+## 6. The infinite symplectic survivor: prime-degree subfields
 
 Let (S=\operatorname{PSp}_4(q)=\operatorname{Sp}_4(q)), where
-(q=2^f) and (f\ge2).  Put (U=\Omega_4^+(q)) and
-(H=N_X(U)).  LPS (2010), Section 10, case (10.1), gives that (H) is
-maximal and (H\cap S=O_4^+(q)).  Its degree is
+(q=2^f) and (f\ge2).  Choose a prime (r\mid f), put
+(d=f/r) and (q_0=2^d), and take the standard subfield subgroup
 
 \[
-d=\lvert S:O_4^+(q)\rvert=\frac{q^2(q^2+1)}2,
-\qquad v_2(d)=2f-1.
+V=\operatorname{Sp}_4(q_0)<S.
 \]
 
-LPS (2010), Corollary 2.3, shows that (O_4^+(q)) meets every involution
-class of (S).  Hence (S) is 2-elusive on (X/H).  Also
+### 6.1 Maximality and every outer coordinate group
+
+**Published input.**  Bray--Holt--Roney-Dougal, Table 8.14, lists the
+subfield subgroup (\operatorname{Sp}_4(q_0)) as maximal when
+(q=q_0^r) and (r) is prime.  Burness, Proposition 4.2 and Table 3, is an
+independent accessible statement of the same row.
+
+Use the adjoint algebraic group of type (B_2) in characteristic two.  Let
+(\varphi) be standard Frobenius and (\rho) the exceptional graph-field
+endomorphism.  Harper, Lemma 2.1, gives
 
 \[
-|X/S|\mid 2f,
-\qquad v_2(|X/S|)\le1+v_2(f)<2f-1.
+\rho^2=\varphi,
+\qquad \operatorname{Aut}(S)=\langle S,\rho\rangle.
 \]
 
-The divisibility is the standard outer-automorphism description recorded in
-Xia--Li, Table 2.1; only this upper bound, not equality for a particular
-coordinate group (X), is used.
+In particular, (\rho) commutes with (\varphi).  The standard subgroup
+(V) is the (\varphi^d)-fixed subgroup, so (\rho) normalizes (V).  Thus
+the (S)-class of (V) is invariant under the full automorphism group, not
+only under field automorphisms.  This explicitly covers every
+(S\le X\le\operatorname{Aut}(S)), including graph-outer (X).
 
-Lemma 4.6 therefore excludes a regular subgroup for every (k\ge1).
-This is the prime-divisibility step that closes the only infinite classical
-factor-screen survivor.
+Set (H=N_X(V)).  Class invariance gives (X=SH).  Since (V) is maximal
+and nonnormal in the simple group (S),
+
+\[
+H\cap S=N_S(V)=V.
+\]
+
+The subgroup (H) is maximal in (X).  If (H<K<X), then
+(V\le K\cap S\le S), so maximality of (V) gives
+(K\cap S=V) or (S).  In the first case,
+(V=K\cap S\trianglelefteq K), whence (K\le N_X(V)=H); in the second,
+(X=SH\le K).  Both are impossible.  It is also core-free: every
+nontrivial normal subgroup of an almost-simple group contains its socle,
+whereas (H\cap S=V<S).
+
+### 6.2 Involution coverage descends to the prime field
+
+LPS (2010), Lemma 2.1, says that (S) has the three involution types
+(b_1,a_2,c_2).  Lemma 2.2(i) says that conjugacy in (O_4^+(q)) agrees
+with conjugacy in (S), and Corollary 2.3 says that every one of the three
+classes meets (O_4^+(q)).
+
+Write
+
+\[
+O_4^+(q)\cong
+(\operatorname{SL}_2(q)\times\operatorname{SL}_2(q))
+\rtimes\langle\tau\rangle,
+\]
+
+where (\tau) swaps the two factors.  If (u) represents the unique
+nonidentity involution class of (\operatorname{SL}_2(q)), the three
+involution classes in this semidirect product are represented by
+
+\[
+(u,1),\qquad (u,u),\qquad \tau.
+\]
+
+Indeed, an involution in the base has one of the first two forms up to
+conjugacy and swapping, while every involution outside the base is conjugate
+to (\tau).  Choose (u\in\operatorname{SL}_2(2)).  All three representatives
+then belong to
+
+\[
+O_4^+(2)\le\operatorname{Sp}_4(2)\le V.
+\]
+
+Consequently every involution class of (S) meets (V), and (S) is
+2-elusive on (X/H).
+
+### 6.3 The valuation inequality
+
+Since (X=SH),
+
+\[
+|X:H|=|S:V|
+=\frac{q^4(q^2-1)(q^4-1)}
+       {q_0^4(q_0^2-1)(q_0^4-1)},
+\qquad
+a=v_2(|X:H|)=4(f-d).
+\]
+
+The same outer description gives (|X/S|\mid2f), so
+
+\[
+o=v_2(|X/S|)\le1+v_2(f)<2f\le4(f-d)=a.
+\]
+
+Lemma 4.6 excludes a regular subgroup for every (k\ge1).  At the referee's
+test parameter (q=4), (X=\operatorname{Aut}(S)), the corrected normalizer
+has order 2880, socle intersection 720, and index 1360.  This is separately
+reproduced by `tests/test-sp4-subfield.g` under GAP 4.15.1 and AtlasRep
+2.1.11.
+
+This replaces the invalid (N_X(\Omega_4^+(q))) construction: that old
+normalizer need not supplement the socle when graph-field automorphisms are
+present.

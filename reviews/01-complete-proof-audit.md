@@ -1,3 +1,10 @@
+> **Superseded historical artifact.** This audit predates the referee's
+> \(S_4(4).4\) countercalculation and contains the withdrawn
+> \(O_4^+\)-normalizer argument and obsolete certificate hashes. Do not use it
+> as an audit of the current manuscript. The valid sequence is
+> `01-pre-revision-referee.md`, `01-revision.md`, and `01-referee.md` through
+> `04-referee.md`.
+
 # Internal audit of the complete candidate proof
 
 **Date:** 2026-08-11

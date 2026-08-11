@@ -8,7 +8,7 @@ redistribution rights were not established.
 1. *The Kourovka Notebook: Unsolved Problems in Group Theory*, 21st issue,
    July 2026, Problem 18.68, PDF/printed page 123.
    [Official PDF](https://kourovkanotebookorg.wordpress.com/wp-content/uploads/2026/07/21tkt.pdf).
-   Retrieved-file SHA-256:
+   Root-ledger SHA-256:
    `301b0cdcc53abc88b57cc0732cad73bf8fbe1c9ba0de5a0a794070398e3395fe`.
 2. V. M. Levchuk and A. G. Likharev, “Finite simple groups with
    complemented maximal subgroups,” *Siberian Mathematical Journal* 47(4)
@@ -68,9 +68,11 @@ redistribution rights were not established.
    automorphism groups. Audited PDF SHA-256:
    `abdc30c6272a8e5bd14024c4bf39ee7ea57063e5e8e6d306084639fd3e89e357`.
 10. M. Giudici, “Factorisations of sporadic simple groups,” *Journal of
-   Algebra* 304 (2006), 311--323.
-   [DOI](https://doi.org/10.1016/j.jalgebra.2006.04.019). Theorems 1.1--1.3
-   are exhaustive for groups with sporadic socle. Audited PDF SHA-256:
+    Algebra* 304 (2006), 311--323.
+    [DOI](https://doi.org/10.1016/j.jalgebra.2006.04.019). Theorems 1.1--1.2
+    and Tables 1--4 are exhaustive for groups with sporadic socle: Tables
+    1--3 treat the simple socle itself and Table 4 the genuinely new outer
+    factorizations. Audited PDF SHA-256:
    `cd2d8cb213c038193db9c0ba14b3d9042448a1861552014436c2be1900aea826`.
 11. J. H. Conway, R. T. Curtis, S. P. Norton, R. A. Parker, and
     R. A. Wilson, *Atlas of Finite Groups*, Oxford, 1985. Its maximal-subgroup
@@ -81,12 +83,42 @@ redistribution rights were not established.
     Society* 203 (2010), no. 952.
     [DOI](https://doi.org/10.1090/S0065-9266-09-00569-9),
     [author-hosted PDF](https://www.ma.imperial.ac.uk/~mwl/REGFINAL.PDF).
-    Section 10, case (10.1), and Corollary 2.3 supply the
-    \(\operatorname{PSp}_4(2^f)\) involution and index input. Audited PDF
+    Lemmas 2.1--2.2 and Corollary 2.3 supply the
+    \(\operatorname{PSp}_4(2^f)\) involution-class input.  Section 10,
+    case (10.1), is **not** used to infer maximality of an
+    \(O_4^+\)-normalizer in an arbitrary outer coordinate group. Audited PDF
     SHA-256:
     `00a76f52b998f4017127c5c4e5e971b36501475092f402cf7bff3e84f222c03b`.
 
-13. P. B. Kleidman and M. W. Liebeck, *The Subgroup Structure of the
+13. J. N. Bray, D. F. Holt, and C. M. Roney-Dougal, *The Maximal Subgroups
+    of the Low-Dimensional Finite Classical Groups*, London Mathematical
+    Society Lecture Note Series 407, Cambridge University Press, 2013.
+    [DOI](https://doi.org/10.1017/CBO9781139192576),
+    [publisher tables chapter](https://www.cambridge.org/core/books/maximal-subgroups-of-the-lowdimensional-finite-classical-groups/tables/E93516E412E7226B7535F385BED059C1C6D605C8B039B06EA93A5).
+    Table 8.14 is the exact maximal-subgroup source for the prime-degree
+    subfield subgroup \(\operatorname{Sp}_4(q_0)<\operatorname{Sp}_4(q)\).
+    The full subscription book was not locally audited page by page; the row
+    is independently restated in item 14 and Table 8.14's complete scope is
+    confirmed in item 15.
+14. T. C. Burness, “On base sizes for actions of finite classical groups,”
+    *Journal of the London Mathematical Society* 75 (2007), 545--562.
+    [DOI](https://doi.org/10.1112/jlms/jdm033),
+    [author PDF](https://seis.bristol.ac.uk/~tb13602/docs/baselms.pdf).
+    Proposition 4.2 and Table 3 record the
+    \(\operatorname{Sp}_4(q_0)\) row with \(q=q_0^r\), \(r\) prime. Audited
+    PDF SHA-256:
+    `dcf25d06cf433dfa32734d6ceb7289f8913d34e8ba2360a89c0a520302bd31bf`.
+15. S. Harper, “Totally deranged elements of almost simple groups and
+    invariable generating sets,” *Journal of the London Mathematical
+    Society* 109(6) (2024), e12935.
+    [DOI](https://doi.org/10.1112/jlms.12935),
+    [open author manuscript](https://research-repository.st-andrews.ac.uk/handle/10023/29976).
+    Lemma 2.1 gives
+    \(\operatorname{Aut}(\operatorname{Sp}_4(2^f))=\langle S,\rho\rangle\)
+    with \(\rho^2=\varphi\); Section 3.5 identifies BHRD Table 8.14 as the
+    complete maximal-subgroup source. Audited PDF SHA-256:
+    `b741f7dfecd2dc78d37a7f2a9d5a5bb928eceb94cde290193980a1ee6d3ff522`.
+16. P. B. Kleidman and M. W. Liebeck, *The Subgroup Structure of the
     Finite Classical Groups*, London Mathematical Society Lecture Note
     Series 129, Cambridge University Press, 1990.
     [DOI](https://doi.org/10.1017/CBO9780511629235). Chapters 3--4 are the
@@ -95,12 +127,12 @@ redistribution rights were not established.
 
 ## Additional exact-factorization sources audited
 
-14. C. H. Li, L. Wang, and B. Xia, “The Exact Factorizations of Almost Simple
+17. C. H. Li, L. Wang, and B. Xia, “The Exact Factorizations of Almost Simple
     Groups,” *Journal of the London Mathematical Society* 108 (2023),
     1417--1447, [arXiv:2012.09551 v6](https://arxiv.org/abs/2012.09551).
     Audited v6 PDF SHA-256:
     `991992d864f8e44cd652a9f4386989b659986253edfef780c7b65c600bfd88f9`.
-15. T. C. Burness and C. H. Li, “On solvable factors of almost simple groups,”
+18. T. C. Burness and C. H. Li, “On solvable factors of almost simple groups,”
     [author-hosted PDF](https://seis.bristol.ac.uk/~tb13602/docs/BL_factorisations_final.pdf).
     Audited PDF SHA-256:
     `7fae2925a45f86e4804a39577b85967ce50fb3c02454937824e7f46b958f63bd`.

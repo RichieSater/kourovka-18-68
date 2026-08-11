@@ -7,11 +7,11 @@ authors:
     given-names: Richie
     orcid: "https://orcid.org/0009-0007-9051-8207"
     affiliation: Independent Researcher
-version: 1.0.1
+version: 1.0.2
 date-released: 2026-08-11
 repository-code: "https://github.com/RichieSater/kourovka-18-68"
-url: "https://github.com/RichieSater/kourovka-18-68/releases/tag/v1.0.1"
-doi: 10.5281/zenodo.21893701
+url: "https://github.com/RichieSater/kourovka-18-68/releases/tag/v1.0.2"
+doi: 10.5281/zenodo.21894829
 keywords:
   - finite groups
   - composition factors
@@ -28,5 +28,5 @@ preferred-citation:
       affiliation: Independent Researcher
   title: "Nonabelian composition factors of finite groups whose maximal subgroups are complemented"
   year: 2026
-  doi: 10.5281/zenodo.21893701
+  doi: 10.5281/zenodo.21894829
   url: "https://github.com/RichieSater/kourovka-18-68/blob/main/paper/kourovka-18-68.pdf"

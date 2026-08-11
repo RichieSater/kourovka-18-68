@@ -2,7 +2,7 @@
   "title": "Nonabelian composition factors of finite groups whose maximal subgroups are complemented: A solution to Kourovka Problem 18.68",
   "upload_type": "publication",
   "publication_type": "preprint",
-  "description": "Status: This preprint claims a complete CFSG-conditional solution to Kourovka Problem 18.68, but it has not yet been externally refereed or established by publication. It proves that the possible nonabelian composition factors of a finite group whose maximal subgroups are complemented are precisely PSL(2,7), PSL(2,11), and PSL(5,2). The arbitrary direct-power case is handled by a primitive product-action reduction, and the last infinite factor-screen survivor is eliminated by a uniform 2-adic obstruction. The repository includes the manuscript, proof audit, GAP 4.15.1/Table-of-Marks producers, pinned TomLib 1.2.11 certificates, and independent Python checkers. AI agents were used extensively for literature search, proof exploration, code generation, drafting, and adversarial review. The author selected the arguments and sources, reran the reported computations, and assumes full responsibility for all claims and citations.",
+  "description": "IMPORTANT CORRECTION: Version 1.0.2 supersedes versions 1.0.0 and 1.0.1, which contained an acceptance-level proof gap in the graph-outer PSp(4,4) case. For X = Aut(PSp(4,4)), the previously claimed orthogonal-normalizer action had degree 272 and did not supplement the socle. Version 1.0.2 withdraws that construction and replaces it with a prime-degree subfield action of degree 1360 at q = 4, together with a uniform 2-adic argument for every field-only or graph-outer coordinate group and every socle multiplicity. Status: this preprint claims a complete CFSG-conditional solution to Kourovka Problem 18.68. Four internal adversarial review rounds passed and recommend circulation, but no independent external finite-group specialist has yet reviewed it. The claimed nonabelian composition factors are precisely PSL(2,7), PSL(2,11), and PSL(5,2). The deposit includes the 12-page manuscript, complete internal review trail, GAP 4.15.1/TomLib 1.2.11/AtlasRep 2.1.11 certificates, independent Python checkers, fail-closed and mutation controls, deterministic build receipt, and SHA-256 manifests. AI tools were used extensively for literature search, proof exploration, code generation, drafting, and adversarial review. Richie Sater is the sole author and assumes full responsibility for every claim, source, computation, and release.",
   "creators": [
     {
       "name": "Sater, Richie",
@@ -12,7 +12,7 @@
   ],
   "access_right": "open",
   "license": "other-open",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "language": "eng",
   "keywords": [
     "finite groups",
@@ -27,6 +27,11 @@
       "identifier": "https://github.com/RichieSater/kourovka-18-68",
       "relation": "isSupplementTo",
       "scheme": "url"
+    },
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.21893701",
+      "relation": "isNewVersionOf",
+      "scheme": "doi"
     }
   ]
 }

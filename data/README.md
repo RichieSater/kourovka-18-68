@@ -11,20 +11,22 @@
   classes with no core-free transitive factor.  Fifteen rows are
   proof-critical finite closeouts and nine are sporadic cross-checks.
 
-Producers, run from the repository root:
+Producers, run from `problem-18-68/`:
 
 ```sh
-gap -q gap/generate-tomlib-scan.g
-gap -q gap/generate-factor-free-scan.g
+gap --quitonbreak -q gap/generate-tomlib-scan.g
+gap --quitonbreak -q gap/generate-factor-free-scan.g
 ```
 
 Environment: GAP 4.15.1; TomLib 1.2.11. Generated on macOS/arm64 on
-2026-08-11. Current SHA-256 hashes:
+2026-08-11.  The producer command and both versions are embedded in each
+file; exact-version checks run before any output is retained. Current
+SHA-256 hashes:
 
 ```text
-e8057a728dca589e6c431cc9779ce02b37f8a5daac83a0be879e98ba8bc6f9b4  tomlib-cmp-scan.tsv
-adbd9590e769136eab7fea84139de0bec2f068252a68228e454066cc7f473c55  tomlib-cmp-maximals.tsv
-82bcf695617014f0124839c5a01983a6c8904fc5bc92e0893c9c2601c43bd3a0  tomlib-factor-free.tsv
+318ac4d55cde05e3e046497eba31b005ebe16832d1be59df98b5e48f9b951320  tomlib-cmp-scan.tsv
+ed322a51f286f104c4adc057c0b06a6cdbf8c3300f71e9bab8d6950071882b16  tomlib-cmp-maximals.tsv
+9b131720d41ef945a0696794c0493ae9c07e166d4d1f37b054a1d55f0c4837ae  tomlib-factor-free.tsv
 ```
 
 **Scope label:** computationally certified relative to the complete tables

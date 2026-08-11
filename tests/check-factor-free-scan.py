@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Check the pinned finite factor-free Table-of-Marks certificate."""
+"""Fail-closed checks for the finite factor-free TomLib certificate."""
 
 from __future__ import annotations
 
 import csv
 import hashlib
 from pathlib import Path
+from typing import NoReturn
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "tomlib-factor-free.tsv"
 
-# Filled after regeneration; changing this requires an intentional certificate
-# update and a rerun of the GAP producer above.
-EXPECTED_SHA256 = "82bcf695617014f0124839c5a01983a6c8904fc5bc92e0893c9c2601c43bd3a0"
+# Updated only after an intentional regeneration under the pinned producer.
+EXPECTED_SHA256 = "9b131720d41ef945a0696794c0493ae9c07e166d4d1f37b054a1d55f0c4837ae"
 
 EXPECTED = {
     "A6.2_2": (16, 45, "alternating-small"),
@@ -43,48 +43,73 @@ EXPECTED = {
 }
 
 
+def fail(message: str) -> NoReturn:
+    raise RuntimeError(f"factor-free certificate check failed: {message}")
+
+
+def require(condition: bool, message: str) -> None:
+    if not condition:
+        fail(message)
+
+
 def read() -> tuple[dict[str, str], list[dict[str, str]]]:
+    require(DATA.is_file(), f"missing data file {DATA}")
     metadata: dict[str, str] = {}
     body: list[str] = []
-    for line in DATA.read_text(encoding="utf-8").splitlines():
+    for line_number, line in enumerate(
+        DATA.read_text(encoding="utf-8").splitlines(), start=1
+    ):
         if line.startswith("# "):
-            key, value = line[2:].split("\t", 1)
+            fields = line[2:].split("\t", 1)
+            require(len(fields) == 2, f"malformed metadata at line {line_number}")
+            key, value = fields
+            require(key not in metadata, f"duplicate metadata key {key!r}")
             metadata[key] = value
         else:
             body.append(line)
+    require(bool(body), "TSV body is empty")
     return metadata, list(csv.DictReader(body, delimiter="\t"))
 
 
 def main() -> None:
-    assert hashlib.sha256(DATA.read_bytes()).hexdigest() == EXPECTED_SHA256
+    digest = hashlib.sha256(DATA.read_bytes()).hexdigest()
+    require(digest == EXPECTED_SHA256, f"SHA-256 {digest} != {EXPECTED_SHA256}")
+
     metadata, rows = read()
-    assert metadata == {
-        "producer": "gap -q gap/generate-factor-free-scan.g",
+    expected_metadata = {
+        "producer": "gap --quitonbreak -q gap/generate-factor-free-scan.g",
         "gap_version": "4.15.1",
         "tomlib_version": "1.2.11",
     }
-    assert len(rows) == len(EXPECTED)
-    assert {row["table_name"] for row in rows} == set(EXPECTED)
+    require(metadata == expected_metadata, f"metadata mismatch: {metadata!r}")
+    require(len(rows) == len(EXPECTED), f"expected {len(EXPECTED)} rows, got {len(rows)}")
+    names = {row.get("table_name", "") for row in rows}
+    require(names == set(EXPECTED), "table-name set changed")
 
-    for row in rows:
+    for row_number, row in enumerate(rows, start=1):
         name = row["table_name"]
         maximal_order, index, scope = EXPECTED[name]
-        assert int(row["maximal_order"]) == maximal_order
-        assert int(row["index"]) == index
-        assert int(row["group_order"]) == maximal_order * index
-        assert int(row["socle_order"]) > 1
-        assert int(row["socle_order"]) <= int(row["group_order"])
-        assert int(row["socle_intersection_order"]) == (
-            maximal_order
-            * int(row["socle_order"])
-            // int(row["group_order"])
+        prefix = f"row {row_number} ({name})"
+        require(int(row["maximal_order"]) == maximal_order, f"{prefix}: maximal order")
+        require(int(row["index"]) == index, f"{prefix}: index")
+        require(
+            int(row["group_order"]) == maximal_order * index,
+            f"{prefix}: group order arithmetic",
         )
-        assert int(row["socle_intersection_order"]) > 1
-        assert int(row["maximal_class"]) > 0
-        assert int(row["socle_class"]) > 0
-        assert row["scope"] == scope
-        assert row["corefree_factor_count"] == "0"
-        assert row["factor_free"] == "true"
+        socle_order = int(row["socle_order"])
+        group_order = int(row["group_order"])
+        require(1 < socle_order <= group_order, f"{prefix}: invalid socle order")
+        expected_intersection = maximal_order * socle_order // group_order
+        require(
+            int(row["socle_intersection_order"]) == expected_intersection,
+            f"{prefix}: socle intersection formula",
+        )
+        require(expected_intersection > 1, f"{prefix}: trivial socle intersection")
+        require(int(row["maximal_class"]) > 0, f"{prefix}: maximal class")
+        require(int(row["socle_class"]) > 0, f"{prefix}: socle class")
+        require(row["scope"] == scope, f"{prefix}: scope")
+        require(row["corefree_factor_count"] == "0", f"{prefix}: factor count")
+        require(row["factor_free"] == "true", f"{prefix}: factor-free flag")
 
     print(f"FACTOR-FREE TSV CHECK PASSED: {len(rows)} pinned maximal classes")
 

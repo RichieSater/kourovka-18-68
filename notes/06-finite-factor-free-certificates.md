@@ -71,10 +71,10 @@ Every row has zero core-free transitive factor classes.
 
 ## Reproduction
 
-From the repository root run:
+From `problem-18-68/` run:
 
 ```sh
-gap -q gap/generate-factor-free-scan.g
+gap --quitonbreak -q gap/generate-factor-free-scan.g
 python3 tests/check-factor-free-scan.py
 ```
 
@@ -82,7 +82,7 @@ The committed output is
 [`../data/tomlib-factor-free.tsv`](../data/tomlib-factor-free.tsv), SHA-256
 
 ```text
-82bcf695617014f0124839c5a01983a6c8904fc5bc92e0893c9c2601c43bd3a0
+9b131720d41ef945a0696794c0493ae9c07e166d4d1f37b054a1d55f0c4837ae
 ```
 
 The GAP producer checks the group, socle, maximal-class position, core-free

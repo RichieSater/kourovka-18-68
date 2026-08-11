@@ -3,12 +3,14 @@
 Run:
 
 ```sh
-gap -q tests/test-cmp-tom.g
-gap -q gap/generate-tomlib-scan.g
+gap --quitonbreak -q tests/test-cmp-tom.g
+gap --quitonbreak -q gap/generate-tomlib-scan.g
 python3 tests/check-tomlib-scan.py
-gap -q tests/test-factor-free-tom.g
-gap -q gap/generate-factor-free-scan.g
+gap --quitonbreak -q tests/test-factor-free-tom.g
+gap --quitonbreak -q gap/generate-factor-free-scan.g
 python3 tests/check-factor-free-scan.py
+gap --quitonbreak -q tests/test-sp4-subfield.g
+tests/test-fail-closed.sh
 ```
 
 The GAP suite checks the three published positive simple groups; negative
@@ -25,3 +27,12 @@ The factor-free GAP tests include a positive factorization control, a
 negative control, and an outer almost-simple socle/intersection control.  The
 Python checker pins all 24 rows, their maximal orders and indices, nontrivial
 socle intersections, metadata, and SHA-256.
+
+The symplectic regression reconstructs the corrected maximal subfield
+normalizer for `S4(4).4` under AtlasRep 2.1.11 and checks its degree,
+supplement property, normalizer property, 2-valuations, and involution-class
+coverage.  `test-fail-closed.sh` verifies that GAP errors return nonzero and
+runs both acceptance-critical Python checkers with `python3 -O`; the checkers
+use explicit exceptions rather than optimization-sensitive assertions.
+
+`test-mutation-controls.py` copies the proof certificates, checkers, producer scripts, PDF, and build receipt into isolated temporary trees. It verifies that byte/semantic corruption, missing data, receipt/PDF changes, and forced producer-version failures are rejected; failed producers must remove stale outputs.

@@ -90,8 +90,13 @@ nonabelian composition factor is one of the three simple groups. If it fails,
 record the smallest explicit counterexample and revise the target before any
 CFSG-wide campaign.
 
-**Gate F: passed internally (2026-08-11).**  The CFSG family screen is in
-`notes/05-family-factor-screen.md`.  The sole infinite survivor
-\(\operatorname{PSp}_4(2^f)\) is eliminated for every \(t\) by the 2-adic
-socle-valuation lemma.  Fifteen named small cases have complete
-Table-of-Marks certificates.  External referee review remains pending.
+**Gate F: passed through internal Referee 4 (2026-08-11).**  The CFSG family screen
+is in `notes/05-family-factor-screen.md`, with an exact row audit in
+`notes/07-classification-containment-ledger.md`.  The sole infinite survivor
+\(\operatorname{PSp}_4(2^f)\) is eliminated for every \(t\) and every
+field-only or graph-outer coordinate group by the corrected prime-degree
+subfield action and 2-adic socle-valuation lemma.  Fifteen named small cases
+have complete Table-of-Marks certificates. Structural, source,
+fresh-clone reproducibility, and hard-final referee passes are complete. The
+hard-final recommendation is to circulate; external specialist review remains
+pending.

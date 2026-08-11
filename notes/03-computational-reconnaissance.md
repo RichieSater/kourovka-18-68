@@ -36,8 +36,8 @@ finite criterion, not a randomized subgroup search.
 ## Producer and tests
 
 ```sh
-gap -q tests/test-cmp-tom.g
-gap -q gap/generate-tomlib-scan.g
+gap --quitonbreak -q tests/test-cmp-tom.g
+gap --quitonbreak -q gap/generate-tomlib-scan.g
 python3 tests/check-tomlib-scan.py
 ```
 
@@ -88,4 +88,5 @@ and every maximal-class certificate is in
 The computation exhausts each supplied table and every listed table. It does
 not exhaust all finite groups, all primitive groups, or any CFSG family. It is
 therefore strong regression evidence and a source audit, but it cannot turn
-the conjectural universal verdict into a theorem.
+a bounded observation into a universal theorem; the manuscript's universal
+step instead uses the published exhaustive classifications.

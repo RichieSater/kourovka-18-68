@@ -1,4 +1,4 @@
-# producer	gap -q gap/generate-tomlib-scan.g
+# producer	gap --quitonbreak -q gap/generate-tomlib-scan.g
 # gap_version	4.15.1
 # tomlib_version	1.2.11
 # candidate_field	class_position:trivial_intersection_multiplicity; none means that no subgroup class has the required order

@@ -3,6 +3,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{microtype}
+\usepackage{amssymb}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -54,7 +55,8 @@ Liebeck--Praeger--Saxl forces the coordinate action to have a core-free
 transitive subgroup.  Maximal-factorization classifications exclude this for
 every simple \(S\) outside the displayed list.  The only infinite
 factor-screen survivor, \(S=\PSp_4(2^f)\), is eliminated by a 2-adic lifting
-argument using the fact that \(O_4^+(2^f)\) meets every involution class.
+argument in a prime-degree subfield action.  The prime-field subgroup meets
+every involution class.
 Fifteen named small almost-simple cases are certified by complete tables of
 marks; all infinite coverage comes from published exhaustive
 classifications.
@@ -217,8 +219,13 @@ If \((X,X/H)\) is factor-free, then \(L\) does not have \(\CMP\).
 \end{proposition}
 
 \begin{proof}
-For \(k=1\), a regular subgroup on \(X/H\) would itself be core-free and
-transitive.  Let \(k\ge2\).  The action in \cref{lem:pa-primitive} is a
+For \(k=1\), we have \(L=X\).  If a regular subgroup \(R\) existed, then
+\(R\) would be transitive and \(R\cap H=1\).  Its core in \(X\), if
+nontrivial, would contain the socle \(S\), as \(X\) is almost simple.  But
+then \(S\leq R\), contrary to
+\(1\ne H\cap S\leq H\) and \(R\cap H=1\).  Thus \(R\) would be core-free,
+contradicting factor-freeness.  Let \(k\ge2\).  The action in
+\cref{lem:pa-primitive} is a
 primitive product-action action with almost-simple component
 \((X,X/H)\): indeed, its socle stabilizer is \(V^k\), which is nontrivial
 and is not subdirect in \(S^k\).  Corollary 3(iv) of
@@ -389,49 +396,51 @@ Socle and conditions & screen subgroup \(V\) & table check \\
 \endhead
 \(\PSL_2(q)\), excluding the allowed and alternating cases
 & split-torus normalizer
-& not in either torus type or \(P_1\); exceptional factors are checked below \\
+& not in the nonsplit-torus factor of A.1:1 or in \(P_1\); A.1:5--8 are
+checked below \\
 \(\PSL_3(q)\), \(q\ne4\), excluding \(q=2\)
 & split-torus normalizer
-& not in a point or hyperplane parabolic or in the extension-field factor \\
+& not in either parabolic or the extension-field factor in A.1:1 \\
 \(\PSL_3(4)\), every coordinate group \(X\)
 & a pinned maximal subgroup of \(X\)
 & complete Table-of-Marks certificate in \cref{sec:computer} \\
 \(\PSL_n(q)\), even \(n\ge4\)
 & \(P_{n/2}\)
-& absent from A.1 \\
+& absent from A.1:1--4 (and A.1:5--10 have other dimensions) \\
 \(\PSL_n(q)\), odd \(n\ge5\), no graph
 & \(P_2\)
-& absent from A.1 except \((n,q)=(5,2)\) \\
+& absent from A.1:1--4,10 except \((n,q)=(5,2)\) \\
 \(\PSL_n(q)\), odd \(n\ge5\), graph present
 & \(P_{2,n-2}\)
-& only parabolic overgroups \(P_2,P_{n-2}\); absent except \((5,2)\) \\
+& only maximal parabolic overgroups \(P_2,P_{n-2}\); A.1:1--4,10 are
+excluded except \((5,2)\) \\
 \(\PSp_{2m}(q)\), \(m\ge3\)
 & \(P_2\)
-& absent from A.2 \\
+& absent from A.2:1--16 (A.2:13 has \(P_2\) only when \(m=2\)) \\
 \(\PSp_4(q)\), \(q\) odd
 & nonsingular \(2+2\) decomposition stabilizer
-& absent from A.2 \\
+& absent from the \(m=2\), odd-\(q\) rows A.2:1,13 \\
 \(\PSU_3(q)\)
 & \(N_1\)
-& absent from the \(n=3\) rows of A.3 \\
+& absent from the \(n=3\) rows A.3:5--7 \\
 \(\PSU_4(q)\), \(q\ge3\)
 & full nonsingular \(2+2\) decomposition stabilizer
-& absent from A.3 \\
+& absent from A.3:1,2,9 \\
 \(\PSU_n(q)\), \(n\ge5\)
 & \(N_2\)
-& absent from A.3 \\
+& absent from A.3:1--4,10--12 \\
 \(\Omega_{2m+1}(q)\), \(m\ge3, q\) odd
 & \(P_2\)
-& absent from A.4 \\
+& absent from A.4:1--8 \\
 \(\mathrm P\Omega^-_{2m}(q)\), \(m\ge4\)
 & \(P_2\)
-& absent from A.5 \\
+& absent from A.5:1--5 \\
 \(\mathrm P\Omega^+_{2m}(q)\), \(m\ge5\)
 & \(P_2\)
-& absent from A.6 \\
+& absent from A.6:1--13 \\
 \(\mathrm P\Omega^+_8(q)\), triality allowed
 & central-node \(P_2\)
-& fixed by triality and absent from A.7 \\
+& fixed by triality and absent from A.7:1--15 \\
 \bottomrule
 \end{longtable}
 
@@ -477,25 +486,71 @@ table row is the exceptional \(q=4\) row, and all ten almost-simple groups
 with that socle are handled by the finite certificate.  The parameter
 \(q=2\) gives the allowed group \(\PSL_3(2)\cong\PSL_2(7)\).
 
-It remains to treat \(S=\PSp_4(q)\) with \(q=2^f\), \(f\ge2\).  Let
-\(U=\Omega_4^+(q)\) and \(H=N_X(U)\).  Case (10.1) of
-\cite[Section 10]{lps-regular} gives that \(H\) is core-free maximal and
-\(H\cap S=O_4^+(q)\).  Thus \(X=HS\), and hence
-\begin{equation}\label{eq:sp-degree}
-\lvert X:H\rvert=\lvert S:O_4^+(q)\rvert=\frac{q^2(q^2+1)}2,\qquad
-v_2(\lvert X:H\rvert)=2f-1.
-\end{equation}
-Corollary 2.3 of \cite{lps-regular} shows that \(O_4^+(q)\) meets every
-involution class of \(S\), so \(S\) is 2-elusive on \(X/H\).  Moreover,
-the standard outer-automorphism description
-\cite[Table 2.1]{xiali-solvable} gives \(|X/S|\mid 2f\), and hence
+It remains to treat \(S=\PSp_4(q)=\operatorname{Sp}_4(q)\) with
+\(q=2^f\), \(f\ge2\).  Choose a prime \(r\mid f\), put
+\(d=f/r\), \(q_0=2^d\), and let
 \[
-v_2(|X/S|)\le1+v_2(f)<2f-1.
+V=\operatorname{Sp}_4(q_0)<S
 \]
-The last strict inequality follows, for example, from
-\(v_2(f)\le f-1\) and \(f\ge2\).
-Now \cref{lem:valuation} applies.  This is the sole infinite classical row
-for which the factor screen itself does not suffice.
+be the standard subfield subgroup.  It is maximal in \(S\), since the
+field-extension degree \(r\) is prime
+\cite[Table 8.14]{bhrd}; see also
+\cite[Proposition 4.2 and Table 3]{burness-base}.
+
+We check explicitly that this one choice works for every field-only and
+graph-outer coordinate group \(S\leq X\leq\Aut(S)\).  Realize \(S\) as the
+fixed points of the standard Frobenius \(\varphi^f\) in the adjoint algebraic
+group of type \(B_2\) over \(\overline{\mathbb F}_2\).  The exceptional
+graph-field endomorphism \(\rho\) satisfies \(\rho^2=\varphi\), and
+\(\Aut(S)=\langle S,\rho\rangle\)
+\cite[Lemma 2.1]{harper}.  Since \(\rho\) commutes with \(\varphi\), it
+normalizes the fixed-point subgroup
+\(V=\operatorname{Sp}_4(2^d)\).  Thus the \(S\)-class of \(V\) is invariant
+under all of \(\Aut(S)\).
+
+Put \(H=N_X(V)\).  Class invariance gives \(X=SH\), and
+\(H\cap S=N_S(V)=V\).  Moreover, \(H\) is maximal in \(X\).  Indeed, if
+\(H<K<X\), then maximality of \(V\) in \(S\) gives
+\(K\cap S=V\) or \(S\).  In the first case, \(V=K\cap S\trianglelefteq K\),
+so \(K\leq N_X(V)=H\); in the second, \(S\leq K\) and
+\(X=SH\leq K\).  Both are contradictions.  Finally, \(H\) is core-free:
+every nontrivial normal subgroup of the almost-simple group \(X\) contains
+\(S\), whereas \(H\cap S=V<S\).
+
+Every involution class of \(S\) meets \(V\).  Here are the details needed
+at the prime-field endpoint \(q_0=2\).  By Lemmas 2.1--2.2 and Corollary 2.3
+of \cite{lps-regular}, the three involution classes of \(S\) meet
+\[
+ O_4^+(q)\cong
+ (\operatorname{SL}_2(q)\times\operatorname{SL}_2(q))
+ \rtimes\langle\tau\rangle,
+\]
+where \(\tau\) interchanges the factors, and conjugacy inside this orthogonal
+group agrees with conjugacy in \(S\).  If \(u\) represents the unique
+nonidentity involution class in \(\operatorname{SL}_2(q)\), the three
+orthogonal classes have representatives
+\((u,1),(u,u),\tau\).  We may take
+\(u\in\operatorname{SL}_2(2)\), so all three representatives lie in
+\(O_4^+(2)\leq\operatorname{Sp}_4(2)\leq V\).  Hence \(S\) is
+2-elusive on \(X/H\).
+
+Since \(X=SH\), the degree and its 2-part are
+\begin{equation}\label{eq:sp-degree}
+ \lvert X:H\rvert=\lvert S:V\rvert
+ =\frac{q^4(q^2-1)(q^4-1)}
+ {q_0^4(q_0^2-1)(q_0^4-1)},\qquad
+ a=v_2(\lvert X:H\rvert)=4(f-d).
+\end{equation}
+The same outer-automorphism description gives \(|X/S|\mid2f\), so
+\[
+ o=v_2(|X/S|)\leq1+v_2(f)<2f\leq4(f-d)=a.
+\]
+Here \(v_2(f)\leq f-1\), and \(f-d=f(1-1/r)\geq f/2\).
+Thus \cref{lem:valuation} applies uniformly.  In particular, when
+\(q=4\) and \(X=\Aut(S)\), the corrected subgroup has
+\(|H|=2880\), \(|H\cap S|=720\), and degree \(1360\); these values are
+also reproduced in \cref{sec:computer}.  This is the sole infinite
+classical row for which the factor screen itself does not suffice.
 
 The standard low-rank isomorphisms
 \[
@@ -527,8 +582,9 @@ automorphism, and the Hering--Liebeck--Saxl theorem and
 
 It remains to screen the three factorable families.  If no graph
 automorphism is present, choose a maximal parabolic.  In the graph-fused
-cases choose a Borel \(P_1\cap P_2\) in \(G_2(3^f)\), or
-\(P_1\cap P_4\) in \(F_4(2^f)\).  Their respective \(p\)-parts are \(q^6\)
+cases choose the graph-stable parabolic intersection \(P_1\cap P_2\) in
+\(G_2(3^f)\), or \(P_1\cap P_4\) in \(F_4(2^f)\); each contains a common
+Borel.  Their respective \(p\)-parts are \(q^6\)
 and at least \(q^{24}\).  The \(p\)-parts of the displayed
 Hering--Liebeck--Saxl factors
 are at most \(q^3\) and \(q^{16}\), so no factor contains the chosen screen
@@ -538,7 +594,7 @@ subgroup.  The small isomorphisms \(G_2(2)'\cong\PSU_3(3)\) and
 \subsection{Sporadic groups}
 
 Giudici classifies all factorizations with sporadic socle
-\cite[Theorems 1.1--1.3]{giudici}.  Comparing those tables with the Atlas
+\cite[Theorems 1.1--1.2 and Tables 1--4]{giudici}.  Comparing those tables with the Atlas
 maximal-subgroup lists \cite{atlas} gives the following factor-free maximal
 subgroups.  A row for an outer extension also excludes the factorizations
 lifted from the simple socle.
@@ -641,14 +697,18 @@ L_3(4).6&1152&105&L_3(4).D_{12}&2304&105.
 Every row has zero core-free factor classes.  The producer and independent
 checker are, respectively,
 \begin{verbatim}
-gap -q gap/generate-factor-free-scan.g
+gap --quitonbreak -q gap/generate-factor-free-scan.g
 python3 tests/check-factor-free-scan.py
 \end{verbatim}
 in the accompanying repository.  The environment is GAP 4.15.1 with
-TomLib 1.2.11.  The generated TSV has SHA-256
+TomLib 1.2.11.  A separate GAP 4.15.1/AtlasRep 2.1.11 regression test
+reconstructs the corrected \(S_4(4).4\) row just quoted.  All GAP commands
+use \texttt{--quitonbreak}; the Python checkers are also run under
+\texttt{python3 -O}, so their acceptance checks do not depend on assertions.
+The generated TSV has SHA-256
 \begin{center}
 {\footnotesize
-\nolinkurl{82bcf695617014f0124839c5a01983a6c8904fc5bc92e0893c9c2601c43bd3a0}}
+\nolinkurl{9b131720d41ef945a0696794c0493ae9c07e166d4d1f37b054a1d55f0c4837ae}}
 \end{center}
 and records all twenty-four proof and cross-check rows.  This calculation is
 an exact finite verification relative to the complete named tables, not an
@@ -659,8 +719,10 @@ extrapolation from a library scan.
 The universal conclusion depends on CFSG and on the exhaustive published
 factorization classifications \cite{lps-maxfact,xiali-solvable,ggs-szep,
 hls-exceptional,giudici}.  The passage from \(S^k\) to one coordinate uses
-\cite[Corollary 3]{lps-transitive}.  The involution input for
-\(\PSp_4(2^f)\) is \cite[Corollary 2.3]{lps-regular}.  No property of a
+\cite[Corollary 3]{lps-transitive}.  The subfield maximality and
+outer-automorphism inputs for \(\PSp_4(2^f)\) are
+\cite[Table 8.14]{bhrd} and \cite[Lemma 2.1]{harper}; the involution-class
+input is \cite[Lemmas 2.1--2.2 and Corollary 2.3]{lps-regular}.  No property of a
 section is inferred from \(\CMP\); only quotient closure is used.
 
 The July 2026 Kourovka Notebook still prints Problem 18.68 without a
@@ -670,13 +732,25 @@ exists.
 
 \section*{AI-use disclosure}
 
-AI agents were used extensively for literature search, proof exploration,
-code generation, drafting, and adversarial review.  The author directed the
-research process, selected the arguments and sources included here, reran the
-reported computations, and assumes full responsibility for every mathematical
-statement and citation.
+AI tools were used extensively for literature search, proof exploration,
+code generation, drafting, and adversarial review.  The named author is
+solely responsible for verifying the arguments, sources, computations, and
+final submitted text.
 
 \begin{thebibliography}{99}
+
+\bibitem{bhrd}
+J.~N. Bray, D.~F. Holt, and C.~M. Roney-Dougal,
+\emph{The Maximal Subgroups of the Low-Dimensional Finite Classical Groups},
+London Math. Soc. Lecture Note Ser. \textbf{407},
+Cambridge University Press, Cambridge, 2013,
+\url{https://doi.org/10.1017/CBO9781139192576}.
+
+\bibitem{burness-base}
+T.~C. Burness,
+On base sizes for actions of finite classical groups,
+\emph{J. London Math. Soc.} (2) \textbf{75} (2007), 545--562,
+\url{https://doi.org/10.1112/jlms/jdm033}.
 
 \bibitem{atlas}
 J.~H. Conway, R.~T. Curtis, S.~P. Norton, R.~A. Parker, and R.~A. Wilson,
@@ -699,6 +773,13 @@ C. Hering, M.~W. Liebeck, and J. Saxl,
 The factorizations of the finite exceptional groups of Lie type,
 \emph{J. Algebra} \textbf{106} (1987), 517--527,
 \url{https://doi.org/10.1016/0021-8693(87)90013-5}.
+
+\bibitem{harper}
+S. Harper,
+Totally deranged elements of almost simple groups and invariable generating
+sets,
+\emph{J. London Math. Soc.} (2) \textbf{109} (2024), no.~6, e12935,
+\url{https://doi.org/10.1112/jlms.12935}.
 
 \bibitem{kourovka21}
 E.~I. Khukhro and V.~D. Mazurov, eds.,

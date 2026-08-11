@@ -1,8 +1,8 @@
 #############################################################################
 ## Regression tests for gap/cmp_tom.g
 ##
-## Run from the repository root with:
-##     gap -q tests/test-cmp-tom.g
+## Run from problem-18-68/ with:
+##     gap --quitonbreak -q tests/test-cmp-tom.g
 #############################################################################
 
 Read("gap/cmp_tom.g");

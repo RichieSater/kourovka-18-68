@@ -5,9 +5,8 @@
 > **18.68.** What are the nonabelian composition factors of a finite
 > nonsoluble group all of whose maximal subgroups have complements?
 
-Source: 21st Kourovka Notebook, PDF/printed page 123. See the
-[`references/README.md`](references/README.md) ledger for the retrieved-file
-hash.
+Source: 21st Kourovka Notebook, PDF/printed page 123. See
+[`references/README.md`](references/README.md) for the retrieved-file hash.
 
 ## Complement convention
 
@@ -25,7 +24,7 @@ complements, but explicitly observe that the notions coincide for maximal
 subgroups.
 
 Let `CMP(G)` abbreviate the property that every maximal subgroup of \(G\) has
-a complement in \(G\). This abbreviation is local to this repository and is not
+a complement in \(G\). This abbreviation is local to the workspace and is not
 claimed to be standard.
 
 ## Published baseline recorded by the Notebook
