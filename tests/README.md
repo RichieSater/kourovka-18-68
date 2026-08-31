@@ -46,7 +46,7 @@ manuscript disclosure, and standard subgroup-index notation.
 
 `test-mutation-controls.py` copies proof certificates, checkers, producer
 scripts, the PDF, and the build receipt into isolated temporary trees. Its
-65 mutations cover byte and semantic corruption, missing data, receipt/PDF
+mutation suite covers byte and semantic corruption, missing data, receipt/PDF
 changes, stale TeX/PDF pairs, structurally invalid or inconsistent CFF and CI
 metadata, forced producer-version failures, prohibited process and
 conditional-publication wording, model-named and duplicate disclosure

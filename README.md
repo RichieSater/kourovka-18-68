@@ -7,7 +7,7 @@ LPS (1990), Theorem D with Remark 2, remain explicit source assumptions.
 Complete tables of marks computationally certify fifteen named
 almost-simple coordinate cases.
 
-**Current version:** [1.1.0](https://github.com/RichieSater/kourovka-18-68/releases/tag/v1.1.0).
+**Current version:** [1.1.1](https://github.com/RichieSater/kourovka-18-68/releases/tag/v1.1.1).
 
 ## Result
 
@@ -48,8 +48,10 @@ deterministic PDF is
 - Repository: [RichieSater/kourovka-18-68](https://github.com/RichieSater/kourovka-18-68)
 - Historical version 1.0.2 correction:
   [RELEASE-NOTES-v1.0.2.md](RELEASE-NOTES-v1.0.2.md)
-- Current version 1.1.0:
+- Version 1.1.0:
   [RELEASE-NOTES-v1.1.0.md](RELEASE-NOTES-v1.1.0.md)
+- Current version 1.1.1:
+  [RELEASE-NOTES-v1.1.1.md](RELEASE-NOTES-v1.1.1.md)
 
 ## Important correction to versions 1.0.0 and 1.0.1
 

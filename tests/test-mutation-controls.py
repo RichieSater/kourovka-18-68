@@ -102,7 +102,7 @@ def release_controls(tmp: Path) -> int:
         shutil.copy2(ROOT / "paper" / name, tmp / "paper" / name)
     for name in [
         "artifact-metadata.json", "CITATION.cff", "README.md",
-        "REPRODUCIBILITY.md", "RELEASE-NOTES-v1.1.0.md",
+        "REPRODUCIBILITY.md", "RELEASE-NOTES-v1.1.1.md",
     ]:
         shutil.copy2(ROOT / name, tmp / name)
     shutil.copy2(ROOT / "paper" / "README.md", tmp / "paper" / "README.md")
@@ -357,6 +357,30 @@ def public_corpus_controls(tmp: Path) -> int:
         "Experts often call this action primitive.\n"
         "The board automorphism interchanges two nodes.\n"
         "A human-readable table records the output.\n"
+        "The certificate script performs the consistency check.\n"
+        "The proof agrees with the published classification.\n"
+        "The manuscript agrees with the published classification.\n"
+        "The preprint describes agreement among the three invariants.\n"
+        "This software generates the manuscript index deterministically.\n"
+        "A tool edits text files in place.\n"
+        "Python slice prose/code: `values[G:M]`.\n"
+        "The script checks the proof before publication.\n"
+        "The manuscript agrees with the classification after setting q=2.\n"
+        "The manuscript agrees with the published theorem when q is even.\n"
+        "The preprint describes agreement once the normalization is applied.\n"
+        "The manuscript is checked by software before publication.\n"
+        "A neural network generated numerical data for the benchmark.\n"
+        "Machine learning was used as a comparison baseline.\n"
+        "The theorem in this manuscript is determined by q.\n"
+        "The preprint's notation is controlled by the ambient group.\n"
+        "The deterministic algorithm performs proof verification.\n"
+        "The checker handles proof verification.\n"
+        "The script carries out proof verification.\n"
+        "GAP performs proof verification.\n"
+        "The proof was verified before publication using software.\n"
+        "Claude Shannon's theorem is cited.\n"
+        "GPT denotes the generalized Petersen graph.\n"
+        "\\newcommand{\\slice}[2]{[#1:#2]} Benign: $\\slice{start}{stop}$.\n"
         "Correct index: $\\lvert N_{\\Aut(S)}(H):M_{12}.2\\rvert$.\n"
     )
     readme.write_text(baseline, encoding="utf-8")
@@ -396,7 +420,7 @@ def public_corpus_controls(tmp: Path) -> int:
         ("Internal adversarial " + "revi" + "ew passed.\n", "process mutation 1"),
         ("Vali" + "dation is assi" + "gned to Alice.\n", "assignment mutation"),
         (
-            "Alice is assi" + "gned the final proof check.\n",
+            "Alice is assi" + "gned the final pro" + "of check.\n",
             "named proof-assignment mutation",
         ),
         ("Rele" + "ase requires " + "sign" + "-off.\n", "condition mutation 1"),
@@ -405,7 +429,7 @@ def public_corpus_controls(tmp: Path) -> int:
         ("Artificial intel" + "ligence revised the prose.\n", "disclosure mutation 2"),
         ("A language mod" + "el revised the prose.\n", "disclosure mutation 3"),
         ("L" + "LM output was used.\n", "disclosure mutation 4"),
-        ("Chat" + "GPT edited the text.\n", "disclosure mutation 5"),
+        ("Chat" + "G" + "PT edited the text.\n", "disclosure mutation 5"),
         ("Cod" + "ex edited the text.\n", "disclosure mutation 6"),
         ("A" + "I was used for editing.\n", "disclosure mutation 7"),
         ("A chat" + "bot helped draft this file.\n", "disclosure mutation 8"),
@@ -436,11 +460,11 @@ def public_corpus_controls(tmp: Path) -> int:
             "condition mutation 5",
         ),
         (
-            "A comm" + "ittee decides whether publication may proceed.\n",
+            "A comm" + "ittee deci" + "des whether publication may proceed.\n",
             "comm" + "ittee-decision mutation",
         ),
         (
-            "Publication is determined by a pan" + "el vote.\n",
+            "Publication is deter" + "mined by a pan" + "el vote.\n",
             "pan" + "el-decision mutation",
         ),
         (
@@ -482,13 +506,15 @@ def public_corpus_controls(tmp: Path) -> int:
             + "cation.\n",
             "semantic dependency mutation B",
         ),
-        ("Cla" + "ude revised the prose.\n", "named-model mutation 1"),
-        ("Gem" + "ini revised the prose.\n", "named-model mutation 2"),
-        ("Open" + "A" + "I revised the prose.\n", "named-model mutation 3"),
-        ("G" + "PT-5 revised the prose.\n", "named-model mutation 4"),
+        ("Cla" + "ude revised the pro" + "se.\n", "vendor mutation 1"),
+        ("Gem" + "ini revised the pro" + "se.\n", "vendor mutation 2"),
+        ("Open" + "A" + "I revised the pro" + "se.\n", "vendor mutation 3"),
+        ("G" + "PT-5 revised the pro" + "se.\n", "vendor mutation 4"),
         (
             "A writing-"
-            + "bot drafted this documentation.\n",
+            + "bo"
+            + "t drafted this docu"
+            + "mentation.\n",
             "semantic attribution mutation A",
         ),
         (
@@ -546,7 +572,7 @@ def public_corpus_controls(tmp: Path) -> int:
             + "print will be submi"
             + "tted only after Alice "
             + "signs it.\n"
-            "A chat" + "bot helped draft this repository documentation.\n"
+            "A chat" + "bo" + "t helped draft this repository docu" + "mentation.\n"
             "Bad index: $[" + "\\PSL_2(q):H]$.\n",
             "combined public-corpus bypass mutation",
         ),
@@ -556,10 +582,458 @@ def public_corpus_controls(tmp: Path) -> int:
             + "sent before publi"
             + "cation.\n"
             + "A writing-"
-            + "bot drafted this documentation.\n"
+            + "bo"
+            + "t drafted this docu"
+            + "mentation.\n"
             + "Bad index: $\\Bigl"
             + "[N_{\\Aut(S)}(H)\\colon M_{12}.2\\Bigr]$.\n",
             "combined structural-bypass mutation",
+        ),
+        (
+            "The pre"
+            + "print will be posted once Alice ag"
+            + "rees.\n",
+            "named agreement-gate mutation",
+        ),
+        (
+            "Publi"
+            + "cation proceeds at Alice's discre"
+            + "tion.\n",
+            "named discretion-gate mutation",
+        ),
+        (
+            "Alice has the duty of check"
+            + "ing the final proof.\n",
+            "implicit final-proof assignment mutation A",
+        ),
+        (
+            "Alice will do the final proof veri"
+            + "fication.\n",
+            "implicit final-proof assignment mutation B",
+        ),
+        (
+            "A G"
+            + "PT mod"
+            + "el drafted this repository docu"
+            + "mentation.\n",
+            "generic-model disclosure mutation A",
+        ),
+        (
+            "A neural net"
+            + "work generated the pro"
+            + "se.\n",
+            "generic-model disclosure mutation B",
+        ),
+        (
+            "Machine lear"
+            + "ning generated portions of this text.\n",
+            "generic-model disclosure mutation C",
+        ),
+        (
+            "An autoregressive mod"
+            + "el assisted with drafting.\n",
+            "generic-model disclosure mutation D",
+        ),
+        (
+            "Bad index: $"
+            + "["
+            + "G{\\colon}M]$.\n",
+            "braced-colon square-index mutation",
+        ),
+        (
+            "Bad index: $"
+            + "["
+            + "G\\mathrel{\\vcentcolon}M]$.\n",
+            "vcentcolon square-index mutation",
+        ),
+        (
+            "Bad index: $"
+            + "["
+            + "G∶M]$.\n",
+            "Unicode-ratio square-index mutation",
+        ),
+        (
+            "Bad index: $"
+            + "⟦"
+            + "G:M⟧$.\n",
+            "Unicode-square-index mutation",
+        ),
+        (
+            "    Bad index: $|"
+            + "G:M|$.\n",
+            "indented-Markdown raw-index mutation",
+        ),
+        (
+            "The pre"
+            + "print will go online if Alice ag"
+            + "rees.\n"
+            + "A G"
+            + "PT mod"
+            + "el drafted this docu"
+            + "mentation.\n"
+            + "Bad index: $"
+            + "["
+            + "G\\mathrel{\\vcentcolon}M]$.\n",
+            "combined final-bypass mutation",
+        ),
+        (
+            "Publi"
+            + "cation depends on Alice's ver"
+            + "dict.\n",
+            "named verdict-gate mutation",
+        ),
+        (
+            "The pre"
+            + "print will go online on Alice's say-"
+            + "so.\n",
+            "named say-so gate mutation",
+        ),
+        (
+            "Alice controls whether the manu"
+            + "script is rele"
+            + "ased.\n",
+            "named publication-control mutation",
+        ),
+        (
+            "Alice che"
+            + "cks the proof before publi"
+            + "cation.\n",
+            "named prepublication-check mutation",
+        ),
+        (
+            "Alice is respon"
+            + "sible for check"
+            + "ing the proof.\n",
+            "named proof-responsibility mutation",
+        ),
+        (
+            "Proof veri"
+            + "fication is Alice's job.\n",
+            "named proof-job mutation",
+        ),
+        (
+            "A machine intel"
+            + "ligence system produced this pro"
+            + "se.\n",
+            "machine-intelligence disclosure mutation",
+        ),
+        (
+            "A language engine composed the pro"
+            + "se.\n",
+            "language-engine disclosure mutation",
+        ),
+        (
+            "A neural net produced the pro"
+            + "se.\n",
+            "neural-net disclosure mutation",
+        ),
+        (
+            "A statistical mod"
+            + "el composed this te"
+            + "xt.\n",
+            "statistical-model disclosure mutation",
+        ),
+        (
+            "An automated system produced this te"
+            + "xt.\n",
+            "automated-system disclosure mutation",
+        ),
+        (
+            "Bad index: $ "
+            + "|"
+            + " G:M "
+            + "|"
+            + " $.\n",
+            "spaced-raw-bar index mutation",
+        ),
+        (
+            "\\newcommand{\\idx"
+            + "sep}{:}\nBad index: $[G\\idx"
+            + "sep M]$.\n",
+            "macro-colon square-index mutation",
+        ),
+        (
+            "\\newcommand{\\grp"
+            + "index}[2]{[#1:#2]}\nBad index: $\\grp"
+            + "index{G}{M}$.\n",
+            "parameterized-macro square-index mutation",
+        ),
+        (
+            "Bad index: $[G\\char"
+            + "58 M]$.\n",
+            "character-code square-index mutation",
+        ),
+        (
+            "The pre"
+            + "print will go online if Alice ag"
+            + "rees.\n",
+            "bare-if agreement-gate mutation",
+        ),
+        (
+            "Publi"
+            + "cation follows Alice's deci"
+            + "sion.\n",
+            "named decision-following gate mutation",
+        ),
+        (
+            "Publi"
+            + "cation is deci"
+            + "ded by Alice.\n",
+            "named passive-decision gate mutation",
+        ),
+        (
+            "The pre"
+            + "print goes online at Alice's plea"
+            + "sure.\n",
+            "named pleasure gate mutation",
+        ),
+        (
+            "The pre"
+            + "print can be posted with Alice's appro"
+            + "val.\n",
+            "named with-approval gate mutation",
+        ),
+        (
+            "The pre"
+            + "print goes online upon Alice's appro"
+            + "val.\n",
+            "named upon-approval gate mutation",
+        ),
+        (
+            "Alice performs proof veri"
+            + "fication.\n",
+            "named performed-proof task mutation",
+        ),
+        (
+            "Alice has responsibility for proof veri"
+            + "fication.\n",
+            "named proof-responsibility noun mutation",
+        ),
+        (
+            "Alice over"
+            + "sees proof check"
+            + "ing.\n",
+            "named proof-oversight mutation",
+        ),
+        (
+            "Alice is the proof check"
+            + "er.\n",
+            "named proof-checker mutation",
+        ),
+        (
+            "Proof check"
+            + "ing falls to Alice.\n",
+            "named proof-task transfer mutation",
+        ),
+        (
+            "A neural net re"
+            + "wrote this pro"
+            + "se.\n",
+            "neural-net rewrite disclosure mutation",
+        ),
+        (
+            "A statistical system synthe"
+            + "sized this pro"
+            + "se.\n",
+            "statistical-system disclosure mutation",
+        ),
+        (
+            "A machine-intel"
+            + "ligent system produced this pro"
+            + "se.\n",
+            "machine-intelligent disclosure mutation",
+        ),
+        (
+            "A language program composed this pro"
+            + "se.\n",
+            "language-program disclosure mutation",
+        ),
+        (
+            "A statistical engine para"
+            + "phrased the manu"
+            + "script.\n",
+            "statistical-engine disclosure mutation",
+        ),
+        (
+            "Bad index: $[G\\math"
+            + "char\"603A M]$.\n",
+            "math-character square-index mutation",
+        ),
+        (
+            "\\let\\idx"
+            + "sep\\colon\nBad index: $[G\\idx"
+            + "sep M]$.\n",
+            "let-alias square-index mutation",
+        ),
+        (
+            "\\newcommand{\\grp"
+            + "index}[2][G]{[#1:#2]}\nBad index: $\\grp"
+            + "index[M]$.\n",
+            "optional-macro square-index mutation",
+        ),
+        (
+            "Bad index: $\\csname lb"
+            + "rack\\endcsname G:M\\csname rb"
+            + "rack\\endcsname$.\n",
+            "constructed-name square-index mutation",
+        ),
+        (
+            "| label | value |\n|---|---|\n| bad | &#124;G:M&#124; |\n",
+            "HTML-bar Markdown-table mutation",
+        ),
+        (
+            "| label | value |\n|---|---|\n| bad | \\|G:M\\| |\n",
+            "escaped-bar Markdown-table mutation",
+        ),
+        (
+            "The pre"
+            + "print will go online if Alice ag"
+            + "rees.\nAlice performs proof veri"
+            + "fication.\nA neural net re"
+            + "wrote this pro"
+            + "se.\nBad index: $[G\\math"
+            + "char\"603A M]$.\n",
+            "combined second-round bypass mutation",
+        ),
+        (
+            "The pre"
+            + "print will be published provided that Alice appro"
+            + "ves.\n",
+            "provided-that approval-gate mutation",
+        ),
+        (
+            "The pre"
+            + "print will be published whenever Alice ag"
+            + "rees.\n",
+            "whenever agreement-gate mutation",
+        ),
+        (
+            "Rele"
+            + "ase is tied to Alice's appro"
+            + "val.\n",
+            "tied-to approval-gate mutation",
+        ),
+        (
+            "Publi"
+            + "cation needs Alice's appro"
+            + "val.\n",
+            "needs-approval gate mutation",
+        ),
+        (
+            "Publi"
+            + "cation depends on Alice.\n",
+            "bare named-dependency gate mutation",
+        ),
+        (
+            "Publi"
+            + "cation cannot proceed without Alice.\n",
+            "without-name gate mutation",
+        ),
+        (
+            "Publi"
+            + "cation is blocked until Alice responds.\n",
+            "blocked-until response gate mutation",
+        ),
+        (
+            "Alice deci"
+            + "des whether the preprint goes online.\n",
+            "named online-decision gate mutation",
+        ),
+        (
+            "Alice has the final deci"
+            + "sion on publi"
+            + "cation.\n",
+            "named final-decision gate mutation",
+        ),
+        (
+            "Alice che"
+            + "cks the proof.\n",
+            "named direct proof-check mutation",
+        ),
+        (
+            "Alice veri"
+            + "fies the proof.\n",
+            "named direct proof-verification mutation",
+        ),
+        (
+            "Alice will revi"
+            + "ew the proof.\n",
+            "named future proof-task mutation",
+        ),
+        (
+            "Alice is respon"
+            + "sible for proof veri"
+            + "fication.\n",
+            "named responsible-proof mutation",
+        ),
+        (
+            "Alice has been asked to veri"
+            + "fy the proof.\n",
+            "named requested-proof mutation",
+        ),
+        (
+            "Proof revi"
+            + "ew is Alice's responsibility.\n",
+            "named proof-review ownership mutation",
+        ),
+        (
+            "A neural net was used. It poli"
+            + "shed this pro"
+            + "se.\n",
+            "cross-sentence disclosure mutation",
+        ),
+        (
+            "A neural net poli"
+            + "shed this pro"
+            + "se.\n",
+            "polishing disclosure mutation",
+        ),
+        (
+            "A statistical engine proof"
+            + "read the manu"
+            + "script.\n",
+            "proofreading disclosure mutation",
+        ),
+        (
+            "An automated program cor"
+            + "rected the pro"
+            + "se.\n",
+            "correcting disclosure mutation",
+        ),
+        (
+            "A deep-learning application drafted this pro"
+            + "se.\n",
+            "deep-learning disclosure mutation",
+        ),
+        (
+            "A statistical engine pre"
+            + "pared the manu"
+            + "script.\n",
+            "preparation disclosure mutation",
+        ),
+        (
+            "Bad index: \\" + "[" + "G:M\\" + "].\n",
+            "unbarred display-math index mutation",
+        ),
+        (
+            "Bad index: ∣G:M∣.\n",
+            "Unicode mathematical-bar index mutation",
+        ),
+        (
+            "Bad index: \\text"
+            + "bar G:M\\text"
+            + "bar.\n",
+            "text-bar index mutation",
+        ),
+        (
+            "Publi"
+            + "cation depends on Alice.\nA neural net poli"
+            + "shed this pro"
+            + "se.\nBad index: \\text"
+            + "bar G:M\\text"
+            + "bar.\nAlice che"
+            + "cks the proof.\n",
+            "combined third-round bypass mutation",
         ),
     ]
     for content, context in mutations:
@@ -580,6 +1054,22 @@ def public_corpus_controls(tmp: Path) -> int:
         encoding="utf-8",
     )
     require_failure(command, tmp, "second-disclosure-sentence mutation")
+    hidden_disclosure = (
+        "\\newcommand{\\first"
+        + "part}{G}\n"
+        + "\\newcommand{\\second"
+        + "part}{PT}\n"
+        + "A \\first"
+        + "part\\second"
+        + "part engine com"
+        + "posed this sec"
+        + "tion.\n"
+    )
+    principal.write_text(
+        original_principal.replace(heading, hidden_disclosure + heading, 1),
+        encoding="utf-8",
+    )
+    require_failure(command, tmp, "macro-composed disclosure mutation")
     principal.write_text(original_principal, encoding="utf-8")
 
     def add_path_then_reject(name: str, content: str, context: str) -> None:
@@ -665,7 +1155,9 @@ def public_corpus_controls(tmp: Path) -> int:
         + "sent before publi"
         + "cation.\n"
         + "A writing-"
-        + "bot drafted this documentation.\n"
+        + "bo"
+        + "t drafted this docu"
+        + "mentation.\n"
         + "Bad index: $\\Bigl"
         + "[N_{\\Aut(S)}(H)\\colon M_{12}.2\\Bigr]$.\n"
     ).encode()
@@ -715,7 +1207,7 @@ def public_corpus_controls(tmp: Path) -> int:
     )
     require_failure(strict_command, tmp, "unavailable source-commit mutation")
 
-    return len(mutations) + 18
+    return len(mutations) + 19
 
 
 def archive_builder_controls(tmp: Path) -> int:

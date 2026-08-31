@@ -4,7 +4,7 @@
 
 The publication status is **preprint**. [`artifact-metadata.json`](artifact-metadata.json)
 is the single source for the manuscript date, deterministic epoch, repository,
-PDF properties, Tectonic inputs, version 1.1.0, tag `v1.1.0`, and the
+PDF properties, Tectonic inputs, version 1.1.1, tag `v1.1.1`, and the
 source-archive stem. No version DOI has been issued. `scripts/check-release.py`
 cross-checks this record
 against the TeX front matter, `CITATION.cff`, the build receipt, the PDF catalog,
@@ -112,9 +112,9 @@ The commands behind these targets are documented in
 ## Source-bundle boundary
 
 `scripts/public-files.txt` is the sole packaging inventory. The strict bundle
-is `dist/kourovka-18-68-v1.1.0-source.tar.gz`; the explicitly labelled
+is `dist/kourovka-18-68-v1.1.1-source.tar.gz`; the explicitly labelled
 working-tree bundle is
-`dist/kourovka-18-68-v1.1.0-working-tree-source.tar.gz`. Both are built
+`dist/kourovka-18-68-v1.1.1-working-tree-source.tar.gz`. Both are built
 twice byte-for-byte and scanned after safe extraction. The adjacent
 `*-SHA256SUMS.txt` binds the PDF and source bundle, and
 `scripts/check-artifact-sidecar.py` independently reparses that sidecar and

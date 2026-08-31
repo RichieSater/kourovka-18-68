@@ -159,9 +159,9 @@ def process_patterns() -> list[re.Pattern[str]]:
         r"\brole\s+matrix\b",
         r"\bpending[- ]eval" + r"uation\s+table\b",
         r"\breader\s+test\b",
-        r"\bresponsible\s+for\s+(?:appro" + r"ving|vali" + r"dating|veri" +
-        r"fying|revi" + r"ewing|rele" + r"asing|publi" + r"shing|submi" +
-        r"tting)\b",
+        r"\bresponsible\s+for\s+(?:check" + r"ing|eval" + r"uating|appro" +
+        r"ving|vali" + r"dating|veri" + r"fying|revi" + r"ewing|rele" +
+        r"asing|publi" + r"shing|submi" + r"tting)\b",
         r"\b(?:rele" + r"ase|publi" + r"cation|submi" + r"ssion|readi" +
         r"ness)\s+(?:lead|manager|owner|coordinator|chair)\b",
     ]
@@ -182,7 +182,7 @@ def normalize_policy_text(text: str) -> str:
     return " ".join(normalized.casefold().split())
 
 
-def policy_windows(text: str, path: Path) -> Iterator[str]:
+def policy_windows(text: str, path: Path, *, adjacent: bool = True) -> Iterator[str]:
     """Yield normalized sentence and adjacent-sentence windows.
 
     Source code is kept line-local so fragments used to define this policy do
@@ -207,7 +207,7 @@ def policy_windows(text: str, path: Path) -> Iterator[str]:
     for index, window in enumerate(normalized):
         if window:
             yield window
-        if index + 1 < len(normalized):
+        if adjacent and index + 1 < len(normalized):
             pair = " ".join((window, normalized[index + 1])).strip()
             if pair:
                 yield pair
@@ -215,19 +215,17 @@ def policy_windows(text: str, path: Path) -> Iterator[str]:
 
 PUBLICATION_SIGNAL = re.compile(
     r"\b(?:rele" + r"as(?:e|es|ed|ing)|publi" + r"(?:sh|shes|shing|cation)|"
-    r"submi" + r"(?:t|ts|tted|ssion)|preprint|manuscript|readi" + r"ness|ready|"
-    r"circulat(?:e|es|ed|ing|ion)|deposit|upload|public\s+update|comple" +
-    r"tion)\b|\b(?:be|been|being|is|are|was|were|get|gets|got|may\s+be|"
+    r"submi" + r"(?:t|ts|tted|ssion)|readi" + r"ness|ready|"
+    r"circulat(?:e|es|ed|ing|ion)|post(?:s|ed|ing)?|deposit|upload|"
+    r"public\s+update|comple" + r"tion)\b|\bgo(?:es|ing|ne)?\s+(?:online|live)\b|"
+    r"\bappear(?:s|ed|ing)?\s+(?:online|publicly)\b|"
+    r"\b(?:make|makes|made|making)\s+(?:the\s+)?(?:preprint|manuscript|work)\s+"
+    r"(?:public|available)\b|\b(?:be|been|being|is|are|was|were|get|gets|got|may\s+be|"
     r"can\s+be|will\s+be)\s+published\b"
 )
-AUTHORIZATION_SIGNAL = re.compile(
-    r"\b(?:consen" + r"t|authori" + r"z(?:e|es|ed|ing|ation)|assen" + r"t|"
-    r"appro" + r"v(?:e|es|ed|ing|al)|permission|endorsement|clearance|"
-    r"certif(?:y|ies|ied|ication)|sign\s+off|signs?|signed|concurrence|"
-    r"green\s+light|go\s+ahead)\b"
-)
 CONDITION_SIGNAL = re.compile(
-    r"\b(?:after|before|until|unless|once|when|only\s+if|only\s+after|"
+    r"\b(?:after|before|until|unless|once|when|whenever|if|provided\s+that|"
+    r"only\s+if|only\s+after|without|"
     r"depends?\s+(?:on|upon)|requi" + r"r(?:e|es|ed|ing|ement)|awaits?|"
     r"subject\s+to|contingent\s+(?:on|upon)|conditional\s+(?:on|upon)|"
     r"pending|must|may\s+not|will\s+not|cannot|withheld|blocked|deferred)\b"
@@ -263,28 +261,165 @@ PROCESS_TASK_SIGNAL = re.compile(
 RESPONSIBILITY_SIGNAL = re.compile(
     r"\b(?:responsible\s+for|in\s+charge\s+of|owns?\s+the\s+(?:decision|call)|"
     r"has\s+the\s+(?:final|last)\s+(?:say|word)|decision\s+belongs\s+to|"
-    r"rests?\s+in\s+the\s+hands\s+of)\b"
+    r"rests?\s+in\s+the\s+hands\s+of|at\s+[^.!?]{1,80}\s+discretion|"
+    r"(?:on|upon|under)\s+[^.!?]{1,80}\s+(?:say\s+so|verdict|recommendation)|"
+    r"controls?\s+whether|decides?\s+whether|has\s+(?:the\s+)?final\s+decision|"
+    r"follows?\s+[^.!?]{1,80}\s+decision|"
+    r"(?:is|are|be|been|being)\s+(?:decided|determined|controlled)\s+by)\b"
 )
+PUBLIC_APPROVAL_GATE_SIGNAL = re.compile(
+    r"\b(?:after|before|until|unless|once|when|whenever|if|provided\s+that|"
+    r"with|upon|on|under|at|needs?|tied\s+to|"
+    r"only\s+if|only\s+after|depends?\s+(?:on|upon)|requires?|awaits?|"
+    r"subject\s+to|contingent\s+(?:on|upon)|conditional\s+(?:on|upon))\b"
+    r"[^.!?]{0,100}\b(?:consen" + r"t|authori" + r"zation|assen" + r"t|"
+    r"appro" + r"val|permission|endorsement|clearance|signature|verdict|"
+    r"say\s+so|recommendation|judg(?:e)?ment|blessing|discretion|pleasure|"
+    r"thumbs?\s+up|green\s+light|go\s+ahead)\b|"
+    r"\b(?:if|unless|once|when|whenever|provided\s+that|after|before|until)\s+"
+    r"(?!(?:manuscript|preprint|proof|result|theorem|classification|equation|"
+    r"invariant|calculation|software|script|checker|test)\b)"
+    r"(?:the\s+)?[a-z][a-z0-9'-]*\s+(?:agree(?:s|d)|signs?|signed|"
+    r"appro" + r"v(?:e|es|ed)|authori" + r"z(?:e|es|ed)|endorse(?:s|d)?|"
+    r"certif(?:y|ies|ied)|confirms?|confirmed|says?\s+yes|nods?)\b|"
+    r"\b(?:consen" + r"t|authori" + r"zation|assen" + r"t|appro" + r"val|"
+    r"permission|endorsement|clearance|signature)\b[^.!?]{0,100}\b"
+    r"(?:required|needed|mandatory|must)\b"
+)
+PROPER_NAME_RE = re.compile(r"(?<![A-Za-z])([A-Z][a-z]+(?:-[A-Z]?[a-z]+)*)\b")
+NONPERSON_PROPER_NAMES = {
+    "A", "After", "An", "Appendix", "Article", "Before", "Classification",
+    "Build", "Check", "Corollary", "Equation", "Figure", "If", "Install",
+    "Group", "Lemma", "Lean", "Manuscript", "Magma", "Mathematica", "Paper",
+    "Preprint", "Proposition", "Publication", "Python", "Release", "Research", "Result",
+    "Rocq", "Run", "Rust", "Sage", "Section", "See", "Software", "Submission", "Table", "The",
+    "Tectonic", "Theorem", "Third-party", "This", "TomLib", "When", "Whenever",
+}
+TASK_OWNERSHIP_SIGNAL = re.compile(
+    r"\b(?:proof\s+)?(?:check(?:ing)?|veri" + r"fication|vali" + r"dation|"
+    r"eval" + r"uation|revi" + r"ew)\s+(?:is|remains|becomes)\s+[^.!?]{1,80}\s+"
+    r"(?:job|duty|responsibility|assignment)\b|"
+    r"\b[^.!?]{1,80}\s+(?:job|duty|responsibility|assignment)\s+(?:is|includes)\s+"
+    r"(?:proof\s+)?(?:check(?:ing)?|veri" + r"fication|vali" + r"dation|"
+    r"eval" + r"uation|revi" + r"ew)\b"
+)
+TASK_ASSIGNMENT_SIGNAL = re.compile(
+    r"\b[^.!?]{0,80}\s+(?:will\s+)?(?:perform(?:s|ed|ing)?|conduct(?:s|ed|ing)?|"
+    r"oversee(?:s|ing)?|handle(?:s|d|ing)?|undertak(?:e|es|ing)|carries\s+out)\s+"
+    r"(?:the\s+)?(?:proof\s+)?(?:check(?:ing)?|veri" + r"fication|vali" +
+    r"dation|eval" + r"uation|revi" + r"ew)\b|"
+    r"\b[^.!?]{0,80}\s+(?:will\s+)?(?:check(?:s|ed|ing)?|verif(?:y|ies|ied|ying)|"
+    r"vali" + r"dat(?:e|es|ed|ing)|eval" + r"uat(?:e|es|ed|ing)|revi" +
+    r"ew(?:s|ed|ing)?)\s+(?:the\s+)?proof\b|"
+    r"\b[^.!?]{0,80}\s+has\s+(?:the\s+)?responsibility\s+for\s+"
+    r"(?:proof\s+)?(?:check(?:ing)?|veri" + r"fication|vali" + r"dation|"
+    r"eval" + r"uation|revi" + r"ew)\b|"
+    r"\b[^.!?]{0,80}\s+is\s+responsible\s+for\s+(?:proof\s+)?"
+    r"(?:check(?:ing)?|veri" + r"fication|vali" + r"dation|eval" +
+    r"uation|revi" + r"ew)\b|"
+    r"\b[^.!?]{0,80}\s+(?:has\s+been|was|is|will\s+be)\s+asked\s+to\s+"
+    r"(?:check|verify|vali" + r"date|eval" + r"uate|revi" + r"ew)\s+"
+    r"(?:the\s+)?proof\b|"
+    r"\b[^.!?]{0,80}\s+is\s+(?:the\s+)?(?:proof\s+)?"
+    r"(?:checker|verifier|validator|evaluator)\b|"
+    r"\b(?:proof\s+)?(?:check(?:ing)?|veri" + r"fication|vali" + r"dation|"
+    r"eval" + r"uation|revi" + r"ew)\s+(?:falls|belongs)\s+to\b"
+)
+AUTOMATED_CHECK_SIGNAL = re.compile(
+    r"\b(?:deterministic\s+)?(?:algorithm|script|checker|tests?|command|program|"
+    r"software|tool|system|workflow|pipeline|ci|build|computation|certificate|"
+    r"gap|lean|rocq|rust|python|sage|magma|mathematica)\s+(?:automatically\s+)?"
+    r"(?:check(?:s|ed|ing)?|inspect(?:s|ed|ing)?|verif(?:y|ies|ied|ying)|"
+    r"vali" + r"dat(?:e|es|ed|ing)|assess(?:es|ed|ing)?|perform(?:s|ed|ing)?|"
+    r"conduct(?:s|ed|ing)?|oversee(?:s|ing)?|handle(?:s|d|ing)?|carries\s+out)\b|"
+    r"\b(?:check(?:s|ed|ing)?|inspect(?:s|ed|ing)?|verif(?:y|ies|ied|ying)|"
+    r"vali" + r"dat(?:e|es|ed|ing)|assess(?:es|ed|ing)?)\b[^.!?]{0,100}\b"
+    r"(?:by|using|via|with)\s+(?:a\s+|the\s+)?(?:algorithm|script|checker|tests?|"
+    r"command|program|software|tool|system|workflow|pipeline|ci|build|computation|"
+    r"certificate|gap|lean|rocq|rust|python|sage|magma|mathematica)\b"
+)
+FINAL_PROOF_TASK_SIGNAL = re.compile(
+    r"\b(?:final|last)\s+(?:proof\s+)?"
+    r"(?:check|veri" + r"fication|vali" + r"dation|eval" + r"uation)\b|"
+    r"\b(?:check(?:ing)?|veri" + r"f(?:y|ying)|vali" + r"dat(?:e|ing)|"
+    r"eval" + r"uat(?:e|ing))\s+(?:the\s+)?(?:final|last)\s+proof\b"
+)
+
+
+def raw_policy_chunks(text: str, path: Path) -> list[str]:
+    if path.suffix.lower() in {".py", ".sh"} or path.name == "Makefile":
+        return [line for line in text.splitlines() if line.strip()]
+    return [
+        chunk.strip()
+        for chunk in re.split(r"(?<=[.!?])(?:[\"')\]]*)\s+|\n[ \t]*\n|\n", text)
+        if chunk.strip()
+    ]
+
+
+def contains_person_name(raw: str) -> bool:
+    for match in PROPER_NAME_RE.finditer(unicodedata.normalize("NFKC", raw)):
+        name = match.group(1)
+        prefix = raw[:match.start()]
+        if not prefix.strip() or re.search(r"[.!?]\s*$", prefix):
+            continue
+        if name in NONPERSON_PROPER_NAMES:
+            continue
+        suffix = raw[match.end():match.end() + 40]
+        if re.match(r"['’]s\s+(?:theorem|lemma|result|classification|paper|article)\b",
+                    suffix, re.IGNORECASE):
+            continue
+        return True
+    return False
 
 
 def human_gate_sentence(text: str, path: Path) -> str | None:
     """Return a normalized structural public-status gate or task allocation."""
 
+    source_code = path.suffix.lower() in {".py", ".sh"} or path.name == "Makefile"
+    if not source_code:
+        chunks = raw_policy_chunks(text, path)
+        for index, raw in enumerate(chunks):
+            candidates = [raw]
+            if index + 1 < len(chunks):
+                candidates.append(raw + ". " + chunks[index + 1])
+            for candidate in candidates:
+                window = normalize_policy_text(candidate)
+                if not PUBLICATION_SIGNAL.search(window) or not contains_person_name(candidate):
+                    continue
+                if (
+                    CONDITION_SIGNAL.search(window)
+                    or RESPONSIBILITY_SIGNAL.search(window)
+                    or PUBLIC_APPROVAL_GATE_SIGNAL.search(window)
+                ):
+                    return window
     for window in policy_windows(text, path):
         public_state = bool(PUBLICATION_SIGNAL.search(window))
-        approval_action = bool(AUTHORIZATION_SIGNAL.search(window))
         condition = bool(CONDITION_SIGNAL.search(window))
         actor = bool(ACTOR_SIGNAL.search(window))
         action = bool(HUMAN_ACTION_SIGNAL.search(window))
         if ASSIGNMENT_SIGNAL.search(window) and PROCESS_TASK_SIGNAL.search(window):
             return window
-        if public_state and approval_action:
+        if FINAL_PROOF_TASK_SIGNAL.search(window):
+            return window
+        if TASK_OWNERSHIP_SIGNAL.search(window):
+            return window
+        task_allocation = TASK_ASSIGNMENT_SIGNAL.search(window)
+        automated_allocation = AUTOMATED_CHECK_SIGNAL.search(window)
+        if task_allocation and not automated_allocation:
+            return window
+        if public_state and PUBLIC_APPROVAL_GATE_SIGNAL.search(window):
             return window
         if public_state and RESPONSIBILITY_SIGNAL.search(window):
             return window
         if public_state and actor and DECISION_ACTION_SIGNAL.search(window):
             return window
-        if public_state and actor and action and condition:
+        if (
+            not source_code
+            and public_state
+            and action
+            and condition
+            and not AUTOMATED_CHECK_SIGNAL.search(window)
+        ):
             return window
     return None
 
@@ -296,19 +431,7 @@ def disclosure_patterns() -> list[re.Pattern[str]]:
         r"\blanguage\s+mod" + r"els?\b",
         r"\blarge\s+language\s+mod" + r"els?\b",
         r"\bL" + r"LMs?\b",
-        r"\bChat" + r"GPT\b",
-        r"\bCod" + r"ex\b",
-        r"\bOpen" + r"A" + r"I\b",
-        r"\bAnthro" + r"pic\b",
-        r"\bCla" + r"ude\b",
-        r"\bGem" + r"ini\b",
-        r"\bCo" + r"pilot\b",
-        r"\bGr" + r"ok\b",
-        r"\bLl" + r"ama\b",
-        r"\bMis" + r"tral\b",
-        r"\bPerplex" + r"ity\b",
-        r"\bDeep" + r"Seek\b",
-        r"\bG" + r"PT[- ]?[0-9][0-9A-Za-z.]*\b",
+        r"\bChat" + r"G" + r"PT\b",
         r"\bmachine[- ]generated\b",
         r"\bchat" + r"bots?\b",
         r"\b(?:neural|machine[- ]learning|foundation|trans" +
@@ -337,16 +460,76 @@ DISCLOSURE_FORM_C = re.compile(
     r"\b(?:automated|algorithmic|neural|predictive|transformer|foundation)\s+"
     r"(?:writing|authoring|editing|drafting|text|language|prose)\b"
 )
+DISCLOSURE_AGENT_SIGNAL = re.compile(
+    r"\b(?:mod" + r"el|net" + r"work|net|bo" + r"t|robot|assistant|agent|"
+    r"engine|generator|service|transformer)\b"
+)
+DISCLOSURE_QUALIFIED_AGENT_SIGNAL = re.compile(
+    r"\b(?:machine\s+intelligen(?:ce|t)|language|neural|statistical|predictive|"
+    r"deep\s+learning|"
+    r"automated|algorithmic|foundation|autoregressive|gen" + r"erative)\s+"
+    r"(?:mod" + r"el|net" + r"work|net|algor" + r"ithm|soft" + r"ware|program|tool|"
+    r"system|application|bo" + r"t|robot|assistant|agent|engine|generator|service|"
+    r"transformer)\b"
+)
+DISCLOSURE_VENDOR_SIGNAL = re.compile(
+    r"\b(?:Cod" + r"ex|Open" + r"A" + r"I|Anthro" + r"pic|Cla" + r"ude|"
+    r"Gem" + r"ini|Co" + r"pilot|Gr" + r"ok|Ll" + r"ama|Mis" + r"tral|"
+    r"Perplex" + r"ity|Deep" + r"Seek|G" + r"P" + r"T(?:[- ]?[0-9][0-9A-Za-z.]*)?)\b",
+    re.IGNORECASE,
+)
+DISCLOSURE_TECHNOLOGY_SIGNAL = re.compile(
+    r"\b(?:machine\s+learning|artificial\s+intelligence|gen" + r"erative\s+"
+    r"(?:a\s+i|technology|software))\b"
+)
+DISCLOSURE_ACTION_SIGNAL = re.compile(
+    r"\b(?:draft(?:s|ed|ing)?|writ(?:e|es|ing)|wrote|edit(?:s|ed|ing)?|"
+    r"revis(?:e|es|ed|ing)|generat(?:e|es|ed|ing)|assist(?:s|ed|ing)?|"
+    r"author(?:s|ed|ing)?|produc(?:e|es|ed|ing)|compos(?:e|es|ed|ing)|"
+    r"creat(?:e|es|ed|ing)?|rewrit(?:e|es|ten|ing)|rewrote|"
+    r"synthesi[sz](?:e|es|ed|ing)|paraphras(?:e|es|ed|ing)|"
+    r"polish(?:es|ed|ing)?|proofread(?:s|ing)?|correct(?:s|ed|ing)?|"
+    r"prepar(?:e|es|ed|ing)?)\b"
+)
+DISCLOSURE_CONTENT_SIGNAL = re.compile(
+    r"\b(?:prose|te" + r"xt(?!\s+(?:files?|data|corpus|encoding|extraction)\b)|"
+    r"manuscript(?!\s+(?:index|table|source|file)\b)|documentation|wording|copy|"
+    r"drafting|writing|editing|authoring|paragraph|section|article|paper)\b"
+)
 
 
 def structural_disclosure(text: str, path: Path) -> str | None:
-    for window in policy_windows(text, path):
+    sentences = list(policy_windows(text, path, adjacent=False))
+    for window in sentences:
         if (
             DISCLOSURE_FORM_A.search(window)
             or DISCLOSURE_FORM_B.search(window)
             or DISCLOSURE_FORM_C.search(window)
+            or (
+                DISCLOSURE_AGENT_SIGNAL.search(window)
+                or DISCLOSURE_QUALIFIED_AGENT_SIGNAL.search(window)
+                or DISCLOSURE_TECHNOLOGY_SIGNAL.search(window)
+                or DISCLOSURE_VENDOR_SIGNAL.search(window)
+            )
+            and DISCLOSURE_ACTION_SIGNAL.search(window)
+            and DISCLOSURE_CONTENT_SIGNAL.search(window)
         ):
             return window
+    for first, second in zip(sentences, sentences[1:]):
+        agent = (
+            DISCLOSURE_AGENT_SIGNAL.search(first)
+            or DISCLOSURE_QUALIFIED_AGENT_SIGNAL.search(first)
+            or DISCLOSURE_TECHNOLOGY_SIGNAL.search(first)
+            or DISCLOSURE_VENDOR_SIGNAL.search(first)
+        )
+        if (
+            agent
+            and re.search(r"\b(?:was|were|is|are)\s+(?:used|employed)\b", first)
+            and re.match(r"(?:it|this\s+(?:tool|system|program|application|model))\b", second)
+            and DISCLOSURE_ACTION_SIGNAL.search(second)
+            and DISCLOSURE_CONTENT_SIGNAL.search(second)
+        ):
+            return first + " " + second
     return None
 
 
@@ -365,18 +548,49 @@ TEX_SIZE_COMMAND_RE = re.compile(
     r"\\(?:left|right|bigl|bigr|Bigl|Bigr|biggl|biggr|Biggl|Biggr|big|Big)\b"
 )
 TEX_COLON_COMMAND_RE = re.compile(
-    r"\\+(?:colon|mathcolon|ratio|textcolon)\b", re.IGNORECASE
+    r"\\+(?:colon|mathcolon|ratio|textcolon|vcentcolon)\b", re.IGNORECASE
 )
 TEX_MATH_CLASS_COLON_RE = re.compile(
     r"\\+(?:mathord|mathop|mathbin|mathrel|mathopen|mathclose|mathpunct|"
-    r"mathinner)\s*\{\s*(?:\\+(?:colon|mathcolon|ratio|textcolon)\b|:)\s*\}",
+    r"mathinner)\s*\{\s*(?:\\+(?:colon|mathcolon|ratio|textcolon|vcentcolon)\b|:)\s*\}",
     re.IGNORECASE,
 )
-RAW_BAR_COMMAND_RE = re.compile(r"\\+(?:vert|mid)\b|\\+\|")
-ALL_BAR_COMMAND_RE = re.compile(r"\\+(?:lvert|rvert|vert|mid)\b|\\+\|")
+TEX_WRAPPED_COLON_RE = re.compile(
+    r"\\+[A-Za-z]+\*?\s*\{\s*"
+    r"(?:\\+(?:colon|mathcolon|ratio|textcolon|vcentcolon)\b|:)\s*\}",
+    re.IGNORECASE,
+)
+TEX_BRACED_COLON_RE = re.compile(r"\{\s*:\s*\}")
+RAW_BAR_COMMAND_RE = re.compile(r"\\+(?:vert|mid|textbar)\b|\\+\|")
+ALL_BAR_COMMAND_RE = re.compile(r"\\+(?:lvert|rvert|vert|mid|textbar)\b|\\+\|")
 ENCODED_SQUARE_DELIMITERS = (
     (re.compile(r"\\+(?:lbrack|lBrack|Lbrack|llbracket|textlbrack)\b"), "["),
     (re.compile(r"\\+(?:rbrack|rBrack|Rbrack|rrbracket|textrbrack)\b"), "]"),
+)
+ENCODED_CSNAME_TOKENS = (
+    (re.compile(r"\\+csname\s*(?:lbrack|lBrack|Lbrack|llbracket|textlbrack)\s*"
+                r"\\+endcsname", re.IGNORECASE), "["),
+    (re.compile(r"\\+csname\s*(?:rbrack|rBrack|Rbrack|rrbracket|textrbrack)\s*"
+                r"\\+endcsname", re.IGNORECASE), "]"),
+    (re.compile(r"\\+csname\s*(?:colon|mathcolon|ratio|textcolon|vcentcolon)\s*"
+                r"\\+endcsname", re.IGNORECASE), ":"),
+)
+ENCODED_CHAR_TOKENS = (
+    (re.compile(r"\\+char\s*(?:58(?![0-9])|[\"']3[aA](?![0-9A-Fa-f])|[']72(?![0-7]))"), ":"),
+    (re.compile(r"\\+char\s*(?:91(?![0-9])|[\"']5[bB](?![0-9A-Fa-f])|[']133(?![0-7]))"), "["),
+    (re.compile(r"\\+char\s*(?:93(?![0-9])|[\"']5[dD](?![0-9A-Fa-f])|[']135(?![0-7]))"), "]"),
+)
+ENCODED_MATHCHAR_TOKENS = (
+    (re.compile(r"\\+mathchar\s*[\"']?[0-9A-Fa-f]*3[aA](?![0-9A-Fa-f])"), ":"),
+    (re.compile(r"\\+mathchar\s*[\"']?[0-9A-Fa-f]*5[bB](?![0-9A-Fa-f])"), "["),
+    (re.compile(r"\\+mathchar\s*[\"']?[0-9A-Fa-f]*5[dD](?![0-9A-Fa-f])"), "]"),
+)
+TEX_NEWCOMMAND_RE = re.compile(
+    r"\\(?:newcommand|renewcommand|providecommand|DeclareRobustCommand)\*?"
+)
+TEX_DEF_RE = re.compile(r"\\(?:def|gdef|edef|xdef)\s*\\([A-Za-z@]+)")
+TEX_LET_RE = re.compile(
+    r"\\let\s*\\([A-Za-z@]+)\s*=?\s*(\\[A-Za-z@]+|.)", re.DOTALL
 )
 
 
@@ -389,6 +603,195 @@ def _escaped(text: str, offset: int) -> bool:
     return backslashes % 2 == 1
 
 
+def _skip_space(text: str, offset: int) -> int:
+    while offset < len(text) and text[offset].isspace():
+        offset += 1
+    return offset
+
+
+def _braced_argument(text: str, offset: int) -> tuple[str, int] | None:
+    """Parse one balanced TeX braced argument, returning content and end."""
+
+    offset = _skip_space(text, offset)
+    if offset >= len(text) or text[offset] != "{":
+        return None
+    depth = 0
+    start = offset + 1
+    for cursor in range(offset, len(text)):
+        if _escaped(text, cursor):
+            continue
+        if text[cursor] == "{":
+            depth += 1
+        elif text[cursor] == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start:cursor], cursor + 1
+    return None
+
+
+def _square_argument(text: str, offset: int) -> tuple[str, int] | None:
+    offset = _skip_space(text, offset)
+    if offset >= len(text) or text[offset] != "[":
+        return None
+    depth = 0
+    start = offset + 1
+    for cursor in range(offset, len(text)):
+        if _escaped(text, cursor):
+            continue
+        if text[cursor] == "[":
+            depth += 1
+        elif text[cursor] == "]":
+            depth -= 1
+            if depth == 0:
+                return text[start:cursor], cursor + 1
+    return None
+
+
+def _simple_tex_macros(
+    text: str,
+) -> tuple[dict[str, tuple[int, str, str | None]], list[tuple[int, int]]]:
+    """Collect ordinary zero-to-nine-argument TeX macro definitions.
+
+    This deliberately small parser covers the standard definition forms used
+    by the manuscript and prevents a delimiter or disclosure token from being
+    hidden behind simple source macros.  TeX remains the rendering authority;
+    the rendered manuscript is checked separately below.
+    """
+
+    macros: dict[str, tuple[int, str, str | None]] = {}
+    ranges: list[tuple[int, int]] = []
+    for match in TEX_NEWCOMMAND_RE.finditer(text):
+        cursor = _skip_space(text, match.end())
+        name = ""
+        if cursor < len(text) and text[cursor] == "{":
+            parsed_name = _braced_argument(text, cursor)
+            if parsed_name is None:
+                continue
+            raw_name, cursor = parsed_name
+            name_match = re.fullmatch(r"\\([A-Za-z@]+)", raw_name.strip())
+            if name_match is None:
+                continue
+            name = name_match.group(1)
+        else:
+            name_match = re.match(r"\\([A-Za-z@]+)", text[cursor:])
+            if name_match is None:
+                continue
+            name = name_match.group(1)
+            cursor += name_match.end()
+        cursor = _skip_space(text, cursor)
+        arguments = 0
+        optional_default: str | None = None
+        if cursor < len(text) and text[cursor] == "[":
+            close = text.find("]", cursor + 1)
+            if close == -1 or not text[cursor + 1:close].strip().isdigit():
+                continue
+            arguments = int(text[cursor + 1:close].strip())
+            if not 0 <= arguments <= 9:
+                continue
+            cursor = _skip_space(text, close + 1)
+            if cursor < len(text) and text[cursor] == "[":
+                parsed_default = _square_argument(text, cursor)
+                if parsed_default is None:
+                    continue
+                optional_default, cursor = parsed_default
+                cursor = _skip_space(text, cursor)
+        parsed_body = _braced_argument(text, cursor)
+        if parsed_body is None:
+            continue
+        body, end = parsed_body
+        macros[name] = (arguments, body, optional_default)
+        ranges.append((match.start(), end))
+
+    for match in TEX_DEF_RE.finditer(text):
+        name = match.group(1)
+        cursor = match.end()
+        body_start = text.find("{", cursor)
+        if body_start == -1:
+            continue
+        parameter_text = text[cursor:body_start]
+        if not re.fullmatch(r"(?:\s*#[1-9])*\s*", parameter_text):
+            continue
+        numbers = [int(item) for item in re.findall(r"#([1-9])", parameter_text)]
+        arguments = max(numbers, default=0)
+        if numbers and numbers != list(range(1, arguments + 1)):
+            continue
+        parsed_body = _braced_argument(text, body_start)
+        if parsed_body is None:
+            continue
+        body, end = parsed_body
+        macros[name] = (arguments, body, None)
+        ranges.append((match.start(), end))
+    for match in TEX_LET_RE.finditer(text):
+        macros[match.group(1)] = (0, match.group(2), None)
+        ranges.append((match.start(), match.end()))
+    return macros, ranges
+
+
+def expand_simple_tex_macros(text: str) -> str:
+    """Expand standard source macros sufficiently for policy and notation scans."""
+
+    macros, ranges = _simple_tex_macros(text)
+    if not macros:
+        return text
+    masked = list(text)
+    for start, end in ranges:
+        masked[start:end] = " " * (end - start)
+    expanded = "".join(masked)
+
+    names = "|".join(re.escape(name) for name in sorted(macros, key=len, reverse=True))
+    invocation = re.compile(r"\\(" + names + r")(?![A-Za-z@])")
+    for _round in range(20):
+        changed = False
+        pieces: list[str] = []
+        cursor = 0
+        for match in invocation.finditer(expanded):
+            if match.start() < cursor:
+                continue
+            name = match.group(1)
+            arguments, body, optional_default = macros[name]
+            end = match.end()
+            values: list[str] = []
+            valid = True
+            required = arguments
+            used_optional = False
+            if optional_default is not None:
+                parsed_optional = _square_argument(expanded, end)
+                if parsed_optional is None:
+                    values.append(optional_default)
+                else:
+                    value, end = parsed_optional
+                    values.append(value)
+                    used_optional = True
+                required -= 1
+            for _index in range(required):
+                parsed = _braced_argument(expanded, end)
+                if parsed is None:
+                    if used_optional:
+                        values.extend("G" for _missing in range(required - _index))
+                    else:
+                        valid = False
+                    break
+                value, end = parsed
+                values.append(value)
+            if not valid:
+                continue
+            replacement = body
+            for number, value in enumerate(values, 1):
+                replacement = replacement.replace(f"#{number}", value)
+            pieces.append(expanded[cursor:match.start()])
+            pieces.append(replacement)
+            cursor = end
+            changed = True
+        if changed:
+            pieces.append(expanded[cursor:])
+            expanded = "".join(pieces)
+            require(len(expanded) <= 8 * 1024 * 1024,
+                    "expanded TeX policy text is unexpectedly large")
+        if not changed:
+            break
+    return expanded
+
+
 def _square_spans(text: str) -> Iterator[tuple[int, int]]:
     stack: list[int] = []
     for offset, character in enumerate(text):
@@ -398,16 +801,21 @@ def _square_spans(text: str) -> Iterator[tuple[int, int]]:
             yield stack.pop(), offset + 1
 
 
-def _bar_spans(text: str, *, ignore_markdown_cells: bool = False) -> Iterator[tuple[int, int]]:
+def _standalone_square_spans(text: str) -> Iterator[tuple[int, int]]:
+    """Yield mathematical-looking brackets, not programming subscripts."""
+
+    for start, end in _square_spans(text):
+        previous = text[start - 1] if start else ""
+        if previous and (previous.isalnum() or previous in "_)]}"):
+            continue
+        yield start, end
+
+
+def _bar_spans(text: str) -> Iterator[tuple[int, int]]:
     start: int | None = None
     for offset, character in enumerate(text):
         if character != "|" or _escaped(text, offset):
             continue
-        if ignore_markdown_cells:
-            left = text[offset - 1] if offset else " "
-            right = text[offset + 1] if offset + 1 < len(text) else " "
-            if left.isspace() and right.isspace():
-                continue
         if start is None:
             start = offset
         else:
@@ -452,15 +860,37 @@ def _group_expression(expression: str, *, allow_identity: bool = False) -> bool:
 
 def _decode_index_tokens(text: str) -> str:
     normalized = unicodedata.normalize("NFKC", html.unescape(text))
+    normalized = normalized.translate(str.maketrans({
+        "∶": ":",
+        "꞉": ":",
+        "︰": ":",
+        "﹕": ":",
+        "∣": "|",
+        "❘": "|",
+        "⏐": "|",
+        "｜": "|",
+        "⟦": "[",
+        "⟧": "]",
+        "〚": "[",
+        "〛": "]",
+    }))
     normalized = TEX_SIZE_COMMAND_RE.sub("", normalized)
     for pattern, replacement in ENCODED_SQUARE_DELIMITERS:
         normalized = pattern.sub(replacement, normalized)
+    for pattern, replacement in ENCODED_CSNAME_TOKENS:
+        normalized = pattern.sub(replacement, normalized)
+    for pattern, replacement in ENCODED_CHAR_TOKENS:
+        normalized = pattern.sub(replacement, normalized)
+    for pattern, replacement in ENCODED_MATHCHAR_TOKENS:
+        normalized = pattern.sub(replacement, normalized)
     while True:
         replaced = TEX_MATH_CLASS_COLON_RE.sub(":", normalized)
+        replaced = TEX_WRAPPED_COLON_RE.sub(":", replaced)
+        replaced = TEX_COLON_COMMAND_RE.sub(":", replaced)
+        replaced = TEX_BRACED_COLON_RE.sub(":", replaced)
         if replaced == normalized:
             break
         normalized = replaced
-    normalized = TEX_COLON_COMMAND_RE.sub(":", normalized)
     return normalized
 
 
@@ -481,18 +911,66 @@ def _delimited_indices(
 
 def find_square_delimited_indices(text: str) -> list[tuple[int, str]]:
     normalized = _decode_index_tokens(text)
-    return _delimited_indices(normalized, _square_spans(normalized))
+    return _delimited_indices(normalized, _standalone_square_spans(normalized))
 
 
-def find_raw_bar_indices(
-    text: str, *, include_lr: bool = False, markdown: bool = False
-) -> list[tuple[int, str]]:
+def find_raw_bar_indices(text: str, *, include_lr: bool = False) -> list[tuple[int, str]]:
     normalized = _decode_index_tokens(text)
     pattern = ALL_BAR_COMMAND_RE if include_lr else RAW_BAR_COMMAND_RE
     normalized = pattern.sub("|", normalized)
-    return _delimited_indices(
-        normalized, _bar_spans(normalized, ignore_markdown_cells=markdown)
-    )
+    return _delimited_indices(normalized, _bar_spans(normalized))
+
+
+MATH_CONTENT_PATTERNS = (
+    re.compile(r"(?<!\\)\$(?!\$)(.*?)(?<!\\)\$", re.DOTALL),
+    re.compile(r"\\\((.*?)\\\)", re.DOTALL),
+    re.compile(r"\\\[(.*?)\\\]", re.DOTALL),
+)
+
+
+def find_unbarred_math_indices(text: str) -> list[str]:
+    normalized = _decode_index_tokens(text)
+    findings: list[str] = []
+    for pattern in MATH_CONTENT_PATTERNS:
+        for match in pattern.finditer(normalized):
+            content = match.group(1)
+            if any(token in content for token in (
+                r"\exists", r"\forall", r"\text", r"\{", "=", ">", "<", ",", ";"
+            )):
+                continue
+            colons = _top_level_colons(content)
+            if len(colons) != 1:
+                continue
+            for colon in colons:
+                left = content[:colon]
+                right = content[colon + 1:]
+                enclosed = (
+                    (re.search(r"\\lvert\b", left) and re.search(r"\\rvert\b", right))
+                    or ("|" in left and "|" in right)
+                )
+                if (
+                    not enclosed
+                    and _group_expression(left)
+                    and _group_expression(right, allow_identity=True)
+                ):
+                    findings.append(match.group(0))
+                    break
+    return findings
+
+
+def markdown_raw_bar_segments(line: str) -> list[str]:
+    """Return text regions whose bars are mathematical, not table columns."""
+
+    unescaped_bars = [
+        offset for offset, character in enumerate(line)
+        if character == "|" and not _escaped(line, offset)
+    ]
+    if not (line.lstrip().startswith("|") and len(unescaped_bars) >= 3):
+        return [line]
+    return [
+        line[start + 1:end]
+        for start, end in zip(unescaped_bars, unescaped_bars[1:])
+    ]
 
 
 def find_sized_indices(text: str) -> list[str]:
@@ -612,22 +1090,29 @@ def check_text(path: Path, text: str, *, rendered_manuscript: bool = False) -> N
         require(structural_disclosure(text, path) is None,
                 f"disclosure terminology outside principal manuscript: {path}")
 
-    require(not find_square_delimited_indices(text),
+    notation_text = (
+        expand_simple_tex_macros(text)
+        if path.suffix.lower() in {".tex", ".md"}
+        else text
+    )
+    require(not find_square_delimited_indices(notation_text),
             f"square-delimited subgroup index in {path}")
-    require(not find_textual_indices(text),
+    require(not find_textual_indices(notation_text),
             f"unbarred textual subgroup index in {path}")
-    require(not find_sized_indices(text),
+    require(not find_sized_indices(notation_text),
             f"manually sized subgroup index delimiters in {path}")
+    if path.suffix.lower() in {".tex", ".md"}:
+        require(not find_unbarred_math_indices(notation_text),
+                f"unbarred subgroup index in mathematical text: {path}")
 
     if path.suffix.lower() == ".tex":
-        require(not find_raw_bar_indices(text),
+        require(not find_raw_bar_indices(notation_text),
                 f"raw-bar subgroup index in LaTeX text: {path}")
     elif path.suffix.lower() == ".md":
-        for line in text.splitlines():
-            if line.startswith(("    ", "\t")):
-                continue
-            require(not find_raw_bar_indices(line, markdown=True),
-                    f"raw-bar subgroup index in LaTeX text: {path}")
+        for line in notation_text.splitlines():
+            for segment in markdown_raw_bar_segments(line):
+                require(not find_raw_bar_indices(segment),
+                        f"raw-bar subgroup index in LaTeX text: {path}")
 
 
 def check_disclosure(principal: str) -> None:
@@ -646,7 +1131,7 @@ def check_disclosure(principal: str) -> None:
     end = principal.index(bibliography, body_start)
     body = re.sub(r"\s+", " ", principal[body_start:end]).strip()
     require(body == expected, "principal disclosure must be the one canonical sentence")
-    outside = principal[:start] + principal[end:]
+    outside = expand_simple_tex_macros(principal[:start] + principal[end:])
     for pattern in disclosure_patterns():
         require(pattern.search(outside) is None,
                 "additional disclosure terminology in principal manuscript")
@@ -654,16 +1139,48 @@ def check_disclosure(principal: str) -> None:
             "additional disclosure terminology in principal manuscript")
 
 
+def check_rendered_disclosure(rendered: str) -> None:
+    """Enforce the same exact-one boundary on text extracted from the PDF."""
+
+    normalized = unicodedata.normalize("NFKC", rendered)
+    normalized = re.sub(r"(?<=\w)-\s*\n\s*(?=\w)", "", normalized)
+    normalized = " ".join(normalized.replace("’", "'").split())
+    heading = "Gen" + "erative-" + "A" + "I disclosure"
+    expected = (
+        "Gen" + "erative-" + "A" + "I tools were used for literature search, proof exploration, "
+        "code generation, drafting, and critical checking; the author checked and "
+        "takes responsibility for the manuscript's arguments, citations, and computations."
+    )
+    require(normalized.count(heading) == 1,
+            "rendered disclosure heading count is not one")
+    start = normalized.index(heading)
+    body_start = start + len(heading)
+    end = normalized.find(" References ", body_start)
+    require(end != -1, "rendered disclosure bibliography boundary")
+    body = normalized[body_start:end].strip()
+    require(body == expected, "rendered disclosure must be the one canonical sentence")
+    outside = normalized[:start] + normalized[end:]
+    rendered_path = Path("rendered-manuscript.txt")
+    for pattern in disclosure_patterns():
+        require(pattern.search(outside) is None,
+                "additional disclosure terminology in rendered manuscript")
+    require(structural_disclosure(outside, rendered_path) is None,
+            "additional disclosure terminology in rendered manuscript")
+
+
 def scan_tree(root: Path, paths: Sequence[Path], label: str) -> None:
     require(len(paths) == len(set(paths)), f"duplicate paths in {label}")
     check_path_policy(paths)
     principal = ""
+    rendered = ""
     scanned = 0
     for path in paths:
         suffix = path.suffix.lower()
         if suffix == ".pdf":
             text = extract_pdf(root, path)
             check_text(path, text, rendered_manuscript=(path == RENDERED))
+            if path == RENDERED:
+                rendered = text
             scanned += 1
             continue
         if suffix in {".gz", ".tgz", ".zip", ".tar"}:
@@ -675,6 +1192,9 @@ def scan_tree(root: Path, paths: Sequence[Path], label: str) -> None:
         scanned += 1
     require(principal != "", f"principal manuscript missing from {label}")
     check_disclosure(principal)
+    if RENDERED in paths:
+        require(rendered != "", f"rendered manuscript missing from {label}")
+        check_rendered_disclosure(rendered)
     print(f"PUBLIC CORPUS PASSED: {scanned} files scanned ({label})")
 
 
