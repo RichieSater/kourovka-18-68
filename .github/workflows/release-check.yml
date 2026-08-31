@@ -1,0 +1,57 @@
+name: release-check
+
+"on":
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out exact source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install --yes poppler-utils qpdf ruby
+
+      - name: Install GAP 4.15.1 and distributed packages
+        uses: gap-actions/setup-gap@f12222f1b86ce1f8a246c4000abfd6e69893411c # v3
+        with:
+          gap-version: "4.15.1"
+
+      - name: Install checksum-pinned AtlasRep 2.1.11
+        shell: bash
+        run: |
+          set -euo pipefail
+          asset="$RUNNER_TEMP/atlasrep-2.1.11.tar.gz"
+          curl --fail --location --silent --show-error \
+            'https://www.math.rwth-aachen.de/~Thomas.Breuer/atlasrep/atlasrep-2.1.11.tar.gz' \
+            --output "$asset"
+          echo '1ccb65af694d53f60ba41f85b2293e505c42a2fecf90b36747c1d841a5ce0b47  '"$asset" | sha256sum --check --strict
+          mkdir --parents "$HOME/.gap/pkg"
+          tar --extract --gzip --file "$asset" --directory "$HOME/.gap/pkg"
+          gap -q -c 'LoadPackage("atlasrep"); Print(PackageInfo("atlasrep")[1].Version, "\n"); QUIT;'
+
+      - name: Install pinned Tectonic 0.17.0
+        shell: bash
+        run: |
+          set -euo pipefail
+          asset="$RUNNER_TEMP/tectonic.tar.gz"
+          curl --fail --location --silent --show-error \
+            'https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-x86_64-unknown-linux-gnu.tar.gz' \
+            --output "$asset"
+          echo '1a715688baf591e650c8aeb160ae934e181685eecbb38b317de30b269ac5d606  '"$asset" | sha256sum --check --strict
+          tar --extract --gzip --file "$asset" --directory "$RUNNER_TEMP"
+          sudo install --mode 0755 "$RUNNER_TEMP/tectonic" /usr/local/bin/tectonic
+          tectonic --version
+
+      - name: Bootstrap the pinned Tectonic bundle
+        run: make bootstrap-bundle
+
+      - name: Run the complete release gate
+        run: make GAP=gap release-check

@@ -1,0 +1,28 @@
+# producer	gap --quitonbreak -q gap/generate-factor-free-scan.g
+# gap_version	4.15.1
+# tomlib_version	1.2.11
+table_name	group_order	socle_class	socle_order	maximal_class	maximal_order	socle_intersection_order	index	scope	corefree_factor_count	factor_free
+A6.2_2	720	25	360	18	16	8	45	alternating-small	0	true
+A6.2_3	720	24	360	17	20	10	36	alternating-small	0	true
+A6.2^2	1440	61	360	49	32	8	45	alternating-small	0	true
+A7	2520	40	2520	35	72	72	35	alternating-small	0	true
+S7	5040	95	2520	90	144	72	35	alternating-small	0	true
+L3(4)	20160	95	20160	94	960	960	21	linear-small	0	true
+L3(4).2_1	40320	150	20160	145	384	192	105	linear-small	0	true
+L3(4).2_2	40320	151	20160	150	1920	960	21	linear-small	0	true
+L3(4).2_3	40320	101	20160	99	720	360	56	linear-small	0	true
+L3(4).3	60480	99	20160	86	216	72	280	linear-small	0	true
+L3(4).2^2	80640	284	20160	280	768	192	105	linear-small	0	true
+L3(4).3.2_2	120960	223	20160	205	432	72	280	linear-small	0	true
+L3(4).3.2_3	120960	139	20160	137	1152	192	105	linear-small	0	true
+L3(4).6	120960	140	20160	138	1152	192	105	linear-small	0	true
+L3(4).D12	241920	400	20160	397	2304	192	105	linear-small	0	true
+M11	7920	39	7920	34	120	120	66	sporadic-cross-check	0	true
+M12	95040	147	95040	127	192	192	495	sporadic-cross-check	0	true
+M12.2	190080	212	95040	194	216	108	880	sporadic-cross-check	0	true
+M22.2	887040	489	443520	476	1440	720	616	sporadic-cross-check	0	true
+M23	10200960	204	10200960	200	20160	20160	506	sporadic-cross-check	0	true
+J2	604800	146	604800	144	2160	2160	280	sporadic-cross-check	0	true
+J2.2	1209600	372	604800	369	4320	2160	280	sporadic-cross-check	0	true
+HS	44352000	589	44352000	583	40320	40320	1100	sporadic-cross-check	0	true
+HS.2	88704000	533	44352000	2055	80640	40320	1100	sporadic-cross-check	0	true

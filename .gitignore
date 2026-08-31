@@ -1,0 +1,28 @@
+.DS_Store
+.idea/
+.vscode/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+vendor/
+scratch/
+tmp/
+dist/
+paper/build/
+*.aux
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.out
+*.synctex.gz
+*.toc
+
+# Source PDFs are referenced by URL and checksum unless redistribution is
+# explicitly cleared. Locally downloaded copies stay untracked.
+references-cache/
+
+# Local manuscript-restructuring brief (intentionally not published).
+/suggestions.md

@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite the preprint and this repository."
+title: "Nonabelian composition factors of finite groups whose maximal subgroups are complemented"
+type: software
+version: 1.1.0
+date-released: "2026-08-31"
+authors:
+  - family-names: Sater
+    given-names: Richie
+    orcid: "https://orcid.org/0009-0007-9051-8207"
+    affiliation: Independent Researcher
+repository-code: "https://github.com/RichieSater/kourovka-18-68"
+url: "https://github.com/RichieSater/kourovka-18-68"
+keywords:
+  - finite groups
+  - composition factors
+  - complemented maximal subgroups
+  - primitive groups
+  - maximal factorizations
+  - Kourovka Notebook
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Sater
+      given-names: Richie
+      orcid: "https://orcid.org/0009-0007-9051-8207"
+      affiliation: Independent Researcher
+  title: "Nonabelian composition factors of finite groups whose maximal subgroups are complemented"
+  year: 2026
+  url: "https://github.com/RichieSater/kourovka-18-68"

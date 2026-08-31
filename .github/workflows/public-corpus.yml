@@ -1,0 +1,19 @@
+name: public-corpus
+
+"on":
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  public-corpus:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out exact source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Install PDF text extractor
+        run: sudo apt-get update && sudo apt-get install --yes poppler-utils
+      - name: Scan every tracked public file
+        run: python3 scripts/check-public-corpus.py
