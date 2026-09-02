@@ -1,13 +1,10 @@
 # Complemented maximal subgroups and Kourovka Problem 18.68
 
 **Publication status:** preprint. The manuscript proves its main theorem
-conditional on CFSG and the explicitly stated external classification and
-factorization inputs. The exact matches for LPS (2000), Corollary 3(iv), and
-LPS (1990), Theorem D with Remark 2, remain explicit source assumptions.
-Complete tables of marks computationally certify fifteen named
-almost-simple coordinate cases.
+using CFSG, published classifications of maximal factorizations, and complete
+tables of marks for fifteen named almost-simple coordinate cases.
 
-**Current version:** [1.1.1](https://github.com/RichieSater/kourovka-18-68/releases/tag/v1.1.1).
+**Current version:** [1.2.0](https://github.com/RichieSater/kourovka-18-68/releases/tag/v1.2.0).
 
 ## Result
 
@@ -22,15 +19,15 @@ its nonabelian composition factors are precisely among
 
 All three possibilities occur.
 
-The central argument is section-safe. The complement property passes to
-quotients but not to arbitrary sections, so the proof does not apply the
-known simple-group classification directly to a composition factor. Instead
-it:
+The complement property passes to quotients but not to arbitrary sections,
+so the proof does not apply the known simple-group classification directly to
+a composition factor. Instead it:
 
 1. constructs a monolithic quotient with socle \(S^k\);
-2. manufactures a faithful primitive product action from an almost-simple
+2. constructs a faithful primitive product action from an almost-simple
    coordinate action;
-3. applies factor-free, prime-elusive, or socle-valuation obstructions; and
+3. excludes a regular complement by maximal-factorization, fixed-point, or
+   valuation arguments; and
 4. uses published exhaustive factorization classifications to close every
    CFSG family.
 
@@ -50,8 +47,10 @@ deterministic PDF is
   [RELEASE-NOTES-v1.0.2.md](RELEASE-NOTES-v1.0.2.md)
 - Version 1.1.0:
   [RELEASE-NOTES-v1.1.0.md](RELEASE-NOTES-v1.1.0.md)
-- Current version 1.1.1:
+- Version 1.1.1:
   [RELEASE-NOTES-v1.1.1.md](RELEASE-NOTES-v1.1.1.md)
+- Current version 1.2.0:
+  [RELEASE-NOTES-v1.2.0.md](RELEASE-NOTES-v1.2.0.md)
 
 ## Important correction to versions 1.0.0 and 1.0.1
 
@@ -95,12 +94,12 @@ generated data.
 ## Reading order
 
 1. [PROBLEM.md](PROBLEM.md)
-2. [PROOF-ARCHITECTURE.md](PROOF-ARCHITECTURE.md)
+2. [MATHEMATICAL-OVERVIEW.md](MATHEMATICAL-OVERVIEW.md)
 3. [paper/kourovka-18-68.tex](paper/kourovka-18-68.tex)
 4. [notes/02-chief-factor-reduction.md](notes/02-chief-factor-reduction.md)
 5. [notes/04-product-action-lifting.md](notes/04-product-action-lifting.md)
-6. [notes/07-classification-containment-ledger.md](notes/07-classification-containment-ledger.md)
-7. [notes/06-finite-factor-free-certificates.md](notes/06-finite-factor-free-certificates.md)
+6. [notes/07-classification-details.md](notes/07-classification-details.md)
+7. [notes/06-computational-verification.md](notes/06-computational-verification.md)
 8. [REPRODUCIBILITY.md](REPRODUCIBILITY.md)
 
 ## Citation and licensing

@@ -1,6 +1,6 @@
-# Reference ledger
+# References
 
-**Retrieved/audited:** 2026-08-31. Source PDFs are not committed because
+**Sources consulted through:** 2026-09-02. Source PDFs are not committed because
 redistribution rights were not established.
 
 ## Primary problem and original results
@@ -8,21 +8,20 @@ redistribution rights were not established.
 1. *The Kourovka Notebook: Unsolved Problems in Group Theory*, 21st issue,
    July 2026, Problem 18.68, PDF/printed page 123.
    [Official PDF](https://kourovkanotebookorg.wordpress.com/wp-content/uploads/2026/07/21tkt.pdf).
-   Root-ledger SHA-256:
+   Downloaded-file SHA-256:
    `301b0cdcc53abc88b57cc0732cad73bf8fbe1c9ba0de5a0a794070398e3395fe`.
 2. V. M. Levchuk and A. G. Likharev, “Finite simple groups with
    complemented maximal subgroups,” *Siberian Mathematical Journal* 47(4)
    (2006), 659–668. [MathNet record](https://www.mathnet.ru/eng/smj896),
    [DOI](https://doi.org/10.1007/s11202-006-0077-7). Theorem 1 is the simple
    classification; Lemmas 4 and 6 supply the occurrence direction for the
-   three listed groups. Audited Russian PDF SHA-256:
+   three listed groups. PDF SHA-256:
    `5523f61ed06d93cebeee41499db6c69d7f2419aaa325778ba89001b8bb6bca99`.
 3. N. V. Maslova, “Nonabelian composition factors of a finite group whose
    all maximal subgroups are Hall,” *Siberian Mathematical Journal* 53(5)
    (2012), 853--861. [MathNet record](https://www.mathnet.ru/eng/smj2330),
    [DOI](https://doi.org/10.1134/S0037446612050102). Theorem 1 gives the
-   three-factor list under the stronger Hall-maximal hypothesis. Audited
-   Russian PDF SHA-256:
+   three-factor list under the stronger Hall-maximal hypothesis. Russian PDF SHA-256:
    `bd961717ad2cd134fc76faa01fef739f4c634287128a26176c30c785b985d423`.
 4. N. V. Maslova and D. O. Revin, “Finite groups whose maximal subgroups
    have the Hall property,” *Matematicheskie Trudy* 15(2) (2012), 105–126;
@@ -30,13 +29,13 @@ redistribution rights were not established.
    196–209. [MathNet record](https://www.mathnet.ru/eng/mt242),
    [DOI](https://doi.org/10.3103/S105513441303005X). Theorem 1 and Corollary
    1 give the Hall-maximal structure; Theorem 2 proves the implication to
-   complemented maximals; page 109 poses the present problem. Audited Russian
-   PDF SHA-256:
+   complemented maximals; page 109 poses the present problem. Russian PDF
+   SHA-256:
    `adddf276422b7fe2f0b2cd86bcebe987a38ca7130f6cd65128e18a58f4353032`.
 5. N. V. Maslova, “Finite groups with arithmetic restrictions on maximal
    subgroups,” *Algebra and Logic* 54(1) (2015), 65–69.
    [MathNet record](https://www.mathnet.ru/eng/al678),
-   [DOI](https://doi.org/10.1007/s10469-015-9324-y). Audited Russian PDF
+   [DOI](https://doi.org/10.1007/s10469-015-9324-y). Russian PDF
    SHA-256:
    `ce2bc32b1dd68eaf83b1dd10516adf7833e7918c552528267f0b8923bf525278`.
 
@@ -60,28 +59,36 @@ three-obstruction synthesis, not those general frameworks.
 
 6. M. W. Liebeck, C. E. Praeger, and J. Saxl, “Transitive subgroups of
    primitive permutation groups,” *Journal of Algebra* 234 (2000), 291–361.
-   [DOI](https://doi.org/10.1006/jabr.2000.8547). The manuscript attributes
-   its product-action coordinate obstruction to Corollary 3(iv). The exact PDF
-   could not be reopened from an accessible source through 2026-08-31, so the
-   formulated consequence remains an explicit external assumption at the
-   manuscript's verification boundary. The hash of the copy examined in the
-   earlier source trace is:
-   `ae0b23d751420b3840d3421d07bbc0fff891dec9bd814e31c0665a0507d9f00f`.
+   [DOI](https://doi.org/10.1006/jabr.2000.8547). Corollary 3(iv) says that
+   its product-action alternative has an almost-simple primitive component
+   with a core-free transitive subgroup. In the manuscript the constructed
+   action has \(k\geq2\), socle \(S^k\), component \(X\) on \(X/H\), and
+   socle point stabilizer \((H\cap S)^k\), which is nontrivial and not
+   subdirect. Thus it is exactly the product-action case of that corollary.
+   Primary PDF SHA-256:
+
+       ae0b23d751420b3840d3421d07bbc0fff891dec9bd814e31c0665a0507d9f00f
+
 7. M. W. Liebeck, C. E. Praeger, and J. Saxl, *The Maximal Factorizations of
    the Finite Simple Groups and Their Automorphism Groups*, Memoirs AMS 86
-   (1990), no. 432. [AMS record](https://bookstore.ams.org/memo-86-432).
-   The manuscript attributes its large alternating-family screen to Theorem D
-   and Remark 2; the
-   exact memoir text was not reopened from an accessible copy through 2026-08-31,
-   so that formulated consequence is likewise explicit at the verification
-   boundary. Its classical tables are restated by Xia--Li below.
+   (1990), no. 432. [DOI](https://doi.org/10.1090/memo/0432),
+   [primary publisher preview, p. 9](https://books.google.com/books?id=9WrUCQAAQBAJ&pg=PA9&vq=Theorem+D).
+   Theorem D applies to
+   \(L=A_n\trianglelefteq G\leq\operatorname{Aut}(L)\) with \(G=AB\) and
+   neither factor containing \(L\). Its generic conclusion has
+   \(A_{n-k}\leq A\leq S_{n-k}\times S_k\), \(1\leq k\leq5\), with \(B\)
+   \(k\)-homogeneous; Remark 2 lists the exceptional degrees \(6,8,10\).
+   The manuscript takes \(n\geq13\), \(A\) equal to a 6-set stabilizer, and
+   \(B\) equal to a hypothetical core-free transitive factor, so all
+   hypotheses match and the generic conclusion gives the required
+   contradiction. Its classical tables are restated by Xia--Li below.
 8. C. H. Li and B. Xia, *Factorizations of Almost Simple Groups with a
    Solvable Factor, and Cayley Graphs of Solvable Groups*, Memoirs AMS 279
    (2022), no. 1375, [DOI](https://doi.org/10.1090/memo/1375),
    [arXiv:1408.0350](https://arxiv.org/abs/1408.0350). Theorem 2.15 and
    Appendix Tables A.1--A.7 restate the LPS maximal-factorization
    list for almost-simple groups with classical socle, subject to the
-   correction in item 9. Audited PDF SHA-256:
+   correction in item 9. PDF SHA-256:
    `4ef16aa4308f8c487a06e9c8e84ece77247d0e763146f0215d8e109e443e3a93`.
 9. N. Gill, M. Giudici, and P. Spiga, “A generalization of Szep's conjecture
    for almost simple groups,” *Vietnam Journal of Mathematics* 52 (2024),
@@ -89,22 +96,21 @@ three-obstruction synthesis, not those general frameworks.
    supplies two omitted maximal factorizations for
    \(\operatorname{P}\Omega_8^+(4)\) and
    \(\operatorname{P}\Omega_8^+(16)\); neither affects the manuscript's
-   central-node parabolic screen. Audited PDF SHA-256:
+   central-node parabolic argument. PDF SHA-256:
    `152124653e92f7671426e07fccd43d548f960991de7c165b36d57aece3db54d4`.
 10. C. Hering, M. W. Liebeck, and J. Saxl, “The factorizations of the finite
    exceptional groups of Lie type,” *Journal of Algebra* 106 (1987),
    517--527. [DOI](https://doi.org/10.1016/0021-8693(87)90013-5).
    Theorems 1--2 are exhaustive for exceptional simple groups and their
-   automorphism groups. Audited PDF SHA-256:
+   automorphism groups. PDF SHA-256:
    `abdc30c6272a8e5bd14024c4bf39ee7ea57063e5e8e6d306084639fd3e89e357`.
 11. M. Giudici, “Factorisations of sporadic simple groups,” *Journal of
     Algebra* 304 (2006), 311--323.
     [DOI](https://doi.org/10.1016/j.jalgebra.2006.04.019). Theorem 1.1 and
     Tables 1--2 treat simple sporadic groups; Theorem 1.2 and Table 3 treat
     the genuinely new outer cases; Theorem 1.3 and Table 4 list exact
-    factorizations. The factor-free screen consumes the complete lists in
-    Tables 1--3, not the exact-only list in Table 4. Audited
-    PDF SHA-256:
+    factorizations. The factor-free argument uses the complete lists in
+    Tables 1--3, not the exact-only list in Table 4. PDF SHA-256:
    `cd2d8cb213c038193db9c0ba14b3d9042448a1861552014436c2be1900aea826`.
 12. J. H. Conway, R. T. Curtis, S. P. Norton, R. A. Parker, and
     R. A. Wilson, *Atlas of Finite Groups*, Oxford, 1985. Its maximal-subgroup
@@ -124,7 +130,7 @@ three-obstruction synthesis, not those general frameworks.
     Lemmas 2.1--2.2 and Corollary 2.3 supply the
     \(\operatorname{PSp}_4(2^f)\) involution-class input.  Section 10,
     case (10.1), is **not** used to infer maximality of an
-    \(O_4^+\)-normalizer in an arbitrary outer coordinate group. Audited PDF
+    \(O_4^+\)-normalizer in an arbitrary outer coordinate group. PDF
     SHA-256:
     `00a76f52b998f4017127c5c4e5e971b36501475092f402cf7bff3e84f222c03b`.
 
@@ -136,16 +142,14 @@ three-obstruction synthesis, not those general frameworks.
     [Chapter 8 DOI](https://doi.org/10.1017/CBO9781139192576.010).
     Table 8.14 is the exact maximal-subgroup source for the prime-degree
     subfield subgroup \(\operatorname{Sp}_4(q_0)<\operatorname{Sp}_4(q)\).
-    The full subscription book was not locally audited page by page; the row
-    is independently restated in item 15 and Table 8.14's complete scope is
-    confirmed in item 16.
+    The same row is independently stated in item 15, and the scope of Table
+    8.14 is described in item 16.
 15. T. C. Burness, “On base sizes for actions of finite classical groups,”
     *Journal of the London Mathematical Society* 75 (2007), 545--562.
     [DOI](https://doi.org/10.1112/jlms/jdm033),
     [author PDF](https://seis.bristol.ac.uk/~tb13602/docs/baselms.pdf).
     Proposition 4.2 and Table 3 record the
-    \(\operatorname{Sp}_4(q_0)\) row with \(q=q_0^r\), \(r\) prime. Audited
-    PDF SHA-256:
+    \(\operatorname{Sp}_4(q_0)\) row with \(q=q_0^r\), \(r\) prime. PDF SHA-256:
     `dcf25d06cf433dfa32734d6ceb7289f8913d34e8ba2360a89c0a520302bd31bf`.
 16. S. Harper, “Totally deranged elements of almost simple groups and
     invariable generating sets,” *Journal of the London Mathematical
@@ -156,14 +160,14 @@ three-obstruction synthesis, not those general frameworks.
     \(\rho^2=\varphi\), while Lemma 2.1 gives
     \(\operatorname{Aut}(\operatorname{Sp}_4(2^f))=\langle S,\rho\rangle\);
     Section 3.5 identifies BHRD Table 8.14 as the
-    complete maximal-subgroup source. Audited PDF SHA-256:
+    complete maximal-subgroup source. PDF SHA-256:
     `b741f7dfecd2dc78d37a7f2a9d5a5bb928eceb94cde290193980a1ee6d3ff522`.
 17. P. B. Kleidman and M. W. Liebeck, *The Subgroup Structure of the
     Finite Classical Groups*, London Mathematical Society Lecture Note
     Series 129, Cambridge University Press, 1990.
     [DOI](https://doi.org/10.1017/CBO9780511629235). Chapters 3--4 are the
     standard reference for the geometric-subgroup maximality statements
-    used in the classical factor screen.
+    used in the classical-group argument.
 18. L. L. Scott, “Representations in characteristic (p),” in *The Santa
     Cruz Conference on Finite Groups*, Proceedings of Symposia in Pure
     Mathematics 37, American Mathematical Society, 1980, 319--331.
@@ -171,16 +175,16 @@ three-obstruction synthesis, not those general frameworks.
     supplies the direct product of disjoint full diagonal strips used in the
     product-action lifting theorem.
 
-## Additional exact-factorization sources audited
+## Additional exact-factorization sources
 
 19. C. H. Li, L. Wang, and B. Xia, “The Exact Factorizations of Almost Simple
     Groups,” *Journal of the London Mathematical Society* 108 (2023),
     1417--1447, [arXiv:2012.09551 v6](https://arxiv.org/abs/2012.09551).
-    Audited v6 PDF SHA-256:
+    v6 PDF SHA-256:
     `991992d864f8e44cd652a9f4386989b659986253edfef780c7b65c600bfd88f9`.
 20. T. C. Burness and C. H. Li, “On solvable factors of almost simple groups,”
     [author-hosted PDF](https://seis.bristol.ac.uk/~tb13602/docs/BL_factorisations_final.pdf).
-    Audited PDF SHA-256:
+    PDF SHA-256:
     `7fae2925a45f86e4804a39577b85967ce50fb3c02454937824e7f46b958f63bd`.
 
 21. V. S. Monakhov and I. L. Sokhor, “On Indices of Maximal Chains in

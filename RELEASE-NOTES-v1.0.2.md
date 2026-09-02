@@ -58,19 +58,15 @@ All three involution classes meet \(H\cap S\).
 
 - The \(k=1\) coordinate obstruction proves core-freeness using almost
   simplicity instead of asserting it for arbitrary regular subgroups.
-- A row-by-row containment ledger records every classical
-  maximal-factorization row, graph automorphism, triality case, low
-  parameter, and published correction.
-- GAP commands use fail-closed execution and exact package-version gates.
-- Python evidence checkers remain active under optimized execution.
-- Mutation controls reject missing, changed, stale, and version-mismatched
-  evidence.
-- The PDF is built twice in isolated deterministic environments and bound to
-  a checked receipt.
+- The classification details identify every classical maximal-factorization
+  row, graph automorphism, triality case, low parameter, and published
+  correction.
+- The GAP and Python programs reproduce the finite calculations.
+- The deterministic PDF build records its toolchain and input hashes.
 
-The theorem is proved conditional on CFSG and the named exhaustive
-classification inputs. BHRD Table 8.14 is an explicit external input,
-corroborated by the cited Burness and Harper sources.
+The proof uses CFSG and the named exhaustive classification results. BHRD
+Table 8.14 supplies the subfield maximality statement, also recorded by the
+cited Burness and Harper sources.
 
 The archived version 1.0.2 manuscript hashes are:
 

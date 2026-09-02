@@ -17,9 +17,9 @@ For \(M\leq G\), a subgroup \(K\leq G\) is a **complement** to \(M\) in
 G=MK\qquad\text{and}\qquad M\cap K=1.
 \]
 
-Equivalently, the product formula forces \(|K|=\lvert G:M\rvert\). The source
-audit confirmed that this is exactly the convention in both
-Levchuk--Likharev and Maslova--Revin. Levchuk--Likharev also discuss weak
+Equivalently, the product formula forces \(|K|=\lvert G:M\rvert\). This is
+the convention used by both Levchuk--Likharev and Maslova--Revin.
+Levchuk--Likharev also discuss weak
 complements, but explicitly observe that the notions coincide for maximal
 subgroups.
 
@@ -47,8 +47,7 @@ result in item 2 does not by itself answer Problem 18.68.
 ## Workspace theorem
 
 The manuscript in [`paper/kourovka-18-68.tex`](paper/kourovka-18-68.tex)
-proves, conditional on CFSG and the cited exhaustive factorization
-classifications, that
+proves that
 
 \[
 \operatorname{Comp}_{\mathrm{nab}}(G)
@@ -56,10 +55,8 @@ classifications, that
 \]
 
 for every finite nonsoluble `CMP` group \(G\), and that all three groups
-occur.
-
-**Evidence label:** **proved** in the manuscript, conditional on CFSG and the
-stated published classification inputs.
+occur. The proof uses CFSG and the cited exhaustive classifications of
+maximal factorizations.
 
 ## Structural questions before minimality
 

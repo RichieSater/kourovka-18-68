@@ -1,13 +1,13 @@
 #############################################################################
 ##
-##  Produce the finite factor-free certificates used in the proof of 18.68.
+##  Compute the finite factor-free cases used in the proof of 18.68.
 ##  Run from problem-18-68 with GAP 4.15.1 and TomLib 1.2.11:
 ##
 ##      gap --quitonbreak -q gap/generate-factor-free-scan.g
 ##
 #############################################################################
 
-# Delete the old certificate before any package or version check.  Together
+# Delete the old output before any package or version check.  Together
 # with --quitonbreak this prevents a failed producer run from leaving a stale
 # file that a later checker could mistake for fresh output.
 outputPath := "data/tomlib-factor-free.tsv";
@@ -24,12 +24,12 @@ if PackageInfo("tomlib")[1].Version <> "1.2.11" then
     Error("factor-free producer: expected TomLib 1.2.11");
 fi;
 
-# The class positions are part of the pinned TomLib certificate.  The first
-# five rows close the small alternating cases not handled uniformly.  The
+# The class positions identify the specified TomLib rows.  The first
+# five rows cover the small alternating cases not handled uniformly.  The
 # next ten rows exhaust the almost-simple coordinate groups with socle
 # L3(4), the one small linear parameter left by the uniform split-torus
-# screen.  The remaining rows independently check selected sporadic
-# factor-screen entries for which TomLib has complete tables.
+# argument. The remaining rows check selected sporadic entries for which
+# TomLib has complete tables.
 targets := [
     ["A6.2_2", 18, 16, 45, "alternating-small"],
     ["A6.2_3", 17, 20, 36, "alternating-small"],

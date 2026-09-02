@@ -7,9 +7,9 @@
 - [`tomlib-cmp-maximals.tsv`](tomlib-cmp-maximals.tsv): one row for each of
   the 2,395 maximal-subgroup classes, including every candidate complement
   class and its trivial-intersection multiplicity.
-- [`tomlib-factor-free.tsv`](tomlib-factor-free.tsv): 24 pinned maximal
+- [`tomlib-factor-free.tsv`](tomlib-factor-free.tsv): 24 specified maximal
   classes with no core-free transitive factor.  Fifteen rows are
-  proof-critical finite closeouts and nine are sporadic cross-checks.
+  used in the proof and nine check sporadic cases independently.
 
 Run the producers from the repository root:
 
@@ -29,7 +29,6 @@ ed322a51f286f104c4adc057c0b06a6cdbf8c3300f71e9bab8d6950071882b16  tomlib-cmp-max
 9b131720d41ef945a0696794c0493ae9c07e166d4d1f37b054a1d55f0c4837ae  tomlib-factor-free.tsv
 ```
 
-**Scope label:** computationally certified relative to the complete tables
-shipped by TomLib. TomLib is a finite library, not an exhaustive list of all
-finite groups.  The universal proof uses it only for explicitly named finite
-rows; published classifications supply every infinite-family statement.
+The results are exhaustive relative to the complete tables of marks shipped
+by TomLib. The proof uses them for the named finite cases; the family
+arguments use the published classifications.

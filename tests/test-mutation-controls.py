@@ -102,7 +102,7 @@ def release_controls(tmp: Path) -> int:
         shutil.copy2(ROOT / "paper" / name, tmp / "paper" / name)
     for name in [
         "artifact-metadata.json", "CITATION.cff", "README.md",
-        "REPRODUCIBILITY.md", "RELEASE-NOTES-v1.1.1.md",
+        "REPRODUCIBILITY.md", "RELEASE-NOTES-v1.2.0.md",
     ]:
         shutil.copy2(ROOT / name, tmp / name)
     shutil.copy2(ROOT / "paper" / "README.md", tmp / "paper" / "README.md")
@@ -191,7 +191,7 @@ def release_controls(tmp: Path) -> int:
     reproducibility = tmp / "REPRODUCIBILITY.md"
     original_reproducibility = reproducibility.read_text(encoding="utf-8")
     reproducibility.write_text(
-        original_reproducibility.replace("1788134400", "1787961600"),
+        original_reproducibility.replace("1788307200", "1788134400"),
         encoding="utf-8",
     )
     require_failure(command, tmp, "documented-epoch mutation")

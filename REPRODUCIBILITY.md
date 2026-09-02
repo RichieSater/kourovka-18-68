@@ -4,7 +4,7 @@
 
 The publication status is **preprint**. [`artifact-metadata.json`](artifact-metadata.json)
 is the single source for the manuscript date, deterministic epoch, repository,
-PDF properties, Tectonic inputs, version 1.1.1, tag `v1.1.1`, and the
+PDF properties, Tectonic inputs, version 1.2.0, tag `v1.2.0`, and the
 source-archive stem. No version DOI has been issued. `scripts/check-release.py`
 cross-checks this record
 against the TeX front matter, `CITATION.cff`, the build receipt, the PDF catalog,
@@ -20,7 +20,7 @@ bundle is not reused.
 
 ## Pinned environment
 
-The certificates and PDF use:
+The calculations and PDF use:
 
 - GAP 4.15.1;
 - TomLib 1.2.11;
@@ -31,7 +31,7 @@ The certificates and PDF use:
 - Tectonic 0.17.0; and
 - Poppler `pdfinfo` and `pdftotext` for metadata and corpus checks.
 
-The PDF wrapper enforces UTC, `SOURCE_DATE_EPOCH=1788134400`, deterministic
+The PDF wrapper enforces UTC, `SOURCE_DATE_EPOCH=1788307200`, deterministic
 mode, and Tectonic bundle v33 with content hash
 
     6ffe055852f8faf66c0acbe1a7fb27f87b869a90bad1204f3bf4d9683f597c7c
@@ -70,7 +70,7 @@ From the repository root, run:
     make working-archive
 
 `make check` regenerates the proof data before comparing it with the tracked
-certificates, so a changed producer cannot be paired silently with stale TSVs.
+TSV files, so changes in the calculation cannot leave stale results in place.
 The build receipt rejects a stale TeX/PDF pair. The working-tree archive is
 labelled as such in its manifest and makes no commit-binding claim.
 
@@ -87,13 +87,13 @@ The final command must print nothing. The complete gate:
    Table-of-Marks predicates;
 3. reconstructs the corrected
    `Aut(Sp(4,4))` subfield subgroup with AtlasRep;
-4. regenerates the 414-table survey and all 24 pinned factor-free rows,
-   distinguishing 15 proof-critical closeouts from nine cross-checks;
+4. regenerates the 414-table survey and all 24 specified factor-free rows,
+   distinguishing 15 cases used in the proof from nine cross-checks;
 5. checks hashes, row inventories, arithmetic, complement witnesses, and
    factor-free counts;
 6. runs the Python integrity checkers under optimization and forces a GAP
    error to verify nonzero failure;
-7. rejects the certificate, producer, stale-pair, metadata, corpus,
+7. runs mutation tests for the computed data, producer, stale-pair, metadata, corpus,
    disclosure, notation, manifest, symlink, and archive mutations;
 8. parses the CFF and Linux workflow structurally, then builds the PDF twice
    in clean temporary directories and verifies its title, author, neutral
@@ -112,9 +112,9 @@ The commands behind these targets are documented in
 ## Source-bundle boundary
 
 `scripts/public-files.txt` is the sole packaging inventory. The strict bundle
-is `dist/kourovka-18-68-v1.1.1-source.tar.gz`; the explicitly labelled
+is `dist/kourovka-18-68-v1.2.0-source.tar.gz`; the explicitly labelled
 working-tree bundle is
-`dist/kourovka-18-68-v1.1.1-working-tree-source.tar.gz`. Both are built
+`dist/kourovka-18-68-v1.2.0-working-tree-source.tar.gz`. Both are built
 twice byte-for-byte and scanned after safe extraction. The adjacent
 `*-SHA256SUMS.txt` binds the PDF and source bundle, and
 `scripts/check-artifact-sidecar.py` independently reparses that sidecar and
@@ -140,7 +140,7 @@ The key counts and regression data are:
     414 Table-of-Marks summaries
     2,395 maximal-subgroup classes
     73 CMP-positive tables
-    24 pinned factor-free rows = 15 proof-critical + 9 cross-checks
+    24 specified factor-free rows = 15 used in the proof + 9 cross-checks
     subgroup index \(\lvert X:H\rvert=1360\), order H = 2880,
       order H-intersect-S = 720
     involution coverage = [true, true, true]
@@ -153,14 +153,12 @@ XeTeX toolchain produced broken marked-content pairs under experimental
 structural tagging; no PDF/UA or structural-accessibility conformance is
 claimed.
 
-## Evidence boundary
+## Scope of computation
 
-The Table-of-Marks files are exact finite certificates relative to the
-complete subgroup and intersection data in the named TomLib tables. They are
-not a census of finite groups and are not used to extrapolate an infinite
-family. The universal theorem is conditional on CFSG and on the external
-maximal-factorization inputs identified in the manuscript and
-[references/README.md](references/README.md).
+The Table-of-Marks files record exact finite calculations from the complete
+subgroup and intersection data in the named TomLib tables. The proof invokes
+CFSG and the published maximal-factorization theorems identified in the
+manuscript and [references/README.md](references/README.md).
 
 The Python factor-free checker verifies serialization, inventory, metadata,
 hashes, and arithmetic; it does not independently recompute TomLib's negative
@@ -168,14 +166,6 @@ intersection search. The graph-outer `PSp(4,2^f)` family is closed by the
 written subfield and valuation proof. The AtlasRep calculation at `q=4` is a
 regression test, not the infinite proof.
 
-LPS (2000), Corollary 3(iv), and LPS (1990), Theorem D with Remark 2, are
-load-bearing external statements. Their exact texts could not be reopened
-from accessible copies during source traces through 2026-08-31. The abstract,
-introduction, main theorem, and dependency ledger therefore state the result
-conditional on the precise consumed consequences. If an original statement
-has narrower hypotheses, the corresponding branch is unchecked. No such
-mismatch is presently known.
-
 Source PDFs are not redistributed because their redistribution rights were
-not established. The reference ledger records stable links and available
+not established. The reference list records stable links and available
 SHA-256 hashes for the copies actually examined.

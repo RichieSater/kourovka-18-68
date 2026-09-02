@@ -50,7 +50,7 @@ FFClassContainsClassTom := function(tom, overgroup, subgroup)
 end;
 
 
-# Return all certificates X = H C with C core-free.  For each certificate,
+# Return all factorizations X = H C with C core-free.  For each factorization,
 # an intersection class I is recorded with |H||C| = |X||I| and with positive
 # multiplicity in IntersectionsTom(tom,h,c).  Thus an empty return value is an
 # exhaustive negative result relative to the complete table of marks.

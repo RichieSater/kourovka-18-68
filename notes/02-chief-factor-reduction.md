@@ -73,8 +73,8 @@ its socle, is \(N\cong S^t\). \(\square\)
 
 ## What the theorem does and does not prove
 
-This is a section-safe reduction: it reaches an arbitrary nonabelian
-composition factor without asserting that `CMP` passes to sections.
+This reduction reaches an arbitrary nonabelian composition factor without
+asserting that `CMP` passes to sections.
 
 It does **not** imply `CMP(S)`. Even when \(t=1\), the quotient \(L\) can be an
 almost-simple extension \(S\leq L\leq\operatorname{Aut}(S)\). When \(t>1\),
@@ -88,12 +88,11 @@ statement:
 > satisfies `CMP`, then
 > \(S\in\{L_2(7),L_2(11),L_5(2)\}\).
 
-This obligation is now discharged in 04-product-action-lifting.md and
-05-family-factor-screen.md.  The key improvement is that one does not
-classify all primitive actions of \(L\).  Instead, one manufactures a
-primitive product action from any suitable almost-simple coordinate action;
-the explicit consequence attributed to LPS Corollary 3(iv), together with the
-prime-valuation lemma, then handles every \(t\),
-including outer fusion.  Thus the paragraph above records the historical
-boundary of this reduction.  The LPS match remains an explicit source
-assumption at the manuscript's verification boundary.
+This obligation is discharged in
+[`04-product-action-lifting.md`](04-product-action-lifting.md) and
+[`05-family-classification.md`](05-family-classification.md). One need not
+classify all primitive actions of \(L\). Instead, a suitable almost-simple
+coordinate action produces a primitive product action of \(L\). Corollary
+3(iv) of Liebeck--Praeger--Saxl (2000), together with the prime-valuation
+lemma, then handles every \(t\), including coordinate permutations and outer
+automorphisms.

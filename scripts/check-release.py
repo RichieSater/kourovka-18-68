@@ -21,7 +21,7 @@ CITATION = ROOT / "CITATION.cff"
 README = ROOT / "README.md"
 REPRODUCIBILITY = ROOT / "REPRODUCIBILITY.md"
 PAPER_README = ROOT / "paper" / "README.md"
-RELEASE_NOTES = ROOT / "RELEASE-NOTES-v1.1.1.md"
+RELEASE_NOTES = ROOT / "RELEASE-NOTES-v1.2.0.md"
 WORKFLOW = ROOT / ".github" / "workflows" / "release-check.yml"
 
 
@@ -123,15 +123,15 @@ def load_metadata() -> dict[str, object]:
         metadata["repository"] == "https://github.com/RichieSater/kourovka-18-68",
         "authoritative repository",
     )
-    require(metadata["artifact_version"] == "1.1.1", "artifact version")
-    require(metadata["version_tag"] == "v1.1.1", "version tag")
+    require(metadata["artifact_version"] == "1.2.0", "artifact version")
+    require(metadata["version_tag"] == "v1.2.0", "version tag")
     require(metadata["version_doi"] is None, "unissued version DOI")
     require(metadata["pdf_tagged"] is False, "PDF tagging status in metadata")
     require(
-        metadata["pdf_subject"] == "Conditional classification for Kourovka Problem 18.68",
+        metadata["pdf_subject"] == "Solution of Kourovka Problem 18.68",
         "neutral PDF subject",
     )
-    require(metadata["source_archive_stem"] == "kourovka-18-68-v1.1.1",
+    require(metadata["source_archive_stem"] == "kourovka-18-68-v1.2.0",
             "source archive stem")
     date = datetime.strptime(str(metadata["manuscript_date"]), "%Y-%m-%d").replace(
         tzinfo=timezone.utc
@@ -232,12 +232,13 @@ def check_text_metadata(metadata: dict[str, object]) -> None:
     require(load_yaml(CITATION) == expected_citation,
             "CFF structure or authoritative values")
     require("**Publication status:** preprint." in readme, "README publication status")
-    require("**Current version:** [1.1.1]" in readme, "README current version")
+    require("**Current version:** [1.2.0]" in readme, "README current version")
     require(("rele" + "ase candidate") not in readme.lower(), "README process status")
     require(not (ROOT / ".zenodo.json").exists(), "unsupported Zenodo metadata present")
     require(RELEASE_NOTES.is_file(), "version notes missing")
-    require("Corollary~3(iv)" in tex and "Theorem~D" in tex,
-            "front-matter LPS verification boundary")
+    require(r"\cite[Corollary 3(iv)]{lps-transitive}" in tex and
+            r"\cite[Theorem D and Remark 2]{lps-maxfact}" in tex,
+            "point-of-use LPS citations")
     expected_epoch = str(metadata["source_date_epoch"])
     epoch_pattern = re.compile(r"SOURCE_DATE_EPOCH\s*=\s*([0-9]{10})")
     for path in (REPRODUCIBILITY, PAPER_README):

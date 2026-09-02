@@ -1,21 +1,20 @@
-# Exhaustive family factor screen
+# Classification by families
 
-**Status:** the reduction to the rows below is **proved** in
-[`04-product-action-lifting.md`](04-product-action-lifting.md).  The audited
-factorization lists and standard maximal-subgroup descriptions are
-**published input**; the exact LPS (1990) Theorem D/Remark 2 consequence for
-large alternating groups is an **explicit source assumption**.  The five
-marked small alternating rows are
-**computationally certified** by complete tables of marks.  This note is an
-audit of every CFSG family, not a bounded search.
+The reduction to the rows below is proved in
+[`04-product-action-lifting.md`](04-product-action-lifting.md). The family
+arguments use the cited classifications of maximal factorizations and
+standard descriptions of maximal subgroups. Five small alternating cases are
+verified with complete tables of marks.
 
-## 1. Published exhaustive inputs
+## 1. Classification results used
 
-1. The large-alternating consequence attributed to Liebeck--Praeger--Saxl
-   (LPS), *The maximal factorizations of the finite simple groups and their
-   automorphism groups*, Memoirs AMS 86 (1990), no. 432.  Its exact
-   Theorem D/Remark 2 match was not reopened in source traces through
-   2026-08-31 and is consumed as an explicit assumption.
+1. Liebeck--Praeger--Saxl (LPS), *The maximal factorizations of the finite
+   simple groups and their automorphism groups*, Memoirs AMS 86 (1990), no.
+   432, Theorem D and Remark 2. If
+   \(A_n=L\trianglelefteq G\leq\operatorname{Aut}(L)\), \(G=AB\), and neither
+   factor contains \(L\), then outside degrees \(6,8,10\) one has
+   \(A_{n-j}\leq A\leq S_{n-j}\times S_j\) for \(1\leq j\leq5\), while
+   \(B\) is \(j\)-homogeneous.
 2. Xia--Li, arXiv:1408.0350, Theorem 2.15 and Appendix Tables A.1--A.7,
    which restate the LPS maximal factorizations for almost-simple classical
    groups, including the precise intersections with the socle.
@@ -29,9 +28,9 @@ audit of every CFSG family, not a bounded search.
 5. Giudici, *J. Algebra* 304 (2006), Theorems 1.1--1.3 and Tables 1--4,
    for all factorizations with sporadic socle.
 
-Exact table-row coverage, containment arguments, outer behavior, maximality
-sources, and low-parameter routing are recorded separately in
-[`07-classification-containment-ledger.md`](07-classification-containment-ledger.md).
+The detailed containment arguments, outer automorphisms, maximality sources,
+and low-parameter identifications are recorded in
+[`07-classification-details.md`](07-classification-details.md).
 
 Here \(P_i\) denotes a standard maximal parabolic, \(P_{ij}=P_i\cap P_j\)
 with a common Borel, and \(N_i\) a nonsingular-subspace stabilizer, in the
@@ -43,36 +42,36 @@ For \(n\ne6\), the coordinate group is \(A_n\) or \(S_n\).  The following
 table supplies either a factor-free primitive action \(F\) or a \(p\)-elusive
 primitive action \(E\).
 
-| Socle / coordinate group | Action | Type | Verification |
+| Socle / coordinate group | Action | Type | Reason |
 |---|---|---:|---|
 | \(A_5\le X\le S_5\) | 2-subsets, degree 10 | E, \(p=2\) | an involution fixes the support of one 2-cycle |
 | \(X=A_6\) | natural degree 6 | E, \(p=2\) | every \(A_6\)-involution is a double transposition |
 | \(X=S_6\) | unordered \(3+3\) partitions, degree 10 | E, \(p=2\) | check cycle types \(2,2^2,2^3\) |
-| \(A_6.2_2,A_6.2_3,A_6.2^2\) | TomLib maximal of index \(45,36,45\) | F | finite certificate |
-| \(A_7,S_7\) | TomLib maximal of index 35 | F | finite certificate |
+| \(A_6.2_2,A_6.2_3,A_6.2^2\) | TomLib maximal of index \(45,36,45\) | F | complete table-of-marks computation |
+| \(A_7,S_7\) | TomLib maximal of index 35 | F | complete table-of-marks computation |
 | \(A_8\le X\le S_8\) | 2-subsets, degree 28 | E, \(p=2\) | support of a 2-cycle |
 | \(A_9\le X\le S_9\) | 2-subsets, degree 36 | E, \(p=2\) | support of a 2-cycle |
 | \(A_{10}\le X\le S_{10}\) | 4-subsets, degree 210 | E, \(p=2\) | every involution has an invariant union of two 2-cycles, or one 2-cycle plus two fixed points |
 | \(A_{11}\le X\le S_{11}\) | 3-subsets, degree 165 | E, \(p=3\) | support of one 3-cycle |
 | \(A_{12}\le X\le S_{12}\) | 2-subsets, degree 66 | E, \(p=2\) | support of a 2-cycle |
-| \(n\ge13\) | 6-subsets | F | assumed LPS Theorem D/Remark 2 consequence: an intransitive factor in a maximal factorization stabilizes a \(k\)-set with \(k\le5\) |
+| \(n\ge13\) | 6-subsets | F | LPS Theorem D and Remark 2: the 6-set stabilizer cannot be the factor lying between \(A_{n-j}\) and \(S_{n-j}\times S_j\) for \(j\le5\) |
 
 For \(n\ge13\), the 6-set stabilizer is maximal because \(6<n/2\).  The
-small factor-free certificates are in
+computational results for the small factor-free cases are in
 [`../data/tomlib-factor-free.tsv`](../data/tomlib-factor-free.tsv).
 
 ## 3. Classical socles
 
-The next table gives \(V<S\) for Lemma 4.4.  Its conjugacy class is invariant
+The next table gives \(V<S\) for Lemma 4.4. Its conjugacy class is invariant
 under the relevant coordinate group \(X\).  When a graph automorphism fuses
 two parabolic classes, the intersection shown is graph-stable.  Standard
 small isomorphisms are routed to the alternating or earlier classical rows.
 
-| Socle \(S\) | Conditions | Screen subgroup \(V\) | Maximal-factor table check |
+| Socle \(S\) | Conditions | Subgroup \(V\) | Maximal-factorization check |
 |---|---|---|---|
 | \(\operatorname{PSL}_2(q)\) | simple, excluding \(q=7,11\) and alternating isomorphisms | normalizer of a split torus | A.1:1 supplies the nonsplit-torus factor and \(P_1\); A.1:5--8 are the displayed small factors; the split normalizer lies in none of them |
 | \(\operatorname{PSL}_3(q)\) | \(q\ne4\), excluding the allowed \(q=2\) | normalizer of a maximally split torus | not in \(P_1\), \(P_2\), or the extension-field factor in A.1 |
-| \(\operatorname{PSL}_3(4)\) | every \(X\) | pinned maximal subgroup | all ten coordinate groups are certified by complete tables of marks |
+| \(\operatorname{PSL}_3(4)\) | every \(X\) | specified maximal subgroup | all ten coordinate groups are verified by complete tables of marks |
 | \(\operatorname{PSL}_n(q)\) | even \(n\ge4\) | \(P_{n/2}\) | absent from A.1 |
 | \(\operatorname{PSL}_n(q)\) | odd \(n\ge5\), no graph | \(P_2\) | absent from A.1 except \((n,q)=(5,2)\) |
 | \(\operatorname{PSL}_n(q)\) | odd \(n\ge5\), graph present | \(P_{2,n-2}\) | only proper overgroups \(P_2,P_{n-2}\); absent except \((5,2)\) |
@@ -89,8 +88,7 @@ small isomorphisms are routed to the alternating or earlier classical rows.
 
 The two corrected rows at \(q=4,16\) have factor intersections \(N_2^-\)
 and a triality image of \(\Omega_8^-(q^{1/2})\).  Neither contains the
-central-node maximal parabolic \(P_2\), so the correction does not change the
-screen.
+central-node maximal parabolic \(P_2\), so the same subgroup choice applies.
 
 ### The \(\operatorname{PSL}_2(q)\) order check
 
@@ -120,7 +118,7 @@ fixes neither a point nor a hyperplane.  The extension-field factor in row
 \(q\ge5\), \(V\) is larger.  The only additional row is at \(q=4\).  Since
 \(\operatorname{Out}(\operatorname{PSL}_3(4))\cong D_{12}\), the ten
 almost-simple coordinate-group types at that parameter are exactly the ten
-TomLib rows certified in
+TomLib rows verified in
 [`../data/tomlib-factor-free.tsv`](../data/tomlib-factor-free.tsv).
 
 ### Low-rank routing
@@ -155,7 +153,7 @@ is a factor.
 For every exceptional socle outside these three factorable families, take
 \(V\) to be a Sylow subgroup in the defining characteristic.  Automorphisms
 preserve its \(S\)-conjugacy class, and Hering--Liebeck--Saxl give no
-core-free factorization to survive the factor-screen lemma.  This also
+core-free factorization allowed by the maximal-factorization reduction. This also
 covers coordinate groups containing graph automorphisms in the exceptional
 families that admit no factorization.
 
@@ -171,7 +169,7 @@ cases use:
 These subgroups contain a Borel.  Their \(p\)-parts are \(q^6\) and at least \(q^{24}\),
 respectively, larger than the \(p\)-parts of every listed factor
 \(q^3\) in the \(G_2\) case and at most \(q^{16}\) in the \(F_4\) case.
-Thus no listed factor contains the screen subgroup.  Every other exceptional
+Thus no listed factor contains the chosen parabolic intersection. Every other exceptional
 family has no core-free factorization at all, so any core-free maximal action
 is factor-free.  The conventional small isomorphisms
 \(G_2(2)'\cong\operatorname{PSU}_3(3)\) and
@@ -211,17 +209,16 @@ The simple group \(M_{22}\), and every sporadic almost-simple group not
 represented in the table other than \(M_{24}\), has no nontrivial core-free
 factorization; any core-free maximal subgroup works.
 
-The sole factor-cover survivor is \(M_{24}\).  Use its primitive action on
+The remaining sporadic group is \(M_{24}\). Use its primitive action on
 2-subsets of the natural 24-point set.  The degree is 276, and every
 involution fixes the support of one of its 2-cycles.  Thus this action is
 2-elusive and Lemma 4.5 applies.
 
 The Atlas maximal-subgroup list supplies maximality in the displayed rows.
-The twenty-four TomLib rows—fifteen proof-critical closeouts and nine
-sporadic cross-checks—are recorded and integrity-checked in
+The twenty-four TomLib rows—fifteen cases used in the proof and nine
+independent checks of sporadic cases—are recorded in
 [`../data/tomlib-factor-free.tsv`](../data/tomlib-factor-free.tsv); the
-published Giudici--Atlas screen, not TomLib's finite coverage, supplies the
-universal sporadic proof.
+published Giudici--Atlas classification supplies the sporadic argument.
 
 ## 6. Coverage conclusion
 
@@ -234,5 +231,5 @@ socles not excluded are
 \operatorname{PSL}_5(2).
 \]
 
-This is exhaustive family coverage, while the Table-of-Marks rows are used
-only for named finite exceptions and independent cross-checks.
+The alternating, classical, exceptional, and sporadic arguments therefore
+establish the stated list.

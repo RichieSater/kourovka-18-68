@@ -24,7 +24,7 @@ FFAssert(cert.maximal_order = 6 and cert.index = 10,
        "A5 negative-control class changed");
 FFAssert(cert.factor_free, "A5/S3 should be factor-free");
 
-# Outer almost-simple socle detection and one proof-critical row.
+# Outer almost-simple socle detection and one row used in the proof.
 cert := FFCertificateTom("A6.2^2", 49);;
 FFAssert(cert.socle_order = 360, "failed to detect the A6 socle");
 FFAssert(cert.maximal_order = 32 and cert.index = 45,

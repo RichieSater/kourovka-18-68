@@ -1,4 +1,4 @@
-# Exact definition and inheritance audit
+# Exact definition and inheritance
 
 **Date:** 2026-08-11
 **Status:** proved unless a paragraph is explicitly labelled otherwise.

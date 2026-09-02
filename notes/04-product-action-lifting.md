@@ -1,9 +1,7 @@
-# Product-action and prime-divisibility lifting
+# Product actions and prime-divisibility arguments
 
-**Status:** the lemmas in Sections 1--5 are **proved** below, except for the
-explicitly formulated LPS consequence, which is a **source assumption whose
-exact primary-text match is unchecked**.  This note
-replaces the product-action blocker recorded in the first research report.
+**Status:** proved, using Corollary 3(iv) of
+Liebeck--Praeger--Saxl (2000) for the product-action implication.
 
 Throughout, \(S\) is a nonabelian finite simple group and
 \(S\leq X\leq\operatorname{Aut}(S)\).
@@ -36,12 +34,12 @@ where \(P\) is transitive, \(N\) is the base socle \(S^k\), and the component
 induced by a coordinate stabilizer is \(X\).  Faithfulness follows from
 \(C_L(N)=1\).
 
-## 2. Building a new primitive action of the same group
+## 2. A primitive product action of the same group
 
 Let \(H<X\) be core-free and maximal, put
 \(\Delta=X/H\), and let \(V=H\cap S\).  Since \(S\not\leq H\), normality and
 maximality give \(X=SH\); hence \(S\) is transitive on \(\Delta\).  Assume
-\(V\ne1\), as will hold for every action used in the family audit.
+\(V\ne1\), as will hold for every action used in the classification.
 
 Use (4.1) to let \(L\) act on \(\Omega=\Delta^k\) in product action.
 
@@ -84,20 +82,28 @@ therefore \(D=S^k\) and \(J=L\).  Thus \(M\) is maximal.  \(\square\)
 This is a product-action action: its socle point stabilizer is the direct
 product \(V^k\), with nontrivial proper projection to every simple factor.
 
-## 3. The LPS coordinate obstruction
+## 3. Regular subgroups and coordinate factorizations
 
 Call the primitive action \((X,\Delta)\) **factor-free** if it has no
 core-free transitive subgroup; equivalently, there is no core-free
 \(C<X\) with \(X=HC\).
 
-### Source assumption 4.2 (LPS coordinate consequence)
+### Proposition 4.2 (coordinate consequence of LPS Corollary 3(iv))
 
-The paper attributes the following consumed consequence to Corollary 3(iv) of
-Liebeck--Praeger--Saxl, *J. Algebra* 234 (2000): if a primitive product-action
-group with socle \(S^k\), \(k\ge2\), contains a regular subgroup, then its
-almost-simple coordinate action has a core-free transitive subgroup.  The
-exact primary text was not reopened in source traces through 2026-08-31, so
-this match remains an explicit assumption rather than an audited quotation.
+Suppose \(k\ge2\). If the action of \(L\) in Lemma 4.1 has a regular
+subgroup, then the almost-simple group \(X\) has a core-free transitive
+subgroup on \(X/H\).
+
+#### Proof
+
+The action is primitive with socle \(S^k\), and its socle point stabilizer is
+\(V^k\), where \(1<V<S\). It is therefore neither affine, since the socle is
+nonabelian, nor twisted wreath, since the socle is not regular, nor simple or
+compound diagonal, since \(V^k\) is not subdirect in \(S^k\). As \(k\ge2\),
+the group is not almost simple. It consequently lies in the product-action
+case of Liebeck--Praeger--Saxl (2000), Corollary 3(iv), with component \(X\)
+acting on \(X/H\). That corollary gives a core-free transitive subgroup of the
+component. \(\square\)
 
 Consequently, if \((X,X/H)\) is factor-free, the action in Lemma 4.1 has no
 regular subgroup.  For \(k=1\), note first that \(L=X\).  If \(R\) were regular
@@ -116,15 +122,15 @@ a factor-free action of the kind above.
 #### Proof
 
 The point stabilizer in Lemma 4.1 is maximal.  `CMP(L)` would give it a
-complement, which is regular on \(\Delta^k\), contradicting Source assumption
-4.2 (or the direct \(k=1\) observation).  \(\square\)
+complement, which is regular on \(\Delta^k\), contradicting Proposition 4.2
+(or the direct \(k=1\) observation). \(\square\)
 
-## 4. A factor-screen lemma
+## 4. Reduction to maximal factorizations
 
 The next lemma is what makes the published almost-simple factorization
 tables sufficient even though \(k\) is arbitrary.
 
-### Lemma 4.4 (maximal-factor screen)
+### Lemma 4.4 (maximal-factorization reduction)
 
 Let \(1<V<S\), and suppose the \(S\)-conjugacy class of \(V\) is invariant
 under \(X\).  Choose a maximal subgroup \(H<X\) containing \(N_X(V)\).
